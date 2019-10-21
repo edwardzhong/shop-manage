@@ -1,0 +1,60 @@
+.tabs{
+    width: 400px;
+    margin: 50px auto;
+    background-color: #fff;
+    border-radius: 4px;
+}
+.login-form{
+    box-sizing: border-box;
+    padding: 20px;
+}
+.form-item{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+.code-btn{
+    width: 100px;
+    margin-left: 10px;
+    height: 36px;
+}
+.has-error input{
+    border-color: $red;
+}
+.error{
+    box-sizing: border-box;
+    height: 40px;
+    padding:2px 2px 15px;
+    color: $red;
+}
+.links{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    &.center{
+        justify-content: center;
+    }
+}
+.code-img{
+    height: 36px;
+    width: 100px;
+    margin-left: 10px;
+    background: #ededed;
+    cursor: pointer;
+}
+
+.step-tabs{
+    width: 900px;
+    margin: 50px auto;
+}
+.step{
+    width: 400px;
+    margin: 50px auto;
+    label{
+        width: 100px;
+    }
+    .form-item{
+        padding-bottom: 20px;
+    }
+}
