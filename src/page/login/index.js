@@ -1,11 +1,10 @@
 import React,{useState} from 'react'
-import { Link } from 'react-router-dom'
-import useForm  from '../../common/useForm';
-import { getContext } from '../../context'
-import { Route, Redirect, Switch } from 'react-router-dom'
-import '../sign.scss'
+import { Route, Redirect, Switch, Link } from 'react-router-dom'
 import UserLayout from '../../layout/user'
+import { getContext } from '../../context'
+import useForm  from '../../common/useForm';
 import { Tabs, Form, Icon, Input, Button } from 'antd';
+import '../sign.scss'
 
 const { TabPane } = Tabs;
 
