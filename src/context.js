@@ -4,7 +4,6 @@ import * as actions from './action'
 import rootReducer from './reducer'
 
 const Context = createContext(null);
-//初始状态,执行一遍rootReducer获取每个reducer中的默认值，最后再覆盖初始值
 const initState = Object.assign(rootReducer({}, {}), {
     menukey:{
         open:[],
@@ -17,7 +16,6 @@ export const Provider = props => {
     const [state, dispatch] = useReducer(rootReducer, initState);
     console.log(state);
     return <Context.Provider {...props} value={{ state, dispatch, actions: { ...bindActions(actions, dispatch) } }} />
-    // return pug `Context.Provider(...props value={ state, dispatch })`
 };
 
 export default Context

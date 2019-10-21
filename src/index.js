@@ -14,13 +14,13 @@ render(
     <Provider>
         <Router>
             <Switch>
-                <Route exact path="/" component={Login} />
+                <Route exact path="/" component={Home} />
                 <Route path="/login" component={Login} />
                 <Route path="/getpass" component={GetPass} />
                 <Route exact path="/register" component={Register} />
                 <Route exact path="/help" component={Help} />
                 <Route exact path="/protocal" component={Protocal} />
-                <Redirect to="/login"/>
+                <Redirect to="/"/>
             </Switch>
         </Router>
     </Provider>,

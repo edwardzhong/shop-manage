@@ -1,11 +1,11 @@
 import combineReducers from '../common/combineReducers'
-import list from './list'
-import user from './user'
+// import list from './list'
+// import user from './user'
 import menukey from './menukey'
 
 const rootReducer = combineReducers({
-  list,
-  user,
+  // list,
+  // user,
   menukey
 });
 

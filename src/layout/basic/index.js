@@ -1,7 +1,7 @@
 import React,{ useState } from 'react'
 import { Link } from 'react-router-dom'
 import { getContext } from '../../context'
-import paths  from '../../../config/menu'
+import paths from '../../config/menu'
 import { Layout, Menu, Icon } from 'antd'
 import './style.scss'
 

@@ -28,7 +28,7 @@ const Login = ({ history }) => {
             return;
         }
         setPassErr('');
-
+        history.push('/');
 		// try {
 		// 	Toast.loading('loading...', 0);
 		// 	const ret = await loginService(dispatch,formState.values);
@@ -65,7 +65,7 @@ const Login = ({ history }) => {
             history.push('/login/code');
         }
     };
-	return <UserLayout tabName="商家登录">     
+	return <UserLayout tabName="商家登录">
         <Switch>
             <Route path="/login/pass">
                 <Tabs styleName="tabs" size="middle" defaultActiveKey="1" onChange={handleChange}>
