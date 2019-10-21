@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { getContext } from '../../context'
-import Dialog from '../../component/dialog'
 import BasicLayout from '../../layout/basic'
 import './style.scss'
 

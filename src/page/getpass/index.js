@@ -68,11 +68,9 @@ const GetPass = ({history})=>{
             history.push('/login');      
         }, 500);
     };
+    
     return <UserLayout tabName="找回登录密码">
         <div styleName="step-tabs">
-            {/* <div>
-                <Link to="/login">返回登录</Link>
-            </div> */}
             <Steps current={curr} onChange={handleChange}>
                 <Step title="填写手机号" />
                 <Step title="验证信息" />

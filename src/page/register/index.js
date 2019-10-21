@@ -13,20 +13,29 @@ const Register =()=>{
     const [imgErr,setImgErr] = useState('');
     const [codeErr,setCodeErr] = useState('');
     const [passErr,setPassErr] = useState('');
-    const [codes,setCodes] = useState([]);
-    const [num,setNum] = useState(0);
+    const [codes,setCodes] = useState(genCode());
     const canvasRef = useRef(null);
-    const genCode = () => {
-        var arr = [];
+
+    useEffect(() => {
+        drawCode(codes);
+        return ()=>{
+            console.log('destroy')
+        };
+    },codes);
+
+    //产生随机数字字母
+    function genCode (l = 4) {
+        let arr = [];
         const codes ='01234567890123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        while(arr.length < 4){
+        while(arr.length < l){
             let i = Math.floor(Math.random()*codes.length);
             if(arr.indexOf(i) < 0){
                 arr.push(i);
             }
         }
-        return arr.map(i=>codes[i]);
+        return arr.map(i => codes[i]);
     }
+
     // 产生图形验证码
     const drawCode = arr =>{
         const canvas = canvasRef.current;
@@ -36,16 +45,16 @@ const Register =()=>{
         ctx.font = '80px Verdana';
         ctx.textAlign='left';
         ctx.textBaseline='middle';
-        ctx.lineWidth = 3;
+        ctx.lineWidth = 4;
         ctx.clearRect(0,0,w,h);
 
-        //画随机线条
-        for(let i=0;i<40;i++){
+        //随机线条
+        for(let i=0;i<50;i++){
             let hsl = Math.floor(Math.random()*360);
             let sx = Math.floor(Math.random()*w);
-            let sy = Math.floor(Math.random()*h);
+            let sy = Math.floor(Math.random()*h/2);
             let dx = Math.floor(Math.random()*w);
-            let dy = Math.floor(Math.random()*h);
+            let dy = Math.floor(Math.random()*(h-h/2)+h/2);
             ctx.save();
             ctx.strokeStyle= 'hsl('+ hsl +',80%,80%)';
             ctx.beginPath();
@@ -54,10 +63,10 @@ const Register =()=>{
             ctx.stroke();
             ctx.restore();
         }
-        // 画字符
+        // 随机字符
         arr.forEach((a,i)=>{
             let hsl = Math.floor(Math.random()*360);
-            let rot = (Math.floor(Math.random() * 2)*2 -1) * Math.random() * Math.PI/5;
+            let rot = (Math.floor(Math.random() * 2) * 2 - 1) * Math.random() * Math.PI/5;
             ctx.save();
             ctx.translate(40 + i* 60, h/2);
             ctx.rotate(rot);
@@ -68,16 +77,8 @@ const Register =()=>{
     };
 
     const updateCode = () =>{
-        setNum(num+1);
+        setCodes(genCode());
     };
-    useEffect(() => {
-        const arr = genCode(); 
-        setCodes(arr);
-        drawCode(arr);
-        return ()=>{
-            console.log('destroy')
-        };
-    },[num]);
 
     const submit = e => {
         e.preventDefault();
@@ -87,17 +88,19 @@ const Register =()=>{
             return;
         }
         setNameErr('');
-        if(!values.img){
+        const imgcode = values.imgcode;
+        if(!imgcode){
             setImgErr('图形码不能为空');
             return;
         }
-        if(values.img.toLowerCase != codes.join('').toLowerCase()){
+        if(imgcode.toLowerCase() != codes.join('').toLowerCase()){
             setImgErr('图形码不正确');
             return;
         }
         setImgErr('');
+
         if(!values.code){
-            setCodeErr('图形码不能为空');
+            setCodeErr('手机验证码不能为空');
             return;
         }
         setCodeErr('');
@@ -126,7 +129,7 @@ const Register =()=>{
                 </div>
                 <div styleName="error">{nameErr}</div>
                 <div styleName="form-item">
-                    <Input styleName={imgErr ? 'has-error':''} {...text('img')} maxLength={4} prefix={<Icon type="barcode" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="图形码" />
+                    <Input styleName={imgErr ? 'has-error':''} {...text('imgcode')} maxLength={4} prefix={<Icon type="barcode" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="图形码" />
                     <canvas ref={canvasRef} styleName="code-img" onClick={updateCode} />
                 </div>
                 <div styleName="error">{imgErr}</div>
