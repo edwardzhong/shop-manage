@@ -1,4 +1,4 @@
-# Webpack 4 For React
+# shop manage system
 ### Based on the following
 * webpack 4
 * react hooks
@@ -7,16 +7,16 @@
 * css modules
 
 ### Project setup
-```
+```bash
 npm install
 ```
 
 ### Develop
-```
+```bash
 npm start
 ```
 
 ### Production
-```
+```bash
 npm run build
 ```

@@ -1,7 +1,7 @@
 {
-  "name": "react-project",
+  "name": "shop-manage",
   "version": "1.0.0",
-  "description": "webpack 4 for react",
+  "description": "webpack react project",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --open --config webpack.dev.js",
