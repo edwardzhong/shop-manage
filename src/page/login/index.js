@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import useForm  from '../../common/useForm';
 import { getContext } from '../../context'
 import { Route, Redirect, Switch } from 'react-router-dom'
-import './style.scss'
+import '../sign.scss'
 import UserLayout from '../../layout/user'
 import { Tabs, Form, Icon, Input, Button } from 'antd';
 
@@ -71,7 +71,7 @@ const Login = ({ history }) => {
             <Route path="/login/pass">
                 <Tabs styleName="tabs" size="middle" defaultActiveKey="1" onChange={handleChange}>
                     <TabPane tab="密码登录" key="1">
-                        <Form styleName="login-form" onSubmit={passSubmit}>
+                        <Form onSubmit={passSubmit}>
                             <div styleName="form-item">
                                 <Input styleName={nameErr ? 'has-error':''} {...text('name')} maxLength={20} prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="手机号" />
                             </div>
@@ -95,7 +95,7 @@ const Login = ({ history }) => {
                 <Tabs styleName="tabs" size="middle" defaultActiveKey="2" onChange={handleChange}>
                     <TabPane tab="密码登录" key="1"/>
                     <TabPane tab="手机无密码登录" key="2">
-                        <Form styleName="login-form" onSubmit={codeSubmit}>
+                        <Form onSubmit={codeSubmit}>
                             <div styleName="form-item">
                                 <Input styleName={mobileErr ? 'has-error':''} {...text('mobile')} maxLength={20} prefix={<Icon type="mobile" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="手机号" />
                             </div>

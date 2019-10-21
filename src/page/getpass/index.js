@@ -2,8 +2,7 @@ import React,{useState} from 'react'
 import { Link } from 'react-router-dom'
 import useForm  from '../../common/useForm';
 import { getContext } from '../../context'
-// import { loginService } from '../../service'
-import '../login/style.scss'
+import '../sign.scss'
 import UserLayout from '../../layout/user'
 import { Tabs, Form, Icon, Input, Button, Steps, message, Divider } from 'antd';
 const { TabPane } = Tabs;

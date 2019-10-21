@@ -1,18 +1,32 @@
 .tabs{
     width: 380px;
-    margin: 50px auto;
+    margin: 40px auto;
     background-color: #fff;
     border-radius: 4px;
+    form{
+        padding-top: 10px;
+    }
 }
-.login-form{
-    box-sizing: border-box;
-    padding: 20px 0;
+
+.step-tabs{
+    width: 900px;
+    margin: 40px auto;
+}
+.step{
+    width: 400px;
+    margin: 40px auto;
+    label{
+        width: 100px;
+    }
 }
 .form-item{
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
     align-items: center;
+    .step &{
+        padding-bottom: 20px;
+    }
 }
 .code-btn{
     width: 100px;
@@ -42,19 +56,4 @@
     margin-left: 10px;
     background: #ededed;
     cursor: pointer;
-}
-
-.step-tabs{
-    width: 900px;
-    margin: 50px auto;
-}
-.step{
-    width: 400px;
-    margin: 50px auto;
-    label{
-        width: 100px;
-    }
-    .form-item{
-        padding-bottom: 20px;
-    }
 }

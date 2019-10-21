@@ -2,8 +2,7 @@ import React,{useState,useRef,useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import useForm  from '../../common/useForm';
 import { getContext } from '../../context'
-// import { loginService } from '../../service'
-import '../login/style.scss'
+import '../sign.scss'
 import UserLayout from '../../layout/user'
 import { Form, Icon, Input, Button } from 'antd';
 
@@ -123,7 +122,7 @@ const Register =()=>{
 
     return <UserLayout tabName="商家注册">
         <div styleName="tabs">
-            <Form styleName="login-form" onSubmit={submit}>
+            <Form onSubmit={submit}>
                 <div styleName="form-item">
                     <Input styleName={nameErr ? 'has-error':''} {...text('name')} maxLength={20} prefix={<Icon type="mobile" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="手机号" />
                 </div>
