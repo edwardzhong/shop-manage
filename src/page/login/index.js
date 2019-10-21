@@ -92,7 +92,7 @@ const Login = ({ history }) => {
                 </Tabs>
             </Route>
             <Route path="/login/code">
-                <Tabs styleName="tabs" size="middle" defaultActiveKey="1" onChange={handleChange}>
+                <Tabs styleName="tabs" size="middle" defaultActiveKey="2" onChange={handleChange}>
                     <TabPane tab="密码登录" key="1"/>
                     <TabPane tab="手机无密码登录" key="2">
                         <Form styleName="login-form" onSubmit={codeSubmit}>
@@ -115,46 +115,7 @@ const Login = ({ history }) => {
             </Route>
             <Redirect to="/login/pass"/>
         </Switch>
-    {/* </UserLayout>
-        <Tabs styleName="tabs" size="middle" defaultActiveKey="1" onChange={handleChange}>
-            <TabPane tab="密码登录" key="1">
-                <Form styleName="login-form" onSubmit={passSubmit}>
-                    <div styleName="form-item">
-                        <Input styleName={nameErr ? 'has-error':''} {...text('name')} maxLength={20} prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="手机号" />
-                    </div>
-                    <div styleName="error">{nameErr}</div>
-                    <div styleName="form-item">
-                        <Input styleName={passErr ? 'has-error':''} {...password('pass')} maxLength={20} prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="密码" />
-                    </div>
-                    <div styleName="error">{passErr}</div>
-                    <Button type="primary" htmlType="submit" block> 登录 </Button>
-                    <div styleName="links">
-                        <Link to="/getpass">忘记密码</Link>
-                        <Link to="/register">商家注册</Link>
-                    </div>
-                    <div styleName="error"></div>
-                </Form>
-            </TabPane>
-            <TabPane tab="手机无密码登录" key="2">
-                <Form styleName="login-form" onSubmit={codeSubmit}>
-                    <div styleName="form-item">
-                        <Input styleName={mobileErr ? 'has-error':''} {...text('mobile')} maxLength={20} prefix={<Icon type="mobile" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="手机号" />
-                    </div>
-                    <div styleName="error">{mobileErr}</div>
-                    <div styleName="form-item">
-                        <Input styleName={codeErr ? 'has-error':''} {...text('code')} maxLength={4} prefix={<Icon type="key" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="验证码" />
-                        <Button styleName="code-btn">获取验证码</Button>
-                    </div>
-                    <div styleName="error">{codeErr}</div>
-                    <Button type="primary" htmlType="submit" block> 登录 </Button>
-                    <div styleName="links center">
-                        <Link to="/register">商家注册</Link>
-                    </div>
-                </Form>
-            </TabPane>
-        </Tabs>*/}
-    </UserLayout> 
-    
+    </UserLayout>
 };
 
 export default Login

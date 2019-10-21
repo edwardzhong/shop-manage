@@ -2,8 +2,8 @@ import React from 'react'
 import UserLayout from '../../layout/user'
 
 const Protocal = () =>(
-    <UserLayout>
-    <div> 服务协议 </div>
+    <UserLayout tabName="服务协议">
+    <div> Protocal </div>
     </UserLayout>
 )
 

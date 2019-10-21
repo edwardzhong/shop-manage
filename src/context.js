@@ -9,17 +9,7 @@ const initState = Object.assign(rootReducer({}, {}), {
     menukey:{
         open:[],
         select:['1']
-    },
-    user: {
-        name: 'jeff',
-        email: 'jeff@gmail.com'
-    },
-    list: [
-        { id: 1, txt: 'webpack 4' },
-        { id: 2, txt: 'react' },
-        { id: 3, txt: 'redux' },
-        { id: 4, txt: 'react-hooks' },
-    ]
+    }
 });
 
 export const getContext = () => useContext(Context);

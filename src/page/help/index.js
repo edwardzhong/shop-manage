@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import UserLayout from '../../layout/user'
 
 const Help =()=>(
-    <UserLayout>
+    <UserLayout tabName="帮助中心">
         <div>help</div>
     </UserLayout>
 )

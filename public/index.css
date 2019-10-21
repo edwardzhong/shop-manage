@@ -61,7 +61,8 @@ img,a{
   text-align: center;
 }
 .ant-tabs-nav .ant-tabs-tab:first-child{
-  margin-left: 14px;
+  /* margin-left: 14px; */
+  margin-right: 40px;
 }
 
 .ant-input-affix-wrapper .ant-input{
