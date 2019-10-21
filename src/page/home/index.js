@@ -7,10 +7,9 @@ import './style.scss'
 const Home = ({ history }) => {
     const { state, actions } = getContext();
     
-    return pug`
-    BasicLayout(history=history)    
-        div(styleName="form") home    
-    `
+    return <BasicLayout history={history}>
+        <div>home</div>
+    </BasicLayout>
 }
 
 export default Home;
