@@ -19,17 +19,7 @@ const Home = ({ history }) => {
     
     return pug`
     BasicLayout(history=history)    
-        div(styleName="form")
-            h3(styleName="sub-title") this is home page
-            div
-                p hello, #{user.name} !
-                p your email is #{user.email} !
-                p(styleName="tip") please change the name and email !!
-            div
-                input(type="text" placeholder="name" defaultValue=user.name onChange=(e) => changeName(e))
-            div
-                input(type="email" placeholder="email" defaultValue=user.email onChange=(e) => changeEmail(e))
-            Link(styleName="link" to="/list") redirect to list
+        div(styleName="form") home    
     `
 }
 

@@ -15,7 +15,7 @@ render(pug`
     Provider
         Router
             Switch
-                Route(exact path="/" component=Home)
+                Route(exact path="/" component=Login)
                 Route(exact path="/list" component=List)
                 Route(exact path="/login" component=Login)
                 Route(exact path="/register" component=Register)
