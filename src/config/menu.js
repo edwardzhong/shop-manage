@@ -1,4 +1,5 @@
 export default {
     '1':'/',
-    '21':'/list'
+    '21':'/info',
+    '22':'/bindshop'
 }

@@ -1,0 +1,30 @@
+.content{
+    width: 600px;
+    padding: 20px 40px;
+}
+.title{
+    font-size: 18px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid $border-color;
+}
+.item{
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 0;
+    border-bottom: 1px solid $border-color;
+    h3{
+        font-weight: normal;
+    }
+}
+.list{
+    padding: 15px 0;
+    border-bottom: 1px solid $border-color;
+    h3{
+        font-weight: normal;
+    }
+    li{
+        display: flex;
+        justify-content: space-between;
+        padding: 4px 0 4px 20px;
+    }
+}

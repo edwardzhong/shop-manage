@@ -3,6 +3,8 @@ import { render } from 'react-dom'
 import { HashRouter as Router, Route, Redirect, Switch } from 'react-router-dom'
 import { Provider } from './context'
 import Home from './page/home'
+import Info from './page/info'
+import BindShop from './page/bindshop'
 import Login from './page/login'
 import Register from './page/register'
 import Protocal from './page/protocal'
@@ -15,6 +17,8 @@ render(
         <Router>
             <Switch>
                 <Route exact path="/" component={Home} />
+                <Route exact path="/info" component={Info} />
+                <Route exact path="/bindshop" component={BindShop} />
                 <Route path="/login" component={Login} />
                 <Route path="/getpass" component={GetPass} />
                 <Route exact path="/register" component={Register} />

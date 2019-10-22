@@ -1,8 +1,7 @@
 .logo{
     height: 50px;
     line-height: 50px;
-    // background: #367fa9;
-    color: #fff;
+    color: #fff;//#367fa9;
     text-align: center;
     font-weight: bold;
     overflow: hidden;
@@ -14,23 +13,40 @@
     background: #222d32;
 }
 .header{
-    // background-color: #3c8dbc;
-    background: #fff;
+    display: flex;
+    justify-content: space-between;
+    background: #fff;//#3c8dbc;
     height: 50px;
     line-height: 50px;
-    padding: 0 20px;
+    padding: 0 20px 0 0;
 }
-.trigger{
-    color:'#fff';
-    font-size:18px;
+.layout{
+    height: 100%;
 }
 .content{
     margin: 20px;
     background: #fff;
-    min-height: 280px;
+    height: calc(100% - 50px);
+    // min-height: 280px;
+    overflow-y:scroll;
 }
 .footer{
-    margin: 0;
-    padding: 10px 20px;
+    height: 50px;
+    line-height: 50px;
+    padding: 0;
     text-align: center;
+}
+.left{
+    padding: 0 20px;
+    cursor: pointer;
+    &:hover{
+        background-color:hsla(0, 0%, 0%, 0.025);
+    }
+}
+.right{
+    @extend .left;
+}
+.trigger{
+    color:'#fff';
+    font-size:18px;
 }

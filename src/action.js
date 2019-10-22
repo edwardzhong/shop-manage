@@ -5,5 +5,5 @@ export const removeComment = createAction('REMOVE_COMMENT', 'id');
 export const updateName = createAction('UPDATE_NAME');
 export const updateEmail = createAction('UPDATE_EMAIL');
 
-export const updateOpenKey = createAction('UPDATEOPENKEY');
-export const updateSelectKey = createAction('UPDATESELECTKEY');
+export const updateOpenKey = createAction('UPDATEOPENKEY','keys');
+export const updateSelectKey = createAction('UPDATESELECTKEY','keys');

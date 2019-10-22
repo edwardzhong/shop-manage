@@ -1,0 +1,77 @@
+.content{
+    // width: 600px;
+    padding: 20px 40px;
+}
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 13px 0;
+    border-bottom: 1px solid $border-color;
+}
+.steps{
+    width: 240px;
+}
+.title{
+    font-size: 18px;
+    display: inline;
+}
+.desc{
+    padding: 10px 0;
+    color: hsl(19, 88%, 61%);
+}
+.error{
+    color: $red;
+}
+.form{
+    width: 800px;
+}
+.form-item{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    padding: 6px 0;
+    label:first-child{
+        text-align: right;
+        width: 130px;
+        font-weight: bold;
+    }
+    input{
+        width: 400px;
+    }
+    .code-input{
+        width: 100px;
+        margin-right: 20px;
+        color: $red;
+    }
+}
+.img-block{
+    padding-left: 130px;
+    p{
+        padding: 10px 0;
+    }
+}
+.shop-list{
+    width: 800px;
+    h3{
+        font-weight: normal;
+        font-size: 14px;
+        padding: 10px 0;
+    }
+    p{
+        text-align: center;
+        padding: 10px 0;
+    }
+    table{
+        width: 100%;
+        border:1px solid $border-color;
+    }
+    tr:nth-child(2n){
+        background: hsl(199, 66%, 94%);
+    }
+    td,th{
+        padding: 5px 10px;
+        border-right: 1px solid $border-color;
+        border-bottom: 1px solid $border-color;
+    }
+}

@@ -1,8 +1,8 @@
 import React,{ useState } from 'react'
 import { Link } from 'react-router-dom'
 import { getContext } from '../../context'
-import paths from '../../config/menu'
-import { Layout, Menu, Icon } from 'antd'
+import config from '../../config/menu'
+import { Layout, Menu, Icon, Avatar, Dropdown, Divider } from 'antd'
 import './style.scss'
 
 const { SubMenu } = Menu;
@@ -14,18 +14,29 @@ const BasicLayout = ({ history, children }) => {
     const { updateOpenKey, updateSelectKey } = actions;
     const [ collapsed, setCollapse ] = useState(false);
 
-    const toggle =()=>{
+    const toggle =()=> {
         setCollapse(!collapsed);
     };
     const handleClick =({key})=>{
-        updateSelectKey({ keys:[ key] });
-        history.push(paths[key]);
+        updateSelectKey([ key]);
+        history.push(config[key]);
     }; 
     const handleChange = arr =>{
-        updateOpenKey({ keys: arr });
+        updateOpenKey( arr );
     };
 
-    return <Layout>
+    const menu = (
+        <Menu>
+            <Menu.Item>
+                <Link to="/info">个人中心</Link>
+            </Menu.Item>
+            <Menu.Divider/>
+            <Menu.Item>
+                <Link to="/login">退出登录</Link>
+            </Menu.Item>
+        </Menu>
+      );
+    return <Layout styleName="layout">
         <Sider styleName="side" trigger={null} breakpoint="lg" collapsible collapsed={collapsed} >
             <div styleName="logo" > Manage System </div>
             <Menu styleName="menu" theme="dark" mode="inline" 
@@ -51,16 +62,22 @@ const BasicLayout = ({ history, children }) => {
 
             </Menu>
         </Sider>
-        <Layout>
+        <Layout styleName="layout">
             <Header styleName="header">
-                <Icon styleName="trigger" type={collapsed ? 'menu-unfold' : 'menu-fold'} onClick={toggle} />
+                <div styleName="left" onClick={toggle}><Icon styleName="trigger" type={collapsed ? 'menu-unfold' : 'menu-fold'} /></div>
+                <Dropdown styleName="right" overlay={menu} placement="bottomRight">
+                    <div>
+                        <Avatar icon="user" />
+                        <span> 1775005</span>
+                    </div>
+                </Dropdown>
             </Header>
             <Content styleName="content"> 
                 {children} 
             </Content>
-            <Footer styleName="footer">
-                <div>商家管理后台</div>
-            </Footer>
+            {/* <Footer styleName="footer">
+                商家管理后台
+            </Footer> */}
         </Layout>
     </Layout>
 }
