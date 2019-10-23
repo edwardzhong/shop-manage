@@ -65,7 +65,7 @@ const Register =()=>{
         // 随机字符
         arr.forEach((a,i)=>{
             let hsl = Math.floor(Math.random()*360);
-            let rot = (Math.floor(Math.random() * 2) * 2 - 1) * Math.random() * Math.PI/5;
+            let rot = (Math.floor(Math.random() * 2) * 2 - 1) * Math.random() * Math.PI/6;
             ctx.save();
             ctx.translate(40 + i* 60, h/2);
             ctx.rotate(rot);

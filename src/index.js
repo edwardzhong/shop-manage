@@ -10,6 +10,9 @@ import Register from './page/register'
 import Protocal from './page/protocal'
 import Help from './page/help'
 import GetPass from './page/getpass'
+import Activity from './page/activity'
+import Order from './page/order'
+import Publish from './page/publish'
 import '../public/index.css'
 
 render(
@@ -19,6 +22,9 @@ render(
                 <Route exact path="/" component={Home} />
                 <Route exact path="/info" component={Info} />
                 <Route exact path="/bindshop" component={BindShop} />
+                <Route exact path="/activity" component={Activity} />
+                <Route exact path="/order" component={Order} />
+                <Route exact path="/publish" component={Publish} />
                 <Route path="/login" component={Login} />
                 <Route path="/getpass" component={GetPass} />
                 <Route exact path="/register" component={Register} />

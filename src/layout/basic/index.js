@@ -53,13 +53,17 @@ const BasicLayout = ({ history, children }) => {
                     <Menu.Item key="21">基本信息</Menu.Item>
                     <Menu.Item key="22">绑定新店铺</Menu.Item>
                 </SubMenu>
-                <SubMenu key="3" title={ <span> <Icon type="pay-circle" /> <span> 资金管理 </span></span> } >
-                    <Menu.Item key="31">充值金币</Menu.Item>
-                    <Menu.Item key="32">充值押金</Menu.Item>
-                    <Menu.Item key="33">押金体现</Menu.Item>
-                    <Menu.Item key="34">资金记录</Menu.Item>
+                <SubMenu key="3" title={ <span> <Icon type="pay-circle" /> <span> 活动管理 </span></span> } >
+                    <Menu.Item key="31">发布活动</Menu.Item>
+                    <Menu.Item key="32">活动详情</Menu.Item>
+                    <Menu.Item key="33">订单详情</Menu.Item>
                 </SubMenu>
-
+                <SubMenu key="4" title={ <span> <Icon type="pay-circle" /> <span> 资金管理 </span></span> } >
+                    <Menu.Item key="41">充值金币</Menu.Item>
+                    <Menu.Item key="42">充值押金</Menu.Item>
+                    <Menu.Item key="43">押金提现</Menu.Item>
+                    <Menu.Item key="44">资金记录</Menu.Item>
+                </SubMenu>
             </Menu>
         </Sider>
         <Layout styleName="layout">

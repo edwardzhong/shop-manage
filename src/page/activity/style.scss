@@ -1,0 +1,92 @@
+.content{
+    padding: 20px;
+    width: 900px;
+    table img{
+        width: 40px;
+        height: 40px;
+    }
+    footer{
+        text-align: right;
+        padding: 10px;
+        span{
+            color: $red;
+        }
+    }
+}
+h2{
+    font-size: 16px;
+    padding: 10px 0;
+}
+.info{
+    header{
+        border-bottom:1px solid $border-color;
+    }
+    h3{
+        font-size: 14px;
+    }
+    .body{
+        display: flex;
+        padding: 10px 0;
+        .inner{
+            box-sizing: border-box;
+            &:first-child{
+                width: 420px;
+            }
+            &:last-child{
+                flex: 1;
+            }
+            div{
+                display: flex;
+                padding: 2px 0;
+            }
+        } 
+        .divider{
+            height: 10px;
+            margin-bottom: 10px;
+            border-bottom:1px solid $border-color;   
+        }
+        label{
+            width: 120px;
+            text-align: right;
+            font-weight: bold;
+        }
+        span{
+            color: $red;
+        }
+        i{
+            font-style: normal;
+        }
+    }
+}
+.progress{
+    table{
+        width: 100%;
+        border:1px solid $border-color;
+        span{
+            color: $red;
+        }
+        i{
+            font-style: normal;
+        }
+    }
+    thead tr {
+        background: hsl(0, 0%, 96%);
+    }
+    tbody tr:nth-child(2n){
+        background: hsl(200, 66%, 95%);
+    }
+    td,th{
+        padding: 5px 10px;
+        border-right: 1px solid $border-color;
+        border-bottom: 1px solid $border-color;
+    }
+}
+.commad{
+    border:1px solid $border-color;
+   li{
+       padding: 4px 20px;
+       &:not(:last-child){
+            border-bottom: 1px solid $border-color;
+       }
+   } 
+}

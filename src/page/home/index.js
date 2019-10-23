@@ -1,13 +1,106 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { Link } from 'react-router-dom'
 import BasicLayout from '../../layout/basic'
-import { Avatar, Tabs, Button, Input, Icon, Progress,Divider} from 'antd'
+import { Avatar, Tabs, Button, Input, Radio, Select, Icon, Progress,  Table, DatePicker, Pagination, Divider} from 'antd'
 import { getContext } from '../../context'
 import './style.scss'
+import moment from 'moment';
+import 'moment/locale/zh-cn';
+moment.locale('zh-cn');
 
+const { TabPane } = Tabs;
+const {RangePicker} = DatePicker;
+const {Option} = Select;
 const Home = ({ history }) => {
     const { state, actions } = getContext();
-    
+    const [orderVal,setOrderVal] = useState('0');
+    const orderChange = ()=>{
+        
+    };
+
+    const handleValChange= e =>{
+        setOrderVal(e.target.value);
+    };
+
+    const data = [
+        {
+            key:'1',
+            name:'aaa',
+            word:'书包',
+            num:'19874545454454598761'
+        },
+        {
+            key:'2',
+            name:'bbb',
+            word:'背包',
+            num:'19874545454454598762'
+        },
+        {
+            key:'3',
+            name:'ccc',
+            word:'户外包',
+            num:'19874545454454598763'
+        },
+    ];
+    const col1 =[
+        { title: '买号', dataIndex: 'name', align:'center', },
+        { title: '关键字', dataIndex: 'word', align:'center', },
+        { title: '订单', dataIndex: 'num', },
+    ];
+    const col2 =[
+        { title: '买号', dataIndex: 'name', align:'center', },
+        { title: '关键字', dataIndex: 'word', align:'center', },
+        { title: '订单', dataIndex: 'num', align:'center', width:240,
+            render: text => <div><div>{text}</div><Link to="/order">查看详情</Link></div>,
+        },
+        { title: '操作', key: 'action',
+            render:()=><div><a>确认</a>(退回本金并支付押金)<br/><a>通知修改</a><br/><a>驳回</a></div>
+        },
+    ];
+    const col3 =[
+        { title: '买号', dataIndex: 'name', align:'center', width:240,},
+        { title: '关键字', dataIndex: 'word', align:'center', width:240,},
+        { title: '订单', dataIndex: 'num', align:'center', width:240,
+            render: text => <div><div>{text}</div><Link to="/order">查看详情</Link></div>,
+        },
+        { title: '操作', key: 'action',
+            render:()=><div><a>通知修改</a><br/><a>驳回</a></div>
+        },
+    ];
+    const col4 =[
+        { title: '买号', dataIndex: 'name', align:'center', width:240,},
+        { title: '关键字', dataIndex: 'word', align:'center', width:240,},
+        { title: '订单', dataIndex: 'num', align:'center', width:240,
+            render: text => <div><div>{text}</div><Link to="/order">查看详情</Link></div>,
+        },
+        { title: '评论', key: 'action', },
+    ];
+    const col5 =[
+        { title: '买号', dataIndex: 'name', align:'center', width:240,},
+        { title: '关键字', dataIndex: 'word', align:'center', width:240,},
+        { title: '订单', dataIndex: 'num', align:'center', width:240,
+            render: text => <div><div>{text}</div><Link to="/order">查看详情</Link></div>,
+        },
+        { title: '评论', key: 'action', render: () => <a>查看详情</a>},
+        { title: '操作', key: 'action',
+            render:()=><div><a>确认</a>(支付评论押金)<br/><a>通知修改</a><br/><a>驳回</a></div>
+        },
+    ];
+    const col6 =[
+        { title: '买号', dataIndex: 'name', align:'center', width:240,},
+        { title: '关键字', dataIndex: 'word', align:'center', width:240,},
+        { title: '订单', dataIndex: 'num', align:'center', width:240,
+            render: text => <div><div>{text}</div><Link to="/order">查看详情</Link></div>,
+        },
+        { title: '评论', key: 'action', render: () => <a>查看详情</a>},
+        { title: '操作', key: 'action',
+            render:()=><div><a>通知修改</a><br/><a>驳回</a></div>
+        },
+    ];
+    const dateFormat = 'YYYY/MM/DD';
+    const dateChange = obj =>{
+        console.log(obj);
+    }
     return <BasicLayout history={history}>
         <div styleName="content">
             <div styleName="user">
@@ -27,7 +120,7 @@ const Home = ({ history }) => {
                                 <Icon type="pay-circle" style={{color:'hsl(205, 87%, 49%)'}}/>
                                 <span> 押金</span>
                             </div>
-                            <a>充值押金&gt;&gt;></a>
+                            <a>充值押金&gt;&gt;</a>
                         </header>
                         <div styleName="body">
                             <div styleName="percent">
@@ -46,7 +139,7 @@ const Home = ({ history }) => {
                                 <Icon type="money-collect" style={{color:'hsl(205, 87%, 49%)'}}/>
                                 <span> 金币</span>
                             </div>
-                            <a>充值金币&gt;&gt;></a>
+                            <a>充值金币&gt;&gt;</a>
                         </header>
                         <div styleName="operate">
                             <p>可用金币：<span>0.00</span>元</p>
@@ -57,10 +150,195 @@ const Home = ({ history }) => {
                 </div>
             </div>
             <Divider/>
-            <div styleName="order"></div>
-            <div styleName="list"></div>
+            <div styleName="order">
+            <Tabs styleName="tabs" onChange={orderChange} type="card">
+                <TabPane tab=" 已接单待付款(0)" key="1">
+                    <Table columns={col1} size="middle" dataSource={data} bordered pagination={false} />
+                </TabPane>
+                <TabPane tab=" 已接单待审核(0)" key="2">
+                    <Table columns={col2} size="middle" dataSource={data} bordered pagination={false} />
+                </TabPane>
+                <TabPane tab=" 已付款待修改(0)" key="3">
+                    <Table columns={col3} size="middle" dataSource={data} bordered pagination={false} />
+                </TabPane>
+                <TabPane tab=" 已付款待评论(0)" key="4">
+                    <Table columns={col4} size="middle" dataSource={data} bordered pagination={false} />
+                </TabPane>
+                <TabPane tab=" 已评论待审核(0)" key="5">
+                    <Table columns={col5} size="middle" dataSource={data} bordered pagination={false} />
+                </TabPane>
+                <TabPane tab=" 已评论待修改评论(0)" key="6">
+                    <Table columns={col6} size="middle" dataSource={data} bordered pagination={false} />
+                </TabPane>
+            </Tabs>
+            </div>
+            <Divider/>
+            <div styleName="search">
+            <Radio.Group defaultValue={orderVal} onChange={handleValChange}>
+                <Radio.Button value="0">全部的（4）</Radio.Button>
+                <Radio.Button value="1">进行中（1）</Radio.Button>
+                <Radio.Button value="2">已完成（1）</Radio.Button>
+                <Radio.Button value="3">待付款（1）</Radio.Button>
+                <Radio.Button value="4">待审核（0）</Radio.Button>
+                <Radio.Button value="5">审核不通过（0）</Radio.Button>
+            </Radio.Group>
+                {/* <Menu mode="horizontal" defaultSelectedKeys={['0']}>
+                    <Menu.Item key="0">全部的（4） </Menu.Item>
+                    <Menu.Item key="1">进行中（1） </Menu.Item>
+                    <Menu.Item key="2">已完成（1） </Menu.Item>
+                    <Menu.Item key="3">待付款（1） </Menu.Item>
+                    <Menu.Item key="4">待审核（0） </Menu.Item>
+                    <Menu.Item key="5">审核不通过（0） </Menu.Item>
+                </Menu> */}
+                <div styleName="bar">
+                    <div styleName="bar-item">
+                        <label>平台：</label>
+                        <Select defaultValue="0" style={{width:'100px'}}>
+                            <Option value="0">全部</Option>
+                            <Option value="1">taobao</Option>
+                            <Option value="2">tmall</Option>
+                        </Select>
+                        <label>店铺：</label>
+                        <Select defaultValue="0" style={{width:'100px'}}>
+                            <Option value="0">全部</Option>
+                            <Option value="1">taobao</Option>
+                            <Option value="2">tmall</Option>
+                        </Select>
+                        <label>类型：</label>
+                        <Select defaultValue="0" style={{width:'100px'}}>
+                            <Option value="0">全部</Option>
+                            <Option value="1">taobao</Option>
+                            <Option value="2">tmall</Option>
+                        </Select>
+                        <label>状态：</label>
+                        <Select defaultValue="0" style={{width:'100px'}}>
+                            <Option value="0">全部</Option>
+                            <Option value="1">进行中</Option>
+                            <Option value="2">已完成</Option>
+                            <Option value="3">待付款</Option>
+                            <Option value="4">待审核</Option>
+                            <Option value="5">审核不通过</Option>
+                        </Select>
+                        <label>评价类型：</label>
+                        <Select defaultValue="0" style={{width:'100px'}}>
+                            <Option value="0">全部</Option>
+                            <Option value="1">taobao</Option>
+                            <Option value="2">tmall</Option>
+                        </Select>
+                    </div>
+                    <div styleName="bar-item">
+                        <label>发布日期：</label>
+                        <RangePicker onChange={dateChange} />
+                        <label>高级搜索：</label>
+                        <Input/>
+                        <Button type="primary">查询</Button>
+                    </div>
+                </div>
+                <ul styleName="th">
+                    <li>商品</li>
+                    <li>活动编号</li>
+                    <li>状态分布</li>
+                </ul>
+                <ul styleName="list">
+                    <li>
+                        <div>
+                            <header>
+                                <Icon type="taobao-circle" style={{color:'hsl(0,100%,60%)'}} />
+                                <span> 清新小包铺</span>
+                            </header>
+                            <div styleName="body">
+                            <div styleName="img"><img src="https:////g-search3.alicdn.com/img/bao/uploaded/i4/i2/2204161850475/O1CN01bmGRYi1FNageOpDRL_!!2204161850475.jpg"/></div>
+                                <span>电脑背包男士电脑背包男士电脑背包男士电脑背包男士电脑背包男士电脑背包男士电脑背包男士电脑背包男士</span>
+                            </div>
+                        </div>
+                        <div>
+                            <p>普通搜索订单：<Link to="/activity">T34343434233236564</Link></p>
+                            <p>发布时间：<span>2019-01-02 01:01:01</span></p>
+                            <p>支付时间：<span>2019-01-02 01:01:01</span></p>
+                        </div>
+                        <div styleName="status">
+                            <div>活动状态：<span>已完成</span></div>
+                            <div>
+                                进行中(<span>0</span>) | 
+                                进行中(<span>0</span>) | 
+                                进行中(<span>0</span>) | 
+                                进行中(<span>3</span>) 
+                                待评价
+                            </div>
+                        </div>
+                        <div>
+                            <Button type="primary" size="small">一键重发</Button>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <header>
+                                <Icon type="taobao-circle" style={{color:'hsl(0,100%,60%)'}} />
+                                <span> 清新小包铺</span>
+                            </header>
+                            <div styleName="body">
+                                <div styleName="img"><img src="https:////g-search3.alicdn.com/img/bao/uploaded/i4/i2/2204161850475/O1CN01bmGRYi1FNageOpDRL_!!2204161850475.jpg"/></div>
+                                <span>电脑背包男士电脑背包男士电脑背包男士电脑背包男士电脑背包男士电脑背包男士电脑背包男士电脑背包男士</span>
+                            </div>
+                        </div>
+                        <div>
+                            <p>普通搜索订单：<Link to="/activity">T34343434233236564</Link></p>
+                            <p>发布时间：<span>2019-01-02 01:01:01</span></p>
+                            <p>支付时间：<span>2019-01-02 01:01:01</span></p>
+                        </div>
+                        <div styleName="status">
+                            <div>活动状态：<span>已完成</span></div>
+                            <div>
+                                进行中(<span>0</span>) | 
+                                进行中(<span>0</span>) | 
+                                进行中(<span>0</span>) | 
+                                进行中(<span>3</span>) 
+                                待评价
+                            </div>
+                        </div>
+                        <div>
+                            <Button type="primary" size="small">取消支付</Button>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <header>
+                                <Icon type="taobao-circle" style={{color:'hsl(0,100%,60%)'}} />
+                                <span> 清新小包铺</span>
+                            </header>
+                            <div styleName="body">
+                            <div styleName="img"><img src="https:////g-search3.alicdn.com/img/bao/uploaded/i4/i2/2204161850475/O1CN01bmGRYi1FNageOpDRL_!!2204161850475.jpg"/></div>
+                                <span>电脑背包男士电脑背包男士电脑背包男士电脑背包男士电脑背包男士电脑背包男士电脑背包男士电脑背包男士</span>
+                            </div>
+                        </div>
+                        <div>
+                            <p>普通搜索订单：<Link to="/activity">T34343434233236564</Link></p>
+                            <p>发布时间：<span>2019-01-02 01:01:01</span></p>
+                            <p>支付时间：<span>2019-01-02 01:01:01</span></p>
+                        </div>
+                        <div styleName="status">
+                            <div>活动状态：<span>已完成</span></div>
+                            <div>
+                                进行中(<span>0</span>) | 
+                                进行中(<span>0</span>) | 
+                                进行中(<span>0</span>) | 
+                                进行中(<span>3</span>) 
+                                待评价
+                            </div>
+                        </div>
+                        <div>
+                            <Button type="primary" size="small">取消活动</Button>
+                            <Button type="primary" size="small">修改活动</Button>
+                            <Button type="primary" size="small">继续支付</Button>
+                        </div>
+                    </li>
+                </ul>
+                <footer styleName="footer">
+                    <Pagination defaultCurrent={1} pageSize={10} total={3} />
+                </footer>
+            </div>
         </div>
     </BasicLayout>
 }
 
-export default Home;
+export default Home

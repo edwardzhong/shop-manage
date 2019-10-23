@@ -6,8 +6,8 @@ import rootReducer from './reducer'
 const Context = createContext(null);
 const initState = Object.assign(rootReducer({}, {}), {
     menukey:{
-        open:['2'],
-        select:['22']
+        open:[],
+        select:['1']
     }
 });
 

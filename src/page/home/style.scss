@@ -1,5 +1,6 @@
 .content{
     padding: 20px;
+    min-width: 800px;
 }
 .user{
     display: flex;
@@ -24,7 +25,7 @@
         header{
             display: flex;
             justify-content: space-between;
-            padding: 10px 0;
+            padding: 5px 0;
             margin-bottom: 15px;
             border-bottom: 1px solid $border-color;
         }
@@ -62,8 +63,90 @@
     }
 }
 .order{
-
+    tbody td{
+        padding: 5px !important;
+        height: 60px !important;
+    }
 }
-.list{
-
+.search{
+    font-size: 12px;
+    .th{
+        display: flex;
+        background: #efefef;
+        padding: 5px 10px;
+        li{
+            width: 310px;
+        }
+    }
+    .footer{
+        text-align: center;
+    }
+    .list{
+        li {
+            display: flex;
+            padding: 5px 10px;
+            margin-bottom: 10px;
+            border-bottom: 1px dashed darken($border-color, 10);
+            & > div{
+                display: flex;
+                flex-flow: column nowrap;
+                justify-content: center;
+                width: 310px;
+                padding-right: 20px;
+                &:last-child{
+                    width: 100px;
+                    button{
+                        margin: 2px;
+                    }
+                }
+            }
+            header{
+                padding: 2px 0;
+                margin-bottom: 4px;
+                border-bottom: 1px solid darken($border-color, 10);
+            }
+            .body{
+                display: flex;
+                .img{
+                    flex: 0 0 100px;
+                    width: 100px;
+                    height: 100px;
+                    img{
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+                span{
+                    padding-left: 10px;
+                }
+            }
+            .status{
+                span{
+                    color: $red;
+                }
+            }
+        }
+    }
+}
+.bar{
+    
+    padding: 10px 0;
+    label{
+        // display: block;
+        // width: 80px;
+        padding-left: 15px;
+    }
+    input[type=text]{
+        width: 200px;
+        margin-right: 20px;
+    }
+}
+.bar-item{
+    display: flex;
+    align-items: center;
+    padding: 4px 0;
+}
+.tabs [role=tab]{
+    font-size: 13px;
+    width: auto !important;
 }
