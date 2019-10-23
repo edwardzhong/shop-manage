@@ -1,0 +1,13 @@
+stages:
+  - deploy
+  - build
+  - op
+
+deploy-job:
+  stage: deploy
+  tags:
+    - shop
+  only:
+    - master
+  script:
+    - pwd
