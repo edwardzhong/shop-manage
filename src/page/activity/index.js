@@ -132,7 +132,7 @@ const Activity=({history})=>{
                 </div>
             </div>
             <Divider/>
-            <div styleName="roders">
+            <div>
                 <Table columns={col1} dataSource={data} onChange={onChange} size="middle" pagination={false} />
             </div>
             <Divider/>
