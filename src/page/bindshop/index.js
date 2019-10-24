@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { getContext } from '../../context'
-import { Form, Input, Button, Checkbox, Steps,Divider } from 'antd'
+import { Input, Button, Checkbox, Steps,Divider } from 'antd'
 import BasicLayout from '../../layout/basic'
 import './style.scss'
 const { Step } = Steps;
@@ -24,7 +24,7 @@ const BindShop = () => {
                 </Steps>
             </header>
             <p styleName="desc">请先完成下面的店铺信息，绑定店铺后即可进入报名活动页面</p>
-            <Form styleName="form">
+            <form styleName="form">
                 <div styleName="form-item">
                     <label>店铺类型：</label>
                     <Checkbox onChange={onChange}>淘宝</Checkbox>
@@ -67,7 +67,7 @@ const BindShop = () => {
                     <label/>
                     <Button type="primary">确认绑定</Button>
                 </div>
-            </Form>
+            </form>
             <div styleName="shop-list">
                 <h3>已绑定的店铺</h3>
                 <table>

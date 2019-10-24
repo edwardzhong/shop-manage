@@ -4,7 +4,7 @@ import useForm  from '../../common/useForm';
 import { getContext } from '../../context'
 import '../sign.scss'
 import UserLayout from '../../layout/user'
-import { Tabs, Form, Icon, Input, Button, Steps, message, Divider } from 'antd';
+import { Tabs, Icon, Input, Button, Steps, message, Divider } from 'antd';
 const { TabPane } = Tabs;
 const { Step } = Steps;
 message.config({
@@ -76,7 +76,7 @@ const GetPass = ({history})=>{
                 <Step title="充值密码" />
             </Steps>
             {/* <Divider /> */}
-            <Form onSubmit={submit}>
+            <form onSubmit={submit}>
             <Tabs tabBarStyle={{display:'none'}} activeKey={'' + curr}>
                 <TabPane tab="" key="0">
                     <div styleName="step">
@@ -114,7 +114,7 @@ const GetPass = ({history})=>{
                     </div>
                 </TabPane>
                 </Tabs>
-            </Form>
+            </form>
         </div>
     </UserLayout>
 }

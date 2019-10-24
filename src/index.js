@@ -2,6 +2,7 @@ import React,{lazy,Suspense} from 'react'
 import { render } from 'react-dom'
 import { HashRouter as Router, Route, Redirect, Switch } from 'react-router-dom'
 import { Provider } from './context'
+import '../public/index.css'
 
 // const lazyComponent = path => lazy(()=> import(`./page/${path}`));
 // const home = lazyComponent('home')
@@ -28,7 +29,7 @@ import protocal from './page/protocal'
 import help from './page/help'
 import getpass from './page/getpass'
 
-import '../public/index.css'
+
 
 render(
     <Provider>

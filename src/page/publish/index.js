@@ -25,7 +25,7 @@ const Publish=()=>{
                 </Steps>
             </div>
             {/* <Divider/> */}
-            <Result/>
+            <One/>
             <footer>
                 <div styleName="step-btn">
                     <Icon type="left" /><span>上一步</span>

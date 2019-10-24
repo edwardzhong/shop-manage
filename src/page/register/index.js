@@ -4,7 +4,7 @@ import useForm  from '../../common/useForm';
 import { getContext } from '../../context'
 import '../sign.scss'
 import UserLayout from '../../layout/user'
-import { Form, Icon, Input, Button } from 'antd';
+import { Icon, Input, Button } from 'antd';
 
 const Register =()=>{
     const [ formState, { text, password }] = useForm();
@@ -122,7 +122,7 @@ const Register =()=>{
 
     return <UserLayout tabName="商家注册">
         <div styleName="tabs">
-            <Form onSubmit={submit}>
+            <form onSubmit={submit}>
                 <div styleName="form-item">
                     <Input styleName={nameErr ? 'has-error':''} {...text('name')} maxLength={20} prefix={<Icon type="mobile" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="手机号" />
                 </div>
@@ -147,7 +147,7 @@ const Register =()=>{
                     <p>已有账号<Link to="/login">立即登录</Link></p>
                 </div>
                 <div styleName="error"></div>
-            </Form>
+            </form>
         </div>
     </UserLayout>
 }

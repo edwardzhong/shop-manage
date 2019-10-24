@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { HotModuleReplacementPlugin } = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 module.exports = {
     entry: './src/index.js',//单入口
@@ -11,51 +12,55 @@ module.exports = {
         publicPath: '/',//使用相对路径(./)生成可以静态访问的页面，绝对路径(/)才能devServer使用
         filename: '[name].[hash].js'//输出文件添加hash
     },
+    resolve: {
+        alias: {
+            '@ant-design/icons/lib/dist$': resolve(__dirname, './src/icons.js'),//按需加载 antd icon
+        }
+    },    
     optimization: { // 代替commonchunk, 代码分割
-        // mergeDuplicateChunks: true, 
-        // runtimeChunk: 'single',
-        // splitChunks: {
-        //     cacheGroups: {
-        //         vendor: {
-        //             test: /[\\/]node_modules[\\/]/,
-        //             name: 'vendors',
-        //             chunks: 'all'
-        //         }
-        //     }
-        // }
         mergeDuplicateChunks: true, 
-        splitChunks: {// 代替commonchunk, 代码分割
-            chunks: 'async',
-            minSize: 30000,
-            maxSize: 0,
-            minChunks: 1,
-            maxAsyncRequests: 5,
-            maxInitialRequests: 3,
-            automaticNameDelimiter: '~',
-            name: true,
+        runtimeChunk: 'single',
+        splitChunks: {
             cacheGroups: {
-                // 处理入口chunk
-                vendors: {
+                vendor: {
                     test: /[\\/]node_modules[\\/]/,
-                    chunks: 'initial',
                     name: 'vendors',
-                },
-                // 处理异步chunk
-                'async-vendors': {
-                    test: /[\\/]node_modules[\\/]/,
-                    minChunks: 2,
-                    chunks: 'async',
-                    name: 'async-vendors'
+                    chunks: 'all'
                 }
             }
         }
+        // mergeDuplicateChunks: true, 
+        // splitChunks: {// 代替commonchunk, 代码分割
+        //     chunks: 'async',
+        //     minSize: 30000,
+        //     minChunks: 1,
+        //     maxAsyncRequests: 5,
+        //     maxInitialRequests: 3,
+        //     automaticNameDelimiter: '~',
+        //     name: true,
+        //     cacheGroups: {
+        //         // 处理入口chunk
+        //         vendors: {
+        //             test: /[\\/]node_modules[\\/]/,
+        //             chunks: 'initial',
+        //             name: 'vendors',
+        //         },
+        //         // 处理异步chunk
+        //         'async-vendors': {
+        //             test: /[\\/]node_modules[\\/]/,
+        //             minChunks: 2,
+        //             chunks: 'async',
+        //             name: 'async-vendors'
+        //         }
+        //     }
+        // }
     },
     module: {
         rules: [
             {
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
-                use: ['babel-loader']//'eslint-loader'
+                use: ['babel-loader'],//'eslint-loader'
             },
             {   /*
                 使用 html-loader, 将 html 内容存为 js 字符串，比如当遇到
@@ -71,6 +76,7 @@ module.exports = {
             },
             {
                 test: /\.scss$/i,
+                exclude: /node_modules/,
                 use: ['style-loader',
                 {
                     loader: 'css-loader',
@@ -79,7 +85,7 @@ module.exports = {
                         modules: {
                             mode: 'local',
                             context: resolve(__dirname, 'src/'),
-                            localIdentName: '[path][name]_[local]_[hash:base64:5]',
+                            localIdentName: '[path][local]_[hash:base64:5]',//'[path][name]_[local]_[hash:base64:5]'
                         }
                     },
                 },
@@ -107,6 +113,7 @@ module.exports = {
         ]
     },
     plugins: [
+        new BundleAnalyzerPlugin(),
         new CleanWebpackPlugin({
             cleanOnceBeforeBuildPatterns:['dist']
         }),//生成新文件时，清空生出目录

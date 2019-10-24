@@ -3,7 +3,7 @@ import { Route, Redirect, Switch, Link } from 'react-router-dom'
 import UserLayout from '../../layout/user'
 import { getContext } from '../../context'
 import useForm  from '../../common/useForm';
-import { Tabs, Form, Icon, Input, Button } from 'antd';
+import { Tabs, Icon, Input, Button } from 'antd';
 import '../sign.scss'
 
 const { TabPane } = Tabs;
@@ -70,7 +70,7 @@ const Login = ({ history }) => {
             <Route path="/login/pass">
                 <Tabs styleName="tabs" size="middle" defaultActiveKey="1" onChange={handleChange}>
                     <TabPane tab="密码登录" key="1">
-                        <Form onSubmit={passSubmit}>
+                        <form onSubmit={passSubmit}>
                             <div styleName="form-item">
                                 <Input styleName={nameErr ? 'has-error':''} {...text('name')} maxLength={20} prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="手机号" />
                             </div>
@@ -85,7 +85,7 @@ const Login = ({ history }) => {
                                 <Link to="/register">商家注册</Link>
                             </div>
                             <div styleName="error"></div>
-                        </Form>
+                        </form>
                     </TabPane>
                     <TabPane tab="手机无密码登录" key="2"/>
                 </Tabs>
@@ -94,7 +94,7 @@ const Login = ({ history }) => {
                 <Tabs styleName="tabs" size="middle" defaultActiveKey="2" onChange={handleChange}>
                     <TabPane tab="密码登录" key="1"/>
                     <TabPane tab="手机无密码登录" key="2">
-                        <Form onSubmit={codeSubmit}>
+                        <form onSubmit={codeSubmit}>
                             <div styleName="form-item">
                                 <Input styleName={mobileErr ? 'has-error':''} {...text('mobile')} maxLength={20} prefix={<Icon type="mobile" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="手机号" />
                             </div>
@@ -108,7 +108,7 @@ const Login = ({ history }) => {
                             <div styleName="links center">
                                 <Link to="/register">商家注册</Link>
                             </div>
-                        </Form>
+                        </form>
                     </TabPane>
                 </Tabs>
             </Route>

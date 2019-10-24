@@ -4,12 +4,12 @@ import BasicLayout from '../../layout/basic'
 import { Avatar, Tabs, Button, Input, Radio, Select, Icon, Progress,  Table, DatePicker, Pagination, Divider} from 'antd'
 import { getContext } from '../../context'
 import './style.scss'
-import moment from 'moment';
-import 'moment/locale/zh-cn';
-moment.locale('zh-cn');
+// import moment from 'moment';
+// import 'moment/locale/zh-cn';
+// moment.locale('zh-cn');
 
 const { TabPane } = Tabs;
-const {RangePicker} = DatePicker;
+// const {RangePicker} = DatePicker;
 const {Option} = Select;
 const Home = ({ history }) => {
     const { state, actions } = getContext();
@@ -213,7 +213,7 @@ const Home = ({ history }) => {
                     </div>
                     <div styleName="bar-item">
                         <label>发布日期：</label>
-                        <RangePicker onChange={dateChange} />
+                        {/* <RangePicker onChange={dateChange} /> */}
                         <label>高级搜索：</label>
                         <Input/>
                         <Button type="primary">查询</Button>

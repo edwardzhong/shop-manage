@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import {Tabs, Radio, Checkbox, Icon} from 'antd'
+import {Tabs, Radio, Checkbox} from 'antd'
 import './style.scss'
 
 const One = ()=>{
