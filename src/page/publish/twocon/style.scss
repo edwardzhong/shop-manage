@@ -1,0 +1,32 @@
+@import "../style.scss";
+
+h3{
+    padding: 10px 0;
+}
+h4{
+    // font-weight: normal;
+    padding: 10px 0;
+}
+h5{
+    padding: 10px 0 4px;
+}
+.block{
+    padding: 10px;
+    div{
+        display: flex;
+    }
+    i{
+        font-style: normal;
+        color: $red;
+    }
+    p{
+        padding-right: 30px;
+    }
+    input{
+        width: 200px;
+    }
+    a{
+        margin-left: auto;
+        margin-right: 10px;
+    }
+}

@@ -4,7 +4,9 @@ import {Steps,Icon} from 'antd'
 import './style.scss'
 import One from './one'
 import Two from './two'
+import Twocon from './twocon'
 import Three from './three'
+import Result from './result'
 
 const { Step } = Steps;
 const Publish=()=>{
@@ -23,7 +25,7 @@ const Publish=()=>{
                 </Steps>
             </div>
             {/* <Divider/> */}
-            <Three/>
+            <Result/>
             <footer>
                 <div styleName="step-btn">
                     <Icon type="left" /><span>上一步</span>
