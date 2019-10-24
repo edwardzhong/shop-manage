@@ -1,11 +1,11 @@
-import React,{useState} from 'react'
+import React,{useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import BasicLayout from '../../layout/basic'
 import { Icon,  Table, Divider} from 'antd'
 import { getContext } from '../../context'
 import './style.scss'
 
-const Activity=({history})=>{
+const Activity=()=>{
     const data = [
         { key: '1', name: 'aaa', terminal: 'app', word: '书包男', num:'232324343454532', status:2, express:'顺丰', amount:75 },
         { key: '2', name: 'bbb', terminal: 'app', word: '背包男', num:'232324343454532', status:2, express:'顺丰', amount:75 },
@@ -67,7 +67,7 @@ const Activity=({history})=>{
     function onChange(pagination, filters, sorter, extra) {
         console.log('params', pagination, filters, sorter, extra);
     }
-    return <BasicLayout history={history}>
+    return <BasicLayout>
         <div styleName="content">
             <div styleName="info">
                 <header>

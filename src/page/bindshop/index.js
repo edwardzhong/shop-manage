@@ -6,12 +6,12 @@ import BasicLayout from '../../layout/basic'
 import './style.scss'
 const { Step } = Steps;
 
-const BindShop = ({history}) => {
+const BindShop = () => {
     const { state, actions } = getContext();
     const onChange=()=>{
 
     };
-    return <BasicLayout history={history}>
+    return <BasicLayout>
         <div styleName="content">
             <header styleName="header">
                 <div>

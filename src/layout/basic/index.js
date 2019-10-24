@@ -1,29 +1,42 @@
-import React,{ useState } from 'react'
-import { Link } from 'react-router-dom'
+import React,{ useState, useEffect } from 'react'
+import { useHistory, useLocation, Link } from 'react-router-dom'
 import { getContext } from '../../context'
-import config from '../../config/menu'
+import menus from '../../config/menu'
 import { Layout, Menu, Icon, Avatar, Dropdown, Divider } from 'antd'
 import './style.scss'
 
 const { SubMenu } = Menu;
 const { Header, Sider, Footer, Content } = Layout;
 
-const BasicLayout = ({ history, children }) => {
+const BasicLayout = ({ children }) => {
     const { state, actions } = getContext();
     const { menukey } = state;
     const { updateOpenKey, updateSelectKey } = actions;
     const [ collapsed, setCollapse ] = useState(false);
+    const history = useHistory();
+    const location = useLocation();
+
+    useEffect(()=>{
+        const m = menus.filter(i=>i.path == location.pathname)[0];
+        if(m){
+            if(m.key.length > 1){
+                updateOpenKey([m.key.charAt(0)]);
+            }
+            updateSelectKey([ m.key ]);
+        }
+    },[]);
 
     const toggle =()=> {
         setCollapse(!collapsed);
     };
     const handleClick =({key})=>{
         updateSelectKey([ key]);
-        history.push(config[key]);
+        menus.forEach(i=>{
+            if(i.key == key){
+                history.push(i.path);
+            }
+        });
     }; 
-    const handleChange = arr =>{
-        updateOpenKey( arr );
-    };
 
     const menu = (
         <Menu>
@@ -35,15 +48,15 @@ const BasicLayout = ({ history, children }) => {
                 <Link to="/login">退出登录</Link>
             </Menu.Item>
         </Menu>
-      );
+    );
     return <Layout styleName="layout">
         <Sider styleName="side" trigger={null} breakpoint="lg" collapsible collapsed={collapsed} >
             <div styleName="logo" > Manage System </div>
             <Menu styleName="menu" theme="dark" mode="inline" 
                 defaultOpenKeys={menukey.open} 
                 defaultSelectedKeys={menukey.select} 
-                onClick={handleClick} 
-                onOpenChange={handleChange}
+                onOpenChange={updateOpenKey}
+                onClick={handleClick}
             >
                 <Menu.Item key="1">
                     <Icon type="home" />
@@ -53,7 +66,7 @@ const BasicLayout = ({ history, children }) => {
                     <Menu.Item key="21">基本信息</Menu.Item>
                     <Menu.Item key="22">绑定新店铺</Menu.Item>
                 </SubMenu>
-                <SubMenu key="3" title={ <span> <Icon type="pay-circle" /> <span> 活动管理 </span></span> } >
+                <SubMenu key="3" title={ <span> <Icon type="carry-out" /> <span> 活动管理 </span></span> } >
                     <Menu.Item key="31">发布活动</Menu.Item>
                     <Menu.Item key="32">活动详情</Menu.Item>
                     <Menu.Item key="33">订单详情</Menu.Item>

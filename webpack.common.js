@@ -8,18 +8,44 @@ module.exports = {
     entry: './src/index.js',//单入口
     output: {
         path: resolve(__dirname, 'dist'),
-        publicPath: './',
-        // filename: 'bundle.js'
+        publicPath: '/',//使用相对路径(./)生成可以静态访问的页面，绝对路径(/)才能devServer使用
         filename: '[name].[hash].js'//输出文件添加hash
     },
     optimization: { // 代替commonchunk, 代码分割
-        runtimeChunk: 'single',
-        splitChunks: {
+        // mergeDuplicateChunks: true, 
+        // runtimeChunk: 'single',
+        // splitChunks: {
+        //     cacheGroups: {
+        //         vendor: {
+        //             test: /[\\/]node_modules[\\/]/,
+        //             name: 'vendors',
+        //             chunks: 'all'
+        //         }
+        //     }
+        // }
+        mergeDuplicateChunks: true, 
+        splitChunks: {// 代替commonchunk, 代码分割
+            chunks: 'async',
+            minSize: 30000,
+            maxSize: 0,
+            minChunks: 1,
+            maxAsyncRequests: 5,
+            maxInitialRequests: 3,
+            automaticNameDelimiter: '~',
+            name: true,
             cacheGroups: {
-                vendor: {
+                // 处理入口chunk
+                vendors: {
                     test: /[\\/]node_modules[\\/]/,
+                    chunks: 'initial',
                     name: 'vendors',
-                    chunks: 'all'
+                },
+                // 处理异步chunk
+                'async-vendors': {
+                    test: /[\\/]node_modules[\\/]/,
+                    minChunks: 2,
+                    chunks: 'async',
+                    name: 'async-vendors'
                 }
             }
         }
@@ -82,7 +108,7 @@ module.exports = {
     },
     plugins: [
         new CleanWebpackPlugin({
-            cleanOnceBeforeBuildPatterns: ['dist']
+            cleanOnceBeforeBuildPatterns:['dist']
         }),//生成新文件时，清空生出目录
         new HtmlWebpackPlugin({
             template: './public/index.html',//模版路径

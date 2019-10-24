@@ -8,7 +8,7 @@ import './style.scss'
 const Info = ({history}) => {
     const { state, actions } = getContext();
 
-    return <BasicLayout history={history}>
+    return <BasicLayout>
         <div styleName="content">
             <h2 styleName="title">账号设置</h2>
             <div styleName="item">

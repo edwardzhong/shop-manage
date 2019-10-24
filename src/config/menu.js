@@ -1,8 +1,12 @@
-export default {
-    '1':'/',
-    '21':'/info',
-    '22':'/bindshop',
-    '31':'/publish',
-    '32':'/activity',
-    '33':'/order'
-}
+export default [
+	{ key: "1", path: "/" },
+	{ key: "21", path: "/info" },
+	{ key: "22", path: "/bindshop" },
+	{ key: "31", path: "/publish" },
+	{ key: "32", path: "/activity" },
+	{ key: "33", path: "/order" },
+];
+
+// export default{
+
+// };

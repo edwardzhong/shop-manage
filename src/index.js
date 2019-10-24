@@ -1,37 +1,54 @@
-import React from 'react'
+import React,{lazy,Suspense} from 'react'
 import { render } from 'react-dom'
 import { HashRouter as Router, Route, Redirect, Switch } from 'react-router-dom'
 import { Provider } from './context'
-import Home from './page/home'
-import Info from './page/info'
-import BindShop from './page/bindshop'
-import Login from './page/login'
-import Register from './page/register'
-import Protocal from './page/protocal'
-import Help from './page/help'
-import GetPass from './page/getpass'
-import Activity from './page/activity'
-import Order from './page/order'
-import Publish from './page/publish'
+
+// const lazyComponent = path => lazy(()=> import(`./page/${path}`));
+// const home = lazyComponent('home')
+// const info = lazyComponent('info')
+// const bindshop = lazyComponent('bindshop')
+// const activity = lazyComponent('activity')
+// const order = lazyComponent('order')
+// const publish = lazyComponent('publish')
+// const login = lazyComponent('login')
+// const register = lazyComponent('register')
+// const protocal = lazyComponent('protocal')
+// const help = lazyComponent('help')
+// const getpass = lazyComponent('getpass')
+
+import home from './page/home'
+import info from './page/info'
+import bindshop from './page/bindshop'
+import activity from './page/activity'
+import order from './page/order'
+import publish from './page/publish'
+import login from './page/login'
+import register from './page/register'
+import protocal from './page/protocal'
+import help from './page/help'
+import getpass from './page/getpass'
+
 import '../public/index.css'
 
 render(
     <Provider>
         <Router>
+          {/* <Suspense fallback={<div>Loading...</div>}> */}
             <Switch>
-                <Route exact path="/" component={Home} />
-                <Route exact path="/info" component={Info} />
-                <Route exact path="/bindshop" component={BindShop} />
-                <Route exact path="/activity" component={Activity} />
-                <Route exact path="/order" component={Order} />
-                <Route exact path="/publish" component={Publish} />
-                <Route path="/login" component={Login} />
-                <Route path="/getpass" component={GetPass} />
-                <Route exact path="/register" component={Register} />
-                <Route exact path="/help" component={Help} />
-                <Route exact path="/protocal" component={Protocal} />
+                <Route exact path="/" component={home} />
+                <Route exact path="/info" component={info} />
+                <Route exact path="/bindshop" component={bindshop} />
+                <Route exact path="/activity" component={activity} />
+                <Route exact path="/order" component={order} />
+                <Route exact path="/publish" component={publish} />
+                <Route path="/login" component={login} />
+                <Route exact path="/register" component={register} />
+                <Route exect path="/getpass" component={getpass} />
+                <Route exact path="/help" component={help} />
+                <Route exact path="/protocal" component={protocal} />
                 <Redirect to="/"/>
             </Switch>
+            {/* </Suspense> */}
         </Router>
     </Provider>,
     document.getElementById('root')

@@ -20,7 +20,7 @@ const Order=({history})=>{
     function onChange(pagination, filters, sorter, extra) {
         console.log('params', pagination, filters, sorter, extra);
     }
-    return <BasicLayout history={history}>
+    return <BasicLayout>
         <div styleName="content">
             <div styleName="info">
                 <header>

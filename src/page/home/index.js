@@ -23,24 +23,9 @@ const Home = ({ history }) => {
     };
 
     const data = [
-        {
-            key:'1',
-            name:'aaa',
-            word:'书包',
-            num:'19874545454454598761'
-        },
-        {
-            key:'2',
-            name:'bbb',
-            word:'背包',
-            num:'19874545454454598762'
-        },
-        {
-            key:'3',
-            name:'ccc',
-            word:'户外包',
-            num:'19874545454454598763'
-        },
+        { key:'1', name:'aaa', word:'书包', num:'19874545454454598761' },
+        { key:'2', name:'bbb', word:'背包', num:'19874545454454598762' },
+        { key:'3', name:'ccc', word:'户外包', num:'19874545454454598763' },
     ];
     const col1 =[
         { title: '买号', dataIndex: 'name', align:'center', },
@@ -101,7 +86,7 @@ const Home = ({ history }) => {
     const dateChange = obj =>{
         console.log(obj);
     }
-    return <BasicLayout history={history}>
+    return <BasicLayout>
         <div styleName="content">
             <div styleName="user">
                 <div styleName="left">

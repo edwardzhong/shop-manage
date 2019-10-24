@@ -1,0 +1,34 @@
+
+h2{
+    font-size: 18px;
+    color: $font-color;
+    color: $font-color;
+    padding: 20px 0;
+}
+h3{
+    @extend h2;
+    font-size:  16px;
+}
+
+footer{
+    text-align: center;
+}
+
+.content{
+    padding: 20px 40px;
+    min-width: 800px;
+}
+
+.steps{
+    padding: 20px 0;
+}
+.step-btn{
+    display: inline-block;
+    padding: 20px;
+    color: $blue;
+    font-size: 18px;
+    cursor: pointer;
+    &:hover{
+        color: darken($blue,10);
+    }
+}
