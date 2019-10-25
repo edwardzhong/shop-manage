@@ -2,7 +2,6 @@ const { resolve } = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { HotModuleReplacementPlugin } = require('webpack');
-const TerserPlugin = require('terser-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 module.exports = {
@@ -113,7 +112,7 @@ module.exports = {
         ]
     },
     plugins: [
-        new BundleAnalyzerPlugin(),
+        // new BundleAnalyzerPlugin(),
         new CleanWebpackPlugin({
             cleanOnceBeforeBuildPatterns:['dist']
         }),//生成新文件时，清空生出目录
@@ -128,7 +127,6 @@ module.exports = {
                 removeScriptTypeAttributes:true,
                 removeStyleLinkTypeAttributes:true
              },
-            // chunksSortMode:'none'//和 webpack 4 的兼容性问题，chunksSortMode 参数需要设置为 none
         }),
         new HotModuleReplacementPlugin()//HMR
     ]

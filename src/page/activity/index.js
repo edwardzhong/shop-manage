@@ -1,7 +1,7 @@
 import React,{useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import BasicLayout from '../../layout/basic'
-import { Icon,  Table, Divider} from 'antd'
+import { Table, Icon, Divider} from 'antd'
 import { getContext } from '../../context'
 import './style.scss'
 

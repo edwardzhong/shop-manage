@@ -4,7 +4,7 @@ import useForm  from '../../common/useForm';
 import { getContext } from '../../context'
 import '../sign.scss'
 import UserLayout from '../../layout/user'
-import { Icon, Input, Button } from 'antd';
+import { Icon, Input } from 'antd';
 
 const Register =()=>{
     const [ formState, { text, password }] = useForm();
@@ -122,7 +122,7 @@ const Register =()=>{
 
     return <UserLayout tabName="商家注册">
         <div styleName="tabs">
-            <form onSubmit={submit}>
+            <div>
                 <div styleName="form-item">
                     <Input styleName={nameErr ? 'has-error':''} {...text('name')} maxLength={20} prefix={<Icon type="mobile" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="手机号" />
                 </div>
@@ -134,20 +134,20 @@ const Register =()=>{
                 <div styleName="error">{imgErr}</div>
                 <div styleName="form-item">
                     <Input styleName={codeErr ? 'has-error':''} {...text('code')} maxLength={4}  prefix={<Icon type="key" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="手机验证码" />
-                    <Button styleName="code-btn">获取验证码</Button>
+                    <button className="btn" styleName="code-btn">获取验证码</button>
                 </div>
                 <div styleName="error">{codeErr}</div>
                 <div styleName="form-item">
                     <Input styleName={passErr ? 'has-error':''} {...password('pass')} maxLength={20} prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="密码请设置6-16位数字、字母" />
                 </div>
                 <div styleName="error">{passErr}</div>
-                <Button type="primary" htmlType="submit" block> 注册 </Button>
+                <button className="btn primary" styleName="btn-block" onClick={submit}> 注册 </button>
                 <div styleName="links">
                     <p>我同意<Link to="/protocal">服务协议</Link></p>
                     <p>已有账号<Link to="/login">立即登录</Link></p>
                 </div>
                 <div styleName="error"></div>
-            </form>
+            </div>
         </div>
     </UserLayout>
 }

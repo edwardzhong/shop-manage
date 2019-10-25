@@ -4,7 +4,7 @@ import useForm  from '../../common/useForm';
 import { getContext } from '../../context'
 import '../sign.scss'
 import UserLayout from '../../layout/user'
-import { Tabs, Icon, Input, Button, Steps, message, Divider } from 'antd';
+import { Tabs, Icon, Input, Steps, message } from 'antd';
 const { TabPane } = Tabs;
 const { Step } = Steps;
 message.config({
@@ -76,7 +76,7 @@ const GetPass = ({history})=>{
                 <Step title="充值密码" />
             </Steps>
             {/* <Divider /> */}
-            <form onSubmit={submit}>
+            <div>
             <Tabs tabBarStyle={{display:'none'}} activeKey={'' + curr}>
                 <TabPane tab="" key="0">
                     <div styleName="step">
@@ -84,7 +84,7 @@ const GetPass = ({history})=>{
                             <label>手机号：</label>
                             <Input styleName={nameErr ? 'has-error':''} {...text('name')} maxLength={20} prefix={<Icon type="mobile" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="手机号" />
                         </div>
-                        <Button type="primary" block onClick={handleOne}>下一步</Button>
+                        <button className="btn primary" styleName="next" onClick={handleOne}>下一步</button>
                     </div>
                 </TabPane>
                 <TabPane tab="" key="1">
@@ -95,9 +95,9 @@ const GetPass = ({history})=>{
                         <div styleName="form-item">
                             <label>验证码：</label>
                             <Input styleName={codeErr ? 'has-error':''} {...text('code')} maxLength={4}  prefix={<Icon type="key" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="手机验证码" />
-                            <Button styleName="code-btn">获取验证码</Button>
+                            <button className="btn" styleName="code-btn">获取验证码</button>
                         </div>
-                        <Button type="primary" block onClick={handleTwo}>下一步</Button>
+                        <button className="btn primary" styleName="next" onClick={handleTwo}>下一步</button>
                     </div>
                 </TabPane>
                 <TabPane tab="" key="2">
@@ -110,11 +110,11 @@ const GetPass = ({history})=>{
                             <label>确认密码：</label>
                             <Input styleName={pass2Err ? 'has-error':''} {...password('pass2')} maxLength={20} prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="再次输入密码" />
                         </div>
-                        <Button type="primary" htmlType="submit" block>下一步</Button>
+                        <button className="btn primary" styleName="next" onClick={submit}>下一步</button>
                     </div>
                 </TabPane>
                 </Tabs>
-            </form>
+            </div>
         </div>
     </UserLayout>
 }

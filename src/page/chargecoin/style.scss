@@ -1,0 +1,27 @@
+.content{
+    padding: 20px;
+    max-width: 900px;
+    i{
+        font-style: normal;
+        color: $red;
+    }
+}
+.list{
+    li{
+        display: flex;
+        padding: 5px 10px;
+    }
+    .pay-li{
+        display: flex;
+        justify-content: space-between;
+        p{
+            font-size: 16px;
+        }
+    }
+}
+.pay{
+    p{
+        text-align: right;
+        font-size: 16px;;
+    }
+}

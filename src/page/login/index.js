@@ -3,7 +3,7 @@ import { Route, Redirect, Switch, Link } from 'react-router-dom'
 import UserLayout from '../../layout/user'
 import { getContext } from '../../context'
 import useForm  from '../../common/useForm';
-import { Tabs, Icon, Input, Button } from 'antd';
+import { Tabs, Icon, Input } from 'antd';
 import '../sign.scss'
 
 const { TabPane } = Tabs;
@@ -79,7 +79,7 @@ const Login = ({ history }) => {
                                 <Input styleName={passErr ? 'has-error':''} {...password('pass')} maxLength={20} prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="密码" />
                             </div>
                             <div styleName="error">{passErr}</div>
-                            <Button type="primary" htmlType="submit" block> 登录 </Button>
+                            <button styleName="btn-block" className="btn primary"> 登录 </button>
                             <div styleName="links">
                                 <Link to="/getpass">忘记密码</Link>
                                 <Link to="/register">商家注册</Link>
@@ -101,10 +101,10 @@ const Login = ({ history }) => {
                             <div styleName="error">{mobileErr}</div>
                             <div styleName="form-item">
                                 <Input styleName={codeErr ? 'has-error':''} {...text('code')} maxLength={4} prefix={<Icon type="key" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="验证码" />
-                                <Button styleName="code-btn">获取验证码</Button>
+                                <button className="btn" styleName="code-btn">获取验证码</button>
                             </div>
                             <div styleName="error">{codeErr}</div>
-                            <Button type="primary" htmlType="submit" block> 登录 </Button>
+                            <button styleName="btn-block" className="btn primary"> 登录 </button>
                             <div styleName="links center">
                                 <Link to="/register">商家注册</Link>
                             </div>

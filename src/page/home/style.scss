@@ -94,11 +94,11 @@
                 width: 310px;
                 padding-right: 20px;
                 &:last-child{
-                    width: 100px;
-                    button{
-                        margin: 2px;
-                    }
+                    width: 120px;
                 }
+            }
+            button {
+                margin: 2px 0;
             }
             header{
                 padding: 2px 0;
@@ -137,6 +137,9 @@
         padding-left: 15px;
     }
     input[type=text]{
+        width: 150px;
+    }
+    .search{
         width: 200px;
         margin-right: 20px;
     }

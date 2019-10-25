@@ -1,0 +1,26 @@
+.pay{
+    h3{
+        padding-bottom: 0;
+    }
+    span{
+        color:$red;
+    }
+    .info{
+        display: flex;
+        justify-content: space-around;
+        padding: 4px 0;
+        p{
+            width: 200px;
+            text-align: center;
+        }
+    }
+    .pay-label{
+        font-size: 16px;
+        padding: 4px 0;
+    }
+    .pay-item{
+        display: flex;
+        justify-content: space-between;
+
+    }
+}

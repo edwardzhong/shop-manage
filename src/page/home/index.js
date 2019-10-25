@@ -1,15 +1,15 @@
 import React,{useState} from 'react'
 import { Link } from 'react-router-dom'
 import BasicLayout from '../../layout/basic'
-import { Avatar, Tabs, Button, Input, Radio, Select, Icon, Progress,  Table, DatePicker, Pagination, Divider} from 'antd'
+import { Avatar, Tabs, Radio, Select, Icon, Progress, Pagination, Table, Divider} from 'antd'
 import { getContext } from '../../context'
 import './style.scss'
-// import moment from 'moment';
-// import 'moment/locale/zh-cn';
-// moment.locale('zh-cn');
+import DatePicker,{ registerLocale, setDefaultLocale } from "react-datepicker"; 
+import "react-datepicker/dist/react-datepicker.css";
+import es from 'date-fns/locale/zh-CN';
+registerLocale('zh-CN', es);
 
 const { TabPane } = Tabs;
-// const {RangePicker} = DatePicker;
 const {Option} = Select;
 const Home = ({ history }) => {
     const { state, actions } = getContext();
@@ -128,8 +128,8 @@ const Home = ({ history }) => {
                         </header>
                         <div styleName="operate">
                             <p>可用金币：<span>0.00</span>元</p>
-                            <div><Button type="primary">兑换</Button></div>
-                            <div><Button type="primary">报名活动</Button></div>
+                            <div><button className="btn primary">兑换</button></div>
+                            <div><button className="btn primary">报名活动</button></div>
                         </div>
                     </div>
                 </div>
@@ -213,10 +213,11 @@ const Home = ({ history }) => {
                     </div>
                     <div styleName="bar-item">
                         <label>发布日期：</label>
-                        {/* <RangePicker onChange={dateChange} /> */}
+                        <DatePicker className="input" locale="zh-CN"  onChange={dateChange} />&nbsp;-&nbsp;
+                        <DatePicker className="input" locale="zh-CN"  onChange={dateChange}/>
                         <label>高级搜索：</label>
-                        <Input/>
-                        <Button type="primary">查询</Button>
+                        <input className="input" styleName="search" />
+                        <button className="btn primary">查询</button>
                     </div>
                 </div>
                 <ul styleName="th">
@@ -252,7 +253,7 @@ const Home = ({ history }) => {
                             </div>
                         </div>
                         <div>
-                            <Button type="primary" size="small">一键重发</Button>
+                            <button className="btn primary" size="small">一键重发</button>
                         </div>
                     </li>
                     <li>
@@ -282,7 +283,7 @@ const Home = ({ history }) => {
                             </div>
                         </div>
                         <div>
-                            <Button type="primary" size="small">取消支付</Button>
+                            <button className="btn primary" size="small">取消支付</button>
                         </div>
                     </li>
                     <li>
@@ -312,9 +313,9 @@ const Home = ({ history }) => {
                             </div>
                         </div>
                         <div>
-                            <Button type="primary" size="small">取消活动</Button>
-                            <Button type="primary" size="small">修改活动</Button>
-                            <Button type="primary" size="small">继续支付</Button>
+                            <button className="btn primary">取消活动</button>
+                            <button className="btn primary">修改活动</button>
+                            <button className="btn primary">继续支付</button>
                         </div>
                     </li>
                 </ul>

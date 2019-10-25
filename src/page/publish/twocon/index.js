@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import {Input, Button, Radio,Divider} from 'antd'
+import {Input, Radio,Divider} from 'antd'
 import './style.scss'
 
 const Twocon = () =>{
@@ -86,7 +86,7 @@ const Twocon = () =>{
         <div styleName="block">
             <div><a>修改</a></div>
         </div>
-        <Button type="primary">确认提交信息</Button>
+        <button className="btn primary">确认提交信息</button>
     </>
 }
 

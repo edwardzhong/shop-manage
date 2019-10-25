@@ -8,6 +8,10 @@
     }
 }
 
+.btn-block{
+    display: block;
+    width: 100%;
+}
 .step-tabs{
     width: 900px;
     margin: 40px auto;
@@ -17,6 +21,10 @@
     margin: 40px auto;
     label{
         width: 100px;
+    }
+    .next{
+        display: block;
+        width: 100%;
     }
 }
 .form-item{

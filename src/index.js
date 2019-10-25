@@ -28,7 +28,10 @@ import register from './page/register'
 import protocal from './page/protocal'
 import help from './page/help'
 import getpass from './page/getpass'
-
+import chargecoin from './page/chargecoin'
+import chargecash from './page/chargecash'
+import cashout from './page/cashout'
+import records from './page/records'
 
 
 render(
@@ -36,12 +39,16 @@ render(
         <Router>
           {/* <Suspense fallback={<div>Loading...</div>}> */}
             <Switch>
-                <Route exact path="/" component={home} />
+                <Route exact path="/" component={home} /> */}
                 <Route exact path="/info" component={info} />
                 <Route exact path="/bindshop" component={bindshop} />
                 <Route exact path="/activity" component={activity} />
                 <Route exact path="/order" component={order} />
                 <Route exact path="/publish" component={publish} />
+                <Route exact path="/chargecoin" component={chargecoin} />
+                <Route exact path="/chargecash" component={chargecash} />
+                <Route exact path="/cashout" component={cashout} />
+                <Route exact path="/records" component={records} />
                 <Route path="/login" component={login} />
                 <Route exact path="/register" component={register} />
                 <Route exect path="/getpass" component={getpass} />

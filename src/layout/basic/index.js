@@ -2,7 +2,7 @@ import React,{ useState, useEffect } from 'react'
 import { useHistory, useLocation, Link } from 'react-router-dom'
 import { getContext } from '../../context'
 import menus from '../../config/menu'
-import { Layout, Menu, Icon, Avatar, Dropdown, Divider } from 'antd'
+import { Layout, Menu, Icon, Avatar, Dropdown } from 'antd'
 import './style.scss'
 
 const { SubMenu } = Menu;
@@ -29,11 +29,14 @@ const BasicLayout = ({ children }) => {
     const toggle =()=> {
         setCollapse(!collapsed);
     };
+    const handleOpen = keys =>{
+        updateOpenKey(keys);
+    }
     const handleClick =({key})=>{
         updateSelectKey([ key]);
         menus.forEach(i=>{
             if(i.key == key){
-                history.push(i.path);
+                history.push(i.path);       
             }
         });
     }; 
@@ -55,7 +58,7 @@ const BasicLayout = ({ children }) => {
             <Menu styleName="menu" theme="dark" mode="inline" 
                 defaultOpenKeys={menukey.open} 
                 defaultSelectedKeys={menukey.select} 
-                onOpenChange={updateOpenKey}
+                onOpenChange={handleOpen}
                 onClick={handleClick}
             >
                 <Menu.Item key="1">

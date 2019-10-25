@@ -48,6 +48,7 @@
     "babel-plugin-react-css-modules": "^5.2.6",
     "immer": "^3.2.0",
     "react": "^16.8.6",
+    "react-datepicker": "^2.9.6",
     "react-dom": "^16.8.6",
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1"

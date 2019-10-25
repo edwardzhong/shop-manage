@@ -1,6 +1,7 @@
 import React,{useState} from 'react'
-import {Button, Input, Select, Radio, Checkbox, Icon,Divider} from 'antd'
+import {Input, Select, Checkbox, Icon,Divider} from 'antd'
 import './style.scss'
+import Twocon from '../twocon'
 
 const { Option } = Select;
 const SearchItem = ({index})=>(
@@ -68,12 +69,17 @@ const SearchItem = ({index})=>(
 )
 const Two = ()=>{
     const [items,setItems] = useState([SearchItem]);
+    const[ret,setRet] = useState(0);
+    const confirmInfo=()=>{
+        setRet(1);
+    }
     const addSearchItem = ()=>{
         var arr = Object.assign([],items);
         arr.push(SearchItem);
         setItems(arr);
     }
     return <>
+        {ret? <Twocon/>:<>
         <h3>填写商品信息</h3>
         <div styleName="good-form">
             <div styleName="good-item">
@@ -115,13 +121,16 @@ const Two = ()=>{
             <Divider/>
             <h3>设置商品校验问题</h3>
             <div styleName="search-item">
-            <span>*</span><Input/>
+            <Input/>
             </div>
             <h4>答案</h4>
             <div styleName="search-item">
                 <Input/>
             </div>
+            <button className="btn primary" style={{marginTop:'10px'}} onClick={confirmInfo}>确认提交信息</button>
         </div>
+    </>
+    }
     </>
 }
 

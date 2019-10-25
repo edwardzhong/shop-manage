@@ -31,6 +31,11 @@ function stringFormat(str, ...args) {
     });
 }
 
+function timeStr(d){
+    const date = `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+    const time = ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2) + ":" + ("0" + d.getSeconds()).slice(-2);
+    return `${date} ${time}`;
+}
 function formatTime (str) {
     const d = new Date(str);
     const n = new Date();
@@ -179,9 +184,10 @@ function compressPicture(img, size) {
     return canvas.toDataURL("image/jpeg");
 }
 
-module.exports = {
+export {
     deepCopy,
     stringFormat,
+    timeStr,
     formatTime,
     htmlEncode,
     htmlDecode,

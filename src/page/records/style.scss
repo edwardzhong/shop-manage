@@ -1,46 +1,39 @@
-@import "../style.scss";
-
-h3{
-    padding: 10px 0;
-}
-h4{
-    // font-weight: normal;
-    padding: 10px 0;
-}
-h5{
-    padding: 10px 0 4px;
-}
-.block{
-    padding: 10px;
-    div{
-        display: flex;
-        align-items: center;
-        padding: 4px 0;
-    }
+.content{
+    padding: 20px;
     i{
         font-style: normal;
         color: $red;
     }
-
-    input{
-        width: 80px;
-        height: 24px;
-    }
-
     table{
         width: 100%;
         border:1px solid $border-color;
     }
     thead tr {
         background: hsl(0, 0%, 96%);
+
     }
     tbody tr:nth-child(2n){
-        background: hsl(200, 66%, 95%);
+        background: hsl(200, 55%, 96%);
+    }
+    tbody tr:hover{
+        background: hsl(200, 60%, 93%);
     }
     td,th{
         text-align: center;
         padding: 5px 10px;
         border-right: 1px solid $border-color;
         border-bottom: 1px solid $border-color;
+    }
+}
+.search{
+    padding: 5px 0;
+    input{
+        max-width: 200px;
+    }
+    label{
+        padding-left: 15px;
+    }
+    button{
+        margin-left: 15px;
     }
 }

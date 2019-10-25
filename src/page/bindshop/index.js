@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
 import { getContext } from '../../context'
-import { Input, Button, Checkbox, Steps,Divider } from 'antd'
+import { Checkbox, Steps } from 'antd'
 import BasicLayout from '../../layout/basic'
 import './style.scss'
 const { Step } = Steps;
@@ -24,7 +23,7 @@ const BindShop = () => {
                 </Steps>
             </header>
             <p styleName="desc">请先完成下面的店铺信息，绑定店铺后即可进入报名活动页面</p>
-            <form styleName="form">
+            <div styleName="form">
                 <div styleName="form-item">
                     <label>店铺类型：</label>
                     <Checkbox onChange={onChange}>淘宝</Checkbox>
@@ -32,22 +31,22 @@ const BindShop = () => {
                 </div>
                 <div styleName="form-item">
                     <label>店铺主旺旺：</label>
-                    <Input/>
+                    <input className="input"/>
                     <span>（店铺主旺旺绑定后无法修改和删除）</span>
                 </div>
                 <div styleName="form-item">
                     <label>店铺名称：</label>
-                    <Input/>
+                    <input className="input"/>
                     <span>（店铺名称绑定后无法修改和删除）</span>
                 </div>
                 <div styleName="form-item">
                     <label>店铺首页网址：</label>
-                    <Input/>
+                    <input className="input"/>
                 </div>
                 <div styleName="form-item">
                     <label>验证码：</label>
-                    <Input styleName="code-input" value="assd-123" />
-                    <Button>复制</Button>
+                    <input className="input" styleName="code-input" defaultValue="assd-123" />
+                    <button className="btn">复制</button>
                 </div>
                 <div styleName="img-block">
                     <p>1、将验证码加到您店铺的某个商家商品的标题上，类似这样</p>
@@ -57,7 +56,7 @@ const BindShop = () => {
                 </div>
                 <div styleName="form-item">
                     <label>商品网址（URL）：</label>
-                    <Input/>
+                    <input className="input"/>
                 </div>
                 <div styleName="form-item">
                     <label/>
@@ -65,9 +64,9 @@ const BindShop = () => {
                 </div>
                 <div styleName="form-item">
                     <label/>
-                    <Button type="primary">确认绑定</Button>
+                    <button className="btn primary">确认绑定</button>
                 </div>
-            </form>
+            </div>
             <div styleName="shop-list">
                 <h3>已绑定的店铺</h3>
                 <table>

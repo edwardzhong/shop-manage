@@ -52,6 +52,10 @@ img,a{
   display: block;
 }
 
+.ant-tabs{
+  overflow: unset !important;
+}
+
 .ant-tabs-nav .ant-tabs-tab{
   box-sizing:border-box;
   width: 170px;
@@ -64,4 +68,92 @@ img,a{
 
 .ant-input-affix-wrapper .ant-input{
   height: 36px;
+}
+
+.input{
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-variant: tabular-nums;
+  list-style: none;
+  -webkit-font-feature-settings: 'tnum';
+  font-feature-settings: 'tnum';
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  height: 32px;
+  padding: 4px 11px;
+  color: #000000a6;
+  font-size: 14px;
+  line-height: 1.5;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+.input:hover{
+  border-color: #40a9ff;
+  border-right-width: 1px !important;
+}
+.input:focus{
+  border-color: #40a9ff;
+  border-right-width: 1px !important;
+  outline: 0;
+  -webkit-box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+.input:disabled{
+  background: #eee;
+  border-color: #ddd;
+}
+
+.btn{
+  line-height: 1.5;
+  position: relative;
+  display: inline-block;
+  font-weight: 400;
+  white-space: nowrap;
+  text-align: center;
+  background-image: none;
+  border: 1px solid #0000;
+  -webkit-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.015);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.015);
+  cursor: pointer;
+  -webkit-transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  height: 32px;
+  padding: 0 15px;
+  font-size: 14px;
+  border-radius: 4px;
+  color: #000000a6;
+  background-color: #fff;
+  border-color: #d9d9d9;
+  outline: none;
+}
+.btn:hover,.btn:focus{
+  color: #40a9ff;
+  background-color: #fff;
+  border-color: #40a9ff;
+}
+.primary{
+  color: #fff;
+  background-color: #1890ff;
+  border-color: #1890ff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
+  -webkit-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
+}
+.primary:hover,.primary:focus{
+  color: #fff;
+  background-color: #40a9ff;
+  border-color: #40a9ff;
 }

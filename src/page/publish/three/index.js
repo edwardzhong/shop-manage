@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import {Input, Button, Checkbox, Divider} from 'antd'
+import {Input, Checkbox, Divider} from 'antd'
 import './style.scss'
 
 const Three = () =>{

@@ -1,0 +1,45 @@
+.block{
+    padding: 0 20px;
+    &>div{
+        padding: 5px 0;
+        &>div{
+            padding-left: 20px;
+        }   
+        i{
+            font-style: normal;
+            color: $red;
+        }
+        span{
+            color: #888;
+        }
+        input{
+            width: 200px;
+        }
+    }
+    .hour-item{
+        display: flex;
+        align-items: center;
+        label{
+            width: 40px;
+        }
+        span{
+            padding: 0 20px 0 4px;
+            color: $font-color;
+        }
+        input{
+            width: 80px;
+        }
+    }
+    .desc{
+        padding-left: 20px;
+    }
+    .every{
+        padding-left: 20px;
+        label{
+            padding: 0 4px;
+        }
+        div{
+            padding: 0;
+        }
+    }
+}
