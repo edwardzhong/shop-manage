@@ -83,7 +83,7 @@ const Order=({history})=>{
             <Divider/>
             <h2>活动进展</h2>
             <div>
-                <table>
+                <table styleName="table">
                     <thead>
                         <tr>
                             <th>服务项目</th>
