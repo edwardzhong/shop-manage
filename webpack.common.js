@@ -24,7 +24,6 @@ module.exports = {
         minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})],
         runtimeChunk: 'single',
         splitChunks: {
-            name:true,
             minSize:100000,
             maxSize:300000,
             cacheGroups: {
@@ -70,7 +69,7 @@ module.exports = {
             {
                 test: /\.scss$/i,
                 exclude: /node_modules/,
-                use: [          {
+                use: [{
                     loader: MiniCssExtractPlugin.loader,
                     options: {
                       hmr: devMode,

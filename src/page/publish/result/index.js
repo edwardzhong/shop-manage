@@ -15,6 +15,11 @@ const Ret = () => {
 		}
 	}
 	useEffect(() => {
+		if(sec <= 0) {
+			clearTimeout(timer);
+			history.push('/');
+			return;
+		}
 		timer = setTimeout(fn, 1000);
 		return () => {
 			clearTimeout(timer);

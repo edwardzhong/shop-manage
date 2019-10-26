@@ -10,7 +10,3 @@ export default [
 	{ key: "43", path: "/cashout" },
 	{ key: "44", path: "/records" },
 ];
-
-// export default{
-
-// };
