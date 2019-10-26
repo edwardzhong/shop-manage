@@ -108,9 +108,7 @@ module.exports = {
     },
     plugins: [
         // new BundleAnalyzerPlugin(),
-        new CleanWebpackPlugin({
-            cleanOnceBeforeBuildPatterns:['dist']
-        }),
+        new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             template: './public/index.html',
             filename: 'index.html',
