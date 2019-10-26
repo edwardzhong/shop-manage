@@ -81,7 +81,7 @@ const Two = ()=>{
     return <>
         {ret? <Twocon/>:<>
         <h3>填写商品信息</h3>
-        <div styleName="good-form">
+        <div>
             <div styleName="good-item">
                 <label>商品链接：</label><Input styleName="long" /> <span>*</span>
             </div>

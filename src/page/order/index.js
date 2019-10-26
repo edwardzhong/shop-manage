@@ -1,21 +1,22 @@
 import React,{useState} from 'react'
 import { Link } from 'react-router-dom'
 import BasicLayout from '../../layout/basic'
-import { Icon, Table, Divider} from 'antd'
+import { Icon, Divider} from 'antd'
+import Table from '../../component/table'
 import { getContext } from '../../context'
 import '../activity/style.scss'
 
 const Order=({history})=>{
-    const goodsData = [
-        {key:'1',img:'https:////g-search3.alicdn.com/img/bao/uploaded/i4/i2/2204161850475/O1CN01bmGRYi1FNageOpDRL_!!2204161850475.jpg',
-        name:'电脑背包男士电脑背包男士电脑背包男士电脑背包男士',price:75,num:1,amount:75}
-    ];
     const col = [
-        { title: '', dataIndex: 'img', render:text=><img src={text}/>},
-        { title: '商品', dataIndex: 'name', },
-        { title: '单价', dataIndex: 'price', align:'center', render: text => <div>{text}元</div>,},
-        { title: '每单刷*个', dataIndex: 'num', align:'center',},
-        { title: '小计', dataIndex: 'amount', align:'center',render: text => <div>{text}元</div>,},
+        { title: '', data: 'img', render:text=><img src={text}/>},
+        { title: '商品', data: 'name', },
+        { title: '单价', data: 'price', align:'center', render: text => <div>{text}元</div>,},
+        { title: '每单刷*个', data: 'num', align:'center',},
+        { title: '小计', data: 'amount', align:'center',render: text => <div>{text}元</div>,},
+    ];
+    const goodsData = [
+        {key:'1',name:'电脑背包男士电脑背包男士电脑背包男士电脑背包男士',price:75,num:1,amount:75,
+            img:'https:////g-search3.alicdn.com/img/bao/uploaded/i4/i2/2204161850475/O1CN01bmGRYi1FNageOpDRL_!!2204161850475.jpg', }
     ];
     function onChange(pagination, filters, sorter, extra) {
         console.log('params', pagination, filters, sorter, extra);
@@ -81,7 +82,7 @@ const Order=({history})=>{
             </div>
             <Divider/>
             <h2>活动进展</h2>
-            <div styleName="progress">
+            <div>
                 <table>
                     <thead>
                         <tr>
@@ -136,7 +137,7 @@ const Order=({history})=>{
             </div>
             <Divider/>
             <h2>活动商品</h2>
-            <Table columns={col} dataSource={goodsData} onChange={onChange} size="middle" bordered pagination={false} />
+            <Table column={col} data={goodsData} />
             <footer>
                 <p>买手实付款：<span>72.00</span>元</p>
             </footer>

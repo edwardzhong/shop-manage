@@ -1,9 +1,18 @@
 import React,{useState} from 'react'
 import {Input, Checkbox, Divider} from 'antd'
+import Table from '../../../component/table'
 import './style.scss'
 
 const Three = () =>{
-
+    const column =[
+        {title:'分类',data:'cate'},
+        {title:'单价',data:'price',render:d=><><i>{d}</i>金币/单</>},
+        {title:'数量',data:'num',render:d=><><i>{d}</i>单</>},
+        {title:'合计',data:'total',render:d=><><i>{d}</i>金币</>},
+    ];
+    const data =[
+        { cate:'服务费', price:10.40, num:20, total:208,}
+    ]
     return <>
         <h4>1.选择活动数量</h4>
         <div styleName="block">
@@ -33,25 +42,7 @@ const Three = () =>{
         <Divider/>
         <h4>费用小计</h4>
         <div styleName="block">
-        <table>
-            <thead>
-                <tr>
-                    <th>分类</th>
-                    <th>单价</th>
-                    <th>数量</th>
-                    <th>合计</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>服务费</td>
-                    <td><i>10.40</i>金币/单</td>
-                    <td><i>20</i>单</td>
-                    <td><i>208</i>金币</td>
-                </tr>
-
-            </tbody>
-        </table>
+            <Table column={column} data={data}/>
         </div>
     </>
 }

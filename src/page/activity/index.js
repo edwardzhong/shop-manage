@@ -1,7 +1,8 @@
 import React,{useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import BasicLayout from '../../layout/basic'
-import { Table, Icon, Divider} from 'antd'
+import { Icon, Divider} from 'antd'
+import Table from '../../component/table'
 import { getContext } from '../../context'
 import './style.scss'
 
@@ -12,15 +13,15 @@ const Activity=()=>{
         { key: '3', name: 'ccc', terminal: 'app', word: '书包男', num:'232324343454532', status:2, express:'顺丰', amount:75 },
     ];
     const col1 = [
-        { title: '买号', dataIndex: 'name', },
-        { title: '下单终端', dataIndex: 'terminal', },
-        { title: '关键字', dataIndex: 'word', },
-        { title: '订单号', dataIndex: 'num', 
+        { title: '买号', data: 'name', },
+        { title: '下单终端', data: 'terminal', },
+        { title: '关键字', data: 'word', },
+        { title: '订单号', data: 'num', 
             render: text => <div><div>{text}</div><Link to="/order">查看详情</Link></div>,
         },
         {
           title: '状态',
-          dataIndex: 'status',
+          data: 'status',
           filters: [
             { text: '未接手', value: 0, },
             { text: '进行中', value: 1, },
@@ -35,8 +36,8 @@ const Activity=()=>{
             }
           }
         },
-        { title: '快递', dataIndex: 'express', },
-        { title: '退款金额', dataIndex: 'amount', 
+        { title: '快递', data: 'express', },
+        { title: '退款金额', data: 'amount', 
             render: text => <div>{text}元</div>,
         },
     ];
@@ -45,11 +46,11 @@ const Activity=()=>{
         name:'电脑背包男士电脑背包男士电脑背包男士电脑背包男士',price:75,num:1,amount:75}
     ];
     const col2 = [
-        { title: '', dataIndex: 'img', render:text=><img src={text}/>},
-        { title: '商品', dataIndex: 'name', },
-        { title: '单价', dataIndex: 'price', align:'center', render: text => <div>{text}元</div>,},
-        { title: '每单刷*个', dataIndex: 'num', align:'center',},
-        { title: '小计', dataIndex: 'amount', align:'center',render: text => <div>{text}元</div>,},
+        { title: '', data: 'img', render:text=><img src={text}/>},
+        { title: '商品', data: 'name', },
+        { title: '单价', data: 'price', align:'center', render: text => <div>{text}元</div>,},
+        { title: '每单刷*个', data: 'num', align:'center',},
+        { title: '小计', data: 'amount', align:'center',render: text => <div>{text}元</div>,},
     ];
     const costData =[
         {key:1,cate:'押金',detail:'押金72元/单',price:'72元',num:'3单',discount:'',amount:'72 * 3 =216元'},
@@ -57,12 +58,12 @@ const Activity=()=>{
         {key:3,cate:'增值服务',detail:'快速返款1.30金币',price:'1.8金币',num:'3单',discount:'',amount:'1.30金币'}
     ];
     const col3  = [
-        {title:'分类',dataIndex:'cate'},
-        {title:'费用明细',dataIndex:'detail'},
-        {title:'小计',dataIndex:'price'},
-        {title:'单数',dataIndex:'num'},
-        {title:'折扣',dataIndex:'discount'},
-        {title:'合计',dataIndex:'amount'},
+        {title:'分类',data:'cate'},
+        {title:'费用明细',data:'detail'},
+        {title:'小计',data:'price'},
+        {title:'单数',data:'num'},
+        {title:'折扣',data:'discount'},
+        {title:'合计',data:'amount'},
     ];
     function onChange(pagination, filters, sorter, extra) {
         console.log('params', pagination, filters, sorter, extra);
@@ -133,7 +134,7 @@ const Activity=()=>{
             </div>
             <Divider/>
             <div>
-                <Table columns={col1} dataSource={data} onChange={onChange} size="middle" pagination={false} />
+                <Table column={col1} data={data} />
             </div>
             <Divider/>
             <h2>下单要求</h2>
@@ -145,10 +146,10 @@ const Activity=()=>{
             </ul>
             <Divider/>
             <h2>活动商品</h2>
-            <Table columns={col2} dataSource={goodsData} onChange={onChange} size="middle" bordered pagination={false} />
+            <Table column={col2} data={goodsData} />
             <Divider/>
             <h2>费用合计</h2>
-            <Table columns={col3} dataSource={costData} onChange={onChange} size="middle" bordered pagination={false} />
+            <Table column={col3} data={costData} />
             <footer>
                 <p>费用合计 押金：<span>226.80</span>元  金币：<span>39.7</span></p>
             </footer>

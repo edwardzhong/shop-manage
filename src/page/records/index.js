@@ -1,6 +1,7 @@
 import React,{useState} from 'react'
 import BasicLayout from '../../layout/basic'
 import { Tabs, Select } from 'antd'
+import Table from '../../component/table'
 import './style.scss'
 import {timeStr} from '../../common/util'
 import DatePicker, { registerLocale } from "react-datepicker";
@@ -10,45 +11,36 @@ registerLocale('zh-CN', es);
 
 const { TabPane } = Tabs;
 const { Option } = Select;
-const Table = ()=>(
-<table>
-    <thead>
-        <tr>
-            <th>店铺</th>
-            <th>收入(元)</th>
-            <th>支出(元)</th>
-            <th>冻结(元)</th>
-            <th>结余(元)</th>
-            <th>时间</th>
-            <th>活动编号</th>
-            <th>备注</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>清新小铺</td>
-            <td><i>123</i></td>
-            <td><i>12</i></td>
-            <td><i>0.0</i></td>
-            <td><i>0.0</i></td>
-            <td>2019-1-1</td>
-            <td>T132323</td>
-            <td>备注</td>
-        </tr>
-        <tr>
-            <td>清新小铺</td>
-            <td><i>123</i></td>
-            <td><i>12</i></td>
-            <td><i>0.0</i></td>
-            <td><i>0.0</i></td>
-            <td>2019-1-1</td>
-            <td>T132323</td>
-            <td>备注</td>
-        </tr>
-    </tbody>
-</table>
-)
+
 const Records = () => {
+    const column = [
+        {title:'店铺',data:'name'},
+        {title:'收入(元)',data:'in',render:d=><i>{d}</i>},
+        {title:'支出(元)',data:'out',render:d=><i>{d}</i>},
+        {title:'冻结(元)',data:'dj',render:d=><i>{d}</i>},
+        {title:'结余(元)',data:'jy',render:d=><i>{d}</i>},
+        {title:'时间',data:'date'},
+        {title:'活动编号',data:'num'},
+        {title:'备注',data:'bz'},
+    ];
+    const data = [
+        {name:'清新小铺', in:123, out:12, dj:0.0, jy:0.0, date:'2019-1-1', num:'T132323', bz:'备注'},
+        {name:'清新小铺', in:123, out:12, dj:0.0, jy:0.0, date:'2019-1-1', num:'T132323', bz:'备注'}
+    ]
+    
+    const col2=[
+        {title:'提现流水号',data:'num'},
+        {title:'提现时间',data:'date'},
+        {title:'金额(元)',data:'amount',render:d=><i>{d}</i>},
+        {title:'状态',data:'status'},
+        {title:'备注',data:'bz'},
+        {title:'操作',data:'op'},
+    ]
+    const data2=[
+        {num:'T2343434', date:'2019-1-1', amount:'650', status:'已完成', ba:'到账需要3-5个工作日，请耐心等候', op:'-'},
+        {num:'T2343434', date:'2019-1-1', amount:'650', status:'已完成', ba:'到账需要3-5个工作日，请耐心等候', op:'-'},
+    ]
+
     const [s1,setS1] = useState(timeStr(new Date()))
     const [t1,setT1] = useState(timeStr(new Date()))
     const datesChange1 = d => {
@@ -92,7 +84,7 @@ const Records = () => {
                         <input type="text" className="input" />
                         <button className="btn primary">查询</button>
                     </div>
-                    <Table/>
+                    <Table column={column} data={data}/>
                 </TabPane>
                 <TabPane tab="提现记录" key="2">
                     <div styleName="search">
@@ -107,36 +99,7 @@ const Records = () => {
                         </Select>
                         <button className="btn primary">查询</button>
                     </div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>提现流水号</th>
-                                <th>提现时间</th>
-                                <th>金额(元)</th>
-                                <th>状态</th>
-                                <th>备注</th>
-                                <th>操作</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>T2343434</td>
-                                <td>2019-1-1</td>
-                                <td><i>650</i></td>
-                                <td>已完成</td>
-                                <td>到账需要3-5个工作日，请耐心等候</td>
-                                <td>-</td>
-                            </tr>
-                            <tr>
-                                <td>T2343434</td>
-                                <td>2019-1-1</td>
-                                <td><i>650</i></td>
-                                <td>已完成</td>
-                                <td>到账需要3-5个工作日，请耐心等候</td>
-                                <td>-</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <Table column={col2} data={data2} />
                 </TabPane>
                 <TabPane tab="任务金币记录" key="3">
                     <div styleName="search">
@@ -161,7 +124,7 @@ const Records = () => {
                         <input type="text" className="input" />
                         <button className="btn primary">查询</button>
                     </div>
-                    <Table/>
+                    <Table column={column} data={data}/>
                 </TabPane>
             </Tabs>
         </div>

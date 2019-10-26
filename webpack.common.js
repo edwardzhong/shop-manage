@@ -112,7 +112,7 @@ module.exports = {
         ]
     },
     plugins: [
-        // new BundleAnalyzerPlugin(),
+        new BundleAnalyzerPlugin(),
         new CleanWebpackPlugin({
             cleanOnceBeforeBuildPatterns:['dist']
         }),//生成新文件时，清空生出目录

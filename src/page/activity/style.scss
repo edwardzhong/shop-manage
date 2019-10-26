@@ -59,29 +59,6 @@
         }
     }
 }
-.progress{
-    table{
-        width: 100%;
-        border:1px solid $border-color;
-        span{
-            color: $red;
-        }
-        i{
-            font-style: normal;
-        }
-    }
-    thead tr {
-        background: hsl(0, 0%, 96%);
-    }
-    tbody tr:nth-child(2n){
-        background: hsl(200, 66%, 95%);
-    }
-    td,th{
-        padding: 5px 10px;
-        border-right: 1px solid $border-color;
-        border-bottom: 1px solid $border-color;
-    }
-}
 .commad{
     border:1px solid $border-color;
    li{

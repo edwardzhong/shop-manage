@@ -1,5 +1,6 @@
 import React,{useState} from 'react'
-import {Table,Checkbox, Radio, Select, Divider} from 'antd'
+import {Checkbox, Radio, Select, Divider} from 'antd'
+import Table from '../../../component/table'
 import './style.scss'
 const {Option} = Select;
 
@@ -10,14 +11,11 @@ const Four = () =>{
         {key:3,cate:'增值服务',detail:'快速返款1.30金币',price:'1.8金币',amount:'1.30金币'}
     ];
     const col  = [
-        {title:'分类',dataIndex:'cate'},
-        {title:'费用明细',dataIndex:'detail'},
-        {title:'小计',dataIndex:'price'},
-        {title:'合计',dataIndex:'amount'},
+        {title:'分类',data:'cate'},
+        {title:'费用明细',data:'detail'},
+        {title:'小计',data:'price'},
+        {title:'合计',data:'amount'},
     ];
-    const onChange =()=>{
-
-    }
     return <>
         <h3>选择增值服务</h3>
         <h4>用户选择</h4>
@@ -160,7 +158,7 @@ const Four = () =>{
         </div>
         <Divider/>
         <h4>费用合计</h4>
-        <Table columns={col} dataSource={costData} onChange={onChange} size="middle" bordered pagination={false} />
+        <Table column={col} data={costData}/>
     </>
 }
 

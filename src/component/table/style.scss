@@ -1,0 +1,27 @@
+.table{
+    width: 100%;
+    border:1px solid $border-color;
+    border-radius: 4px;
+    i{
+        font-style: normal;
+        color: $red;
+    }
+    thead tr {
+        background: hsl(0, 0%, 96%);
+    
+    }
+    tbody tr{
+        &:nth-child(2n){
+            background: hsl(200, 55%, 96%);
+        }
+        &:hover{
+            background: hsl(200, 60%, 93%);
+        }
+    }
+    td,th{
+        text-align: center;
+        padding: 5px 10px;
+        border-right: 1px solid $border-color;
+        border-bottom: 1px solid $border-color;
+    }
+}

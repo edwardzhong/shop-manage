@@ -4,7 +4,7 @@ import * as actions from './action'
 import rootReducer from './reducer'
 import menus from './config/menu'
 
-const menukey = { open:['4'],select:['42']};
+const menukey = { open:[],select:['1']};
 // const m = menus.filter(i=>i.path == location.hash.substr(1))[0];
 // if(m){
 //     if(m.key.length > 1){

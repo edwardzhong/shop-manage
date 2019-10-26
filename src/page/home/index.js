@@ -1,10 +1,11 @@
 import React,{useState} from 'react'
 import { Link } from 'react-router-dom'
 import BasicLayout from '../../layout/basic'
-import { Avatar, Tabs, Radio, Select, Icon, Progress, Pagination, Table, Divider} from 'antd'
+import { Avatar, Tabs, Radio, Select, Icon, Progress, Pagination, Divider} from 'antd'
+import Table from '../../component/table'
 import { getContext } from '../../context'
 import './style.scss'
-import DatePicker,{ registerLocale, setDefaultLocale } from "react-datepicker"; 
+import DatePicker,{ registerLocale } from "react-datepicker"; 
 import "react-datepicker/dist/react-datepicker.css";
 import es from 'date-fns/locale/zh-CN';
 registerLocale('zh-CN', es);
@@ -28,58 +29,58 @@ const Home = ({ history }) => {
         { key:'3', name:'ccc', word:'户外包', num:'19874545454454598763' },
     ];
     const col1 =[
-        { title: '买号', dataIndex: 'name', align:'center', },
-        { title: '关键字', dataIndex: 'word', align:'center', },
-        { title: '订单', dataIndex: 'num', },
+        { title: '买号', data: 'name', align:'center', },
+        { title: '关键字', data: 'word', align:'center', },
+        { title: '订单', data: 'num', },
     ];
     const col2 =[
-        { title: '买号', dataIndex: 'name', align:'center', },
-        { title: '关键字', dataIndex: 'word', align:'center', },
-        { title: '订单', dataIndex: 'num', align:'center', width:240,
-            render: text => <div><div>{text}</div><Link to="/order">查看详情</Link></div>,
+        { title: '买号', data: 'name', align:'center', },
+        { title: '关键字', data: 'word', align:'center', },
+        { title: '订单', data: 'num', align:'center', width:240,
+            render: text => <><div>{text}</div><Link to="/order">查看详情</Link></>,
         },
         { title: '操作', key: 'action',
-            render:()=><div><a>确认</a>(退回本金并支付押金)<br/><a>通知修改</a><br/><a>驳回</a></div>
+            render:()=><><a>确认</a>(退回本金并支付押金)<br/><a>通知修改</a><br/><a>驳回</a></>
         },
     ];
     const col3 =[
-        { title: '买号', dataIndex: 'name', align:'center', width:240,},
-        { title: '关键字', dataIndex: 'word', align:'center', width:240,},
-        { title: '订单', dataIndex: 'num', align:'center', width:240,
-            render: text => <div><div>{text}</div><Link to="/order">查看详情</Link></div>,
+        { title: '买号', data: 'name', align:'center', width:240,},
+        { title: '关键字', data: 'word', align:'center', width:240,},
+        { title: '订单', data: 'num', align:'center', width:240,
+            render: text => <><div>{text}</div><Link to="/order">查看详情</Link></>,
         },
         { title: '操作', key: 'action',
-            render:()=><div><a>通知修改</a><br/><a>驳回</a></div>
+            render:()=><><a>通知修改</a><br/><a>驳回</a></>
         },
     ];
     const col4 =[
-        { title: '买号', dataIndex: 'name', align:'center', width:240,},
-        { title: '关键字', dataIndex: 'word', align:'center', width:240,},
-        { title: '订单', dataIndex: 'num', align:'center', width:240,
-            render: text => <div><div>{text}</div><Link to="/order">查看详情</Link></div>,
+        { title: '买号', data: 'name', align:'center', width:240,},
+        { title: '关键字', data: 'word', align:'center', width:240,},
+        { title: '订单', data: 'num', align:'center', width:240,
+            render: text => <><div>{text}</div><Link to="/order">查看详情</Link></>,
         },
         { title: '评论', key: 'action', },
     ];
     const col5 =[
-        { title: '买号', dataIndex: 'name', align:'center', width:240,},
-        { title: '关键字', dataIndex: 'word', align:'center', width:240,},
-        { title: '订单', dataIndex: 'num', align:'center', width:240,
-            render: text => <div><div>{text}</div><Link to="/order">查看详情</Link></div>,
+        { title: '买号', data: 'name', align:'center', width:240,},
+        { title: '关键字', data: 'word', align:'center', width:240,},
+        { title: '订单', data: 'num', align:'center', width:240,
+            render: text => <><div>{text}</div><Link to="/order">查看详情</Link></>,
         },
         { title: '评论', key: 'action', render: () => <a>查看详情</a>},
         { title: '操作', key: 'action',
-            render:()=><div><a>确认</a>(支付评论押金)<br/><a>通知修改</a><br/><a>驳回</a></div>
+            render:()=><><a>确认</a>(支付评论押金)<br/><a>通知修改</a><br/><a>驳回</a></>
         },
     ];
     const col6 =[
-        { title: '买号', dataIndex: 'name', align:'center', width:240,},
-        { title: '关键字', dataIndex: 'word', align:'center', width:240,},
-        { title: '订单', dataIndex: 'num', align:'center', width:240,
-            render: text => <div><div>{text}</div><Link to="/order">查看详情</Link></div>,
+        { title: '买号', data: 'name', align:'center', width:240,},
+        { title: '关键字', data: 'word', align:'center', width:240,},
+        { title: '订单', data: 'num', align:'center', width:240,
+            render: text => <><div>{text}</div><Link to="/order">查看详情</Link></>,
         },
         { title: '评论', key: 'action', render: () => <a>查看详情</a>},
         { title: '操作', key: 'action',
-            render:()=><div><a>通知修改</a><br/><a>驳回</a></div>
+            render:()=><><a>通知修改</a><br/><a>驳回</a></>
         },
     ];
     const dateFormat = 'YYYY/MM/DD';
@@ -138,22 +139,22 @@ const Home = ({ history }) => {
             <div styleName="order">
             <Tabs styleName="tabs" onChange={orderChange} type="card">
                 <TabPane tab=" 已接单待付款(0)" key="1">
-                    <Table columns={col1} size="middle" dataSource={data} bordered pagination={false} />
+                    <Table column={col1} data={data} />
                 </TabPane>
                 <TabPane tab=" 已接单待审核(0)" key="2">
-                    <Table columns={col2} size="middle" dataSource={data} bordered pagination={false} />
+                    <Table column={col2} data={data} />
                 </TabPane>
                 <TabPane tab=" 已付款待修改(0)" key="3">
-                    <Table columns={col3} size="middle" dataSource={data} bordered pagination={false} />
+                    <Table column={col3} data={data} />
                 </TabPane>
                 <TabPane tab=" 已付款待评论(0)" key="4">
-                    <Table columns={col4} size="middle" dataSource={data} bordered pagination={false} />
+                    <Table column={col4} data={data} />
                 </TabPane>
                 <TabPane tab=" 已评论待审核(0)" key="5">
-                    <Table columns={col5} size="middle" dataSource={data} bordered pagination={false} />
+                    <Table column={col5} data={data} />
                 </TabPane>
                 <TabPane tab=" 已评论待修改评论(0)" key="6">
-                    <Table columns={col6} size="middle" dataSource={data} bordered pagination={false} />
+                    <Table column={col6} data={data} />
                 </TabPane>
             </Tabs>
             </div>

@@ -2,11 +2,24 @@ import React, { useRef, useState } from 'react'
 import { getContext } from '../../context'
 import { Checkbox, Steps } from 'antd'
 import BasicLayout from '../../layout/basic'
+import Table from '../../component/table'
 import './style.scss'
 const { Step } = Steps;
 
 const BindShop = () => {
     const { state, actions } = getContext();
+    const column = [
+        {title:'所属平台',data:'ter'},
+        {title:'店铺名',data:'name'},
+        {title:'店铺旺旺',data:'ww'},
+        {title:'店铺网址',data:'adr'},
+        {title:'状态',data:'status'},
+        {title:'绑定日期',data:'date'},
+    ];
+    const data = [
+        { ter:'taobao', name:'清新小铺', ww:'new', adr:'http://aa.com', status:'审核通过', date:'2019-1-1' },
+        { ter:'taobao', name:'清新小铺', ww:'new', adr:'http://aa.com', status:'审核通过', date:'2019-1-1' },
+    ];
     const onChange=()=>{
 
     };
@@ -69,36 +82,7 @@ const BindShop = () => {
             </div>
             <div styleName="shop-list">
                 <h3>已绑定的店铺</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>所属平台</th>
-                            <th>店铺名</th>
-                            <th>店铺旺旺</th>
-                            <th>店铺网址</th>
-                            <th>状态</th>
-                            <th>绑定日期</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>taobao</td>
-                            <td>清新小铺</td>
-                            <td>new</td>
-                            <td>http://aa.com</td>
-                            <td>审核通过</td>
-                            <td>2019-1-1</td>
-                        </tr>
-                        <tr>
-                            <td>taobao</td>
-                            <td>清新小铺</td>
-                            <td>new</td>
-                            <td>http://aa.com</td>
-                            <td>审核通过</td>
-                            <td>2019-1-1</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <Table column={column} data={data}/>
                 <p>共2条</p>
             </div>
         </div>
