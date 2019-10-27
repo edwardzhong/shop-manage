@@ -1,5 +1,4 @@
 import React,{useState} from 'react'
-import BasicLayout from '../../layout/basic'
 import { Tabs, Select } from 'antd'
 import Table from '../../component/table'
 import './style.scss'
@@ -57,78 +56,76 @@ const Records = () => {
 
     }
 
-    return <BasicLayout>
-        <div styleName="content">
-            <h2>资金记录</h2>
-            <Tabs type="card">
-                <TabPane tab="押金记录" key="1">
-                    <div styleName="search">
-                        <label>平台：</label>
-                        <Select defaultValue="0" style={{ width: 100 }}>
-                            <Option value="0">全部</Option>
-                            <Option value="1">taobao</Option>
-                            <Option value="2">tmall</Option>
-                        </Select>
-                        <label>店铺：</label>
-                        <Select defaultValue="0" style={{ width: 100 }}>
-                            <Option value="0">全部</Option>
-                            <Option value="1">taobao</Option>
-                            <Option value="2">tmall</Option>
-                        </Select>
-                        <label>起始时间：</label>
-                        <DatePicker className="input" locale="zh-CN" onChange={datesChange1} value={s1} />&nbsp;-&nbsp;
-                        <DatePicker className="input" locale="zh-CN" onChange={datetChange1} value={t1} />
-                    </div>
-                    <div styleName="search">
-                        <label>任务编号：</label>
-                        <input type="text" className="input" />
-                        <button className="btn primary">查询</button>
-                    </div>
-                    <Table column={column} data={data}/>
-                </TabPane>
-                <TabPane tab="提现记录" key="2">
-                    <div styleName="search">
-                        <label>起始时间：</label>
-                        <DatePicker className="input" locale="zh-CN" onChange={dateChange} />&nbsp;-&nbsp;
-                        <DatePicker className="input" locale="zh-CN" onChange={dateChange} />
-                        <label>提现状态：</label>
-                        <Select defaultValue="0" style={{ width: 100 }}>
-                            <Option value="0">全部</Option>
-                            <Option value="1">进行中</Option>
-                            <Option value="2">已完成</Option>
-                        </Select>
-                        <button className="btn primary">查询</button>
-                    </div>
-                    <Table column={col2} data={data2} />
-                </TabPane>
-                <TabPane tab="任务金币记录" key="3">
-                    <div styleName="search">
-                        <label>平台：</label>
-                        <Select defaultValue="0" style={{ width: 100 }}>
-                            <Option value="0">全部</Option>
-                            <Option value="1">taobao</Option>
-                            <Option value="2">tmall</Option>
-                        </Select>
-                        <label>店铺：</label>
-                        <Select defaultValue="0" style={{ width: 100 }}>
-                            <Option value="0">全部</Option>
-                            <Option value="1">taobao</Option>
-                            <Option value="2">tmall</Option>
-                        </Select>
-                        <label>起始时间：</label>
-                        <DatePicker className="input" locale="zh-CN" onChange={dateChange} />&nbsp;-&nbsp;
-                        <DatePicker className="input" locale="zh-CN" onChange={dateChange} />
-                    </div>
-                    <div styleName="search">
-                        <label>任务编号：</label>
-                        <input type="text" className="input" />
-                        <button className="btn primary">查询</button>
-                    </div>
-                    <Table column={column} data={data}/>
-                </TabPane>
-            </Tabs>
-        </div>
-    </BasicLayout>
+    return <div styleName="content">
+        <h2>资金记录</h2>
+        <Tabs type="card">
+            <TabPane tab="押金记录" key="1">
+                <div styleName="search">
+                    <label>平台：</label>
+                    <Select defaultValue="0" style={{ width: 100 }}>
+                        <Option value="0">全部</Option>
+                        <Option value="1">taobao</Option>
+                        <Option value="2">tmall</Option>
+                    </Select>
+                    <label>店铺：</label>
+                    <Select defaultValue="0" style={{ width: 100 }}>
+                        <Option value="0">全部</Option>
+                        <Option value="1">taobao</Option>
+                        <Option value="2">tmall</Option>
+                    </Select>
+                    <label>起始时间：</label>
+                    <DatePicker className="input" locale="zh-CN" onChange={datesChange1} value={s1} />&nbsp;-&nbsp;
+                    <DatePicker className="input" locale="zh-CN" onChange={datetChange1} value={t1} />
+                </div>
+                <div styleName="search">
+                    <label>任务编号：</label>
+                    <input type="text" className="input" />
+                    <button className="btn primary">查询</button>
+                </div>
+                <Table column={column} data={data}/>
+            </TabPane>
+            <TabPane tab="提现记录" key="2">
+                <div styleName="search">
+                    <label>起始时间：</label>
+                    <DatePicker className="input" locale="zh-CN" onChange={dateChange} />&nbsp;-&nbsp;
+                    <DatePicker className="input" locale="zh-CN" onChange={dateChange} />
+                    <label>提现状态：</label>
+                    <Select defaultValue="0" style={{ width: 100 }}>
+                        <Option value="0">全部</Option>
+                        <Option value="1">进行中</Option>
+                        <Option value="2">已完成</Option>
+                    </Select>
+                    <button className="btn primary">查询</button>
+                </div>
+                <Table column={col2} data={data2} />
+            </TabPane>
+            <TabPane tab="任务金币记录" key="3">
+                <div styleName="search">
+                    <label>平台：</label>
+                    <Select defaultValue="0" style={{ width: 100 }}>
+                        <Option value="0">全部</Option>
+                        <Option value="1">taobao</Option>
+                        <Option value="2">tmall</Option>
+                    </Select>
+                    <label>店铺：</label>
+                    <Select defaultValue="0" style={{ width: 100 }}>
+                        <Option value="0">全部</Option>
+                        <Option value="1">taobao</Option>
+                        <Option value="2">tmall</Option>
+                    </Select>
+                    <label>起始时间：</label>
+                    <DatePicker className="input" locale="zh-CN" onChange={dateChange} />&nbsp;-&nbsp;
+                    <DatePicker className="input" locale="zh-CN" onChange={dateChange} />
+                </div>
+                <div styleName="search">
+                    <label>任务编号：</label>
+                    <input type="text" className="input" />
+                    <button className="btn primary">查询</button>
+                </div>
+                <Table column={column} data={data}/>
+            </TabPane>
+        </Tabs>
+    </div>
 }
 
 export default Records

@@ -34,6 +34,7 @@ module.exports = {
                     priority: 10,
                 },
                 styles: {
+                    reuseExistingChunk:true,
                     name: 'styles',
                     test: /\.css$/,
                     chunks: 'all',

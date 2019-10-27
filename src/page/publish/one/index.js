@@ -1,8 +1,9 @@
 import React,{useState} from 'react'
 import {Tabs, Radio, Checkbox} from 'antd'
+import { NextBtn } from '../stepbtn'
 import './style.scss'
 
-const One = ()=>{
+const One = ({nextStep})=>{
     const[tShop,setTshop] = useState(0);
     const[mShop,setMshop] = useState(0);
     const changeTer = ()=>{
@@ -57,6 +58,9 @@ const One = ()=>{
                 <i>0.8金币起</i>
             </li>
         </ul>
+        <footer>
+            <NextBtn clickFn={nextStep}>下一步</NextBtn>
+        </footer>
     </>
 }
 

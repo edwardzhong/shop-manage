@@ -1,0 +1,10 @@
+.step-btn{
+    display: inline-block;
+    padding: 20px;
+    color: $blue;
+    font-size: 16px;
+    cursor: pointer;
+    &:hover{
+        color: darken($blue,10);
+    }
+}

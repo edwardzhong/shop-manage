@@ -1,34 +1,22 @@
-
-h2{
-    font-size: 18px;
-    color: $font-color;
-    color: $font-color;
-    padding: 20px 0;
-}
-h3{
-    @extend h2;
-    font-size:  16px;
-}
-
-footer{
-    text-align: center;
-}
-
 .content{
     padding: 20px 40px;
     min-width: 800px;
+    h2{
+        font-size: 18px;
+        color: $font-color;
+        color: $font-color;
+        padding: 20px 0;
+    }
+    h3{
+        @extend h2;
+        font-size:  16px;
+    }
 }
 
 .steps{
     padding: 20px 0;
 }
-.step-btn{
-    display: inline-block;
-    padding: 20px;
-    color: $blue;
-    font-size: 16px;
-    cursor: pointer;
-    &:hover{
-        color: darken($blue,10);
-    }
+
+footer{
+    text-align: center;
 }

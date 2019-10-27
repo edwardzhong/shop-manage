@@ -1,10 +1,11 @@
 import React,{useState} from 'react'
 import {Checkbox, Radio, Select, Divider} from 'antd'
 import Table from '../../../component/table'
+import {PrevBtn,NextBtn} from '../stepbtn'
 import './style.scss'
 const {Option} = Select;
 
-const Four = () =>{
+const Four = ({prevStep,nextStep}) =>{
     const costData =[
         {key:1,cate:'押金',detail:'押金72元/单',price:'72元',amount:'72 * 3 =216元'},
         {key:2,cate:'服务费',detail:'套餐服务费12.8金币/单',price:'12.8金币',amount:'12.8 * 3 =38.4金币'},
@@ -159,6 +160,10 @@ const Four = () =>{
         <Divider/>
         <h4>费用合计</h4>
         <Table column={col} data={costData}/>
+        <footer>
+            <PrevBtn clickFn={prevStep}>上一步</PrevBtn>
+            <NextBtn clickFn={nextStep}>下一步</NextBtn>
+        </footer>
     </>
 }
 

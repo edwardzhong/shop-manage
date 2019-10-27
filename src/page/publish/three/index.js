@@ -1,9 +1,10 @@
 import React,{useState} from 'react'
 import {Input, Checkbox, Divider} from 'antd'
 import Table from '../../../component/table'
+import {PrevBtn,NextBtn} from '../stepbtn'
 import './style.scss'
 
-const Three = () =>{
+const Three = ({prevStep,nextStep}) =>{
     const column =[
         {title:'分类',data:'cate'},
         {title:'单价',data:'price',render:d=><><i>{d}</i>金币/单</>},
@@ -44,6 +45,10 @@ const Three = () =>{
         <div styleName="block">
             <Table column={column} data={data}/>
         </div>
+        <footer>
+            <PrevBtn clickFn={prevStep}>上一步</PrevBtn>
+            <NextBtn clickFn={nextStep}>下一步</NextBtn>
+        </footer>
     </>
 }
 

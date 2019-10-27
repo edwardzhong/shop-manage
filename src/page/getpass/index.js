@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import useForm  from '../../common/useForm';
 import { getContext } from '../../context'
 import '../sign.scss'
-import UserLayout from '../../layout/user'
 import { Tabs, Icon, Input, Steps, message } from 'antd';
 const { TabPane } = Tabs;
 const { Step } = Steps;
@@ -68,55 +67,53 @@ const GetPass = ({history})=>{
         }, 500);
     };
     
-    return <UserLayout tabName="找回登录密码">
-        <div styleName="step-tabs">
-            <Steps current={curr} onChange={handleChange}>
-                <Step title="填写手机号" />
-                <Step title="验证信息" />
-                <Step title="充值密码" />
-            </Steps>
-            {/* <Divider /> */}
-            <div>
-            <Tabs tabBarStyle={{display:'none'}} activeKey={'' + curr}>
-                <TabPane tab="" key="0">
-                    <div styleName="step">
-                        <div styleName="form-item">
-                            <label>手机号：</label>
-                            <Input styleName={nameErr ? 'has-error':''} {...text('name')} maxLength={20} prefix={<Icon type="mobile" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="手机号" />
-                        </div>
-                        <button className="btn primary" styleName="next" onClick={handleOne}>下一步</button>
+    return <div styleName="step-tabs">
+        <Steps current={curr} onChange={handleChange}>
+            <Step title="填写手机号" />
+            <Step title="验证信息" />
+            <Step title="充值密码" />
+        </Steps>
+        {/* <Divider /> */}
+        <div>
+        <Tabs tabBarStyle={{display:'none'}} activeKey={'' + curr}>
+            <TabPane tab="" key="0">
+                <div styleName="step">
+                    <div styleName="form-item">
+                        <label>手机号：</label>
+                        <Input styleName={nameErr ? 'has-error':''} {...text('name')} maxLength={20} prefix={<Icon type="mobile" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="手机号" />
                     </div>
-                </TabPane>
-                <TabPane tab="" key="1">
-                    <div styleName="step">
-                        <div styleName="form-item">
-                            <p>您的手机号：186****1234</p>
-                        </div>
-                        <div styleName="form-item">
-                            <label>验证码：</label>
-                            <Input styleName={codeErr ? 'has-error':''} {...text('code')} maxLength={4}  prefix={<Icon type="key" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="手机验证码" />
-                            <button className="btn" styleName="code-btn">获取验证码</button>
-                        </div>
-                        <button className="btn primary" styleName="next" onClick={handleTwo}>下一步</button>
+                    <button className="btn primary" styleName="next" onClick={handleOne}>下一步</button>
+                </div>
+            </TabPane>
+            <TabPane tab="" key="1">
+                <div styleName="step">
+                    <div styleName="form-item">
+                        <p>您的手机号：186****1234</p>
                     </div>
-                </TabPane>
-                <TabPane tab="" key="2">
-                    <div styleName="step">
-                        <div styleName="form-item">
-                            <label>新密码：</label>
-                            <Input styleName={passErr ? 'has-error':''} {...password('pass')} maxLength={20} prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="密码请设置6-16位数字、字母" />
-                        </div>
-                        <div styleName="form-item">
-                            <label>确认密码：</label>
-                            <Input styleName={pass2Err ? 'has-error':''} {...password('pass2')} maxLength={20} prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="再次输入密码" />
-                        </div>
-                        <button className="btn primary" styleName="next" onClick={submit}>下一步</button>
+                    <div styleName="form-item">
+                        <label>验证码：</label>
+                        <Input styleName={codeErr ? 'has-error':''} {...text('code')} maxLength={4}  prefix={<Icon type="key" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="手机验证码" />
+                        <button className="btn" styleName="code-btn">获取验证码</button>
                     </div>
-                </TabPane>
-                </Tabs>
-            </div>
+                    <button className="btn primary" styleName="next" onClick={handleTwo}>下一步</button>
+                </div>
+            </TabPane>
+            <TabPane tab="" key="2">
+                <div styleName="step">
+                    <div styleName="form-item">
+                        <label>新密码：</label>
+                        <Input styleName={passErr ? 'has-error':''} {...password('pass')} maxLength={20} prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="密码请设置6-16位数字、字母" />
+                    </div>
+                    <div styleName="form-item">
+                        <label>确认密码：</label>
+                        <Input styleName={pass2Err ? 'has-error':''} {...password('pass2')} maxLength={20} prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="再次输入密码" />
+                    </div>
+                    <button className="btn primary" styleName="next" onClick={submit}>下一步</button>
+                </div>
+            </TabPane>
+            </Tabs>
         </div>
-    </UserLayout>
+    </div>
 }
 
 export default GetPass

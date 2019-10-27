@@ -1,7 +1,8 @@
 import React,{useState} from 'react'
 import {Input, Select, Checkbox, Icon,Divider} from 'antd'
-import './style.scss'
 import Twocon from '../twocon'
+import { PrevBtn, NextBtn } from '../stepbtn'
+import './style.scss'
 
 const { Option } = Select;
 const SearchItem = ({index})=>(
@@ -67,7 +68,7 @@ const SearchItem = ({index})=>(
     </div>
     </>
 )
-const Two = ()=>{
+const Two = ({prevStep,nextStep})=>{
     const [items,setItems] = useState([SearchItem]);
     const[ret,setRet] = useState(0);
     const confirmInfo=()=>{
@@ -79,7 +80,7 @@ const Two = ()=>{
         setItems(arr);
     }
     return <>
-        {ret? <Twocon/>:<>
+        {ret? <Twocon />:<>
         <h3>填写商品信息</h3>
         <div>
             <div styleName="good-item">
@@ -131,6 +132,10 @@ const Two = ()=>{
         </div>
     </>
     }
+    <footer>
+        <PrevBtn clickFn={prevStep}>上一步</PrevBtn>
+        { ret==1 && <NextBtn clickFn={nextStep}>下一步</NextBtn> }
+    </footer>
     </>
 }
 

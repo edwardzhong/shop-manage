@@ -1,7 +1,7 @@
-import React,{ useState, useEffect } from 'react'
-import { useHistory, useLocation, Link } from 'react-router-dom'
+import React,{ useState } from 'react'
+import { useHistory, Link } from 'react-router-dom'
 import { getContext } from '../../context'
-import menus from '../../config/menu'
+import menus from '../../config/page'
 import { Layout, Menu, Icon, Avatar, Dropdown } from 'antd'
 import './style.scss'
 
@@ -14,17 +14,6 @@ const BasicLayout = ({ children }) => {
     const { updateOpenKey, updateSelectKey } = actions;
     const [ collapsed, setCollapse ] = useState(false);
     const history = useHistory();
-    const location = useLocation();
-
-    useEffect(()=>{
-        const m = menus.filter(i=>i.path == location.pathname)[0];
-        if(m){
-            if(m.key.length > 1){
-                updateOpenKey([m.key.charAt(0)]);
-            }
-            updateSelectKey([ m.key ]);
-        }
-    },[]);
 
     const toggle =()=> {
         setCollapse(!collapsed);
@@ -34,12 +23,13 @@ const BasicLayout = ({ children }) => {
     }
     const handleClick =({key})=>{
         updateSelectKey([ key]);
-        menus.forEach(i=>{
+        for(let i of menus){
             if(i.key == key){
-                history.push(i.path);       
+                history.push(i.path);
+                break;      
             }
-        });
-    }; 
+        }
+    };
 
     const menu = (
         <Menu>

@@ -1,6 +1,5 @@
 import React,{useEffect} from 'react'
 import { Link } from 'react-router-dom'
-import BasicLayout from '../../layout/basic'
 import { Icon, Divider} from 'antd'
 import Table from '../../component/table'
 import { getContext } from '../../context'
@@ -68,93 +67,91 @@ const Activity=()=>{
     function onChange(pagination, filters, sorter, extra) {
         console.log('params', pagination, filters, sorter, extra);
     }
-    return <BasicLayout>
-        <div styleName="content">
-            <div styleName="info">
-                <header>
-                    <h2>活动信息</h2>
-                </header>
-                <div styleName="body">
-                    <div styleName="inner">
-                        <div>
-                            <label>活动类型：</label>
-                            <p>普通搜索订单</p>
-                        </div>
-                        <div>
-                            <label>活动总单数：</label>
-                            <p><span>3</span>单</p>
-                        </div>
-                        <div>
-                            <label>手机|Pad端：</label>
-                            <p>
-                                <span>3</span>单<br/>
-                                进行中 <span>0</span>单，
-                                未接手 <span>0</span>单，
-                                已完成 <span>0</span>单
-                            </p>
-                        </div>
-                        <div>
-                            <label>商品搜索关键词：</label>
-                            <p>
-                                淘宝APP搜索关键词：背包男 时尚<br/>
-                                淘宝APP搜索关键词：背包男 时尚<br/>
-                                淘宝APP搜索关键词：背包男 时尚
-                            </p>
-                        </div>
-                        <div styleName="divider"></div>
-                        <div>
-                            <label>活动编号：</label>
-                            <p>T43434342329898987</p>
-                        </div>
-                        <div>
-                            <label>活动发布时间：</label>
-                            <p>2019-01-02 12:12:12</p>
-                        </div>
-                        <div>
-                            <label>店铺：</label>
-                            <p>
-                                <Icon type="taobao-circle" style={{color:'hsl(0,100%,60%)'}} />
-                                <i> 清新小包一号店</i>
-                            </p>
-                        </div>
+    return <div styleName="content">
+        <div styleName="info">
+            <header>
+                <h2>活动信息</h2>
+            </header>
+            <div styleName="body">
+                <div styleName="inner">
+                    <div>
+                        <label>活动类型：</label>
+                        <p>普通搜索订单</p>
                     </div>
-                    <div styleName="inner">
-                        <h3>活动已完成</h3>
+                    <div>
+                        <label>活动总单数：</label>
+                        <p><span>3</span>单</p>
+                    </div>
+                    <div>
+                        <label>手机|Pad端：</label>
                         <p>
-                            平台返款冻结押金：<span>222.8</span>元，
-                            平台已返还：<span>122</span>元/ <span>3</span>笔，
-                            平台待返还：<span>10.8</span>元/ <span>0</span>笔 
+                            <span>3</span>单<br/>
+                            进行中 <span>0</span>单，
+                            未接手 <span>0</span>单，
+                            已完成 <span>0</span>单
                         </p>
+                    </div>
+                    <div>
+                        <label>商品搜索关键词：</label>
                         <p>
-                            已发放佣金：<span>33.8</span>金币/ <span>3</span>笔，
-                            待发放佣金：<span>00.0</span>金币/ <span>0</span>笔 
+                            淘宝APP搜索关键词：背包男 时尚<br/>
+                            淘宝APP搜索关键词：背包男 时尚<br/>
+                            淘宝APP搜索关键词：背包男 时尚
+                        </p>
+                    </div>
+                    <div styleName="divider"></div>
+                    <div>
+                        <label>活动编号：</label>
+                        <p>T43434342329898987</p>
+                    </div>
+                    <div>
+                        <label>活动发布时间：</label>
+                        <p>2019-01-02 12:12:12</p>
+                    </div>
+                    <div>
+                        <label>店铺：</label>
+                        <p>
+                            <Icon type="taobao-circle" style={{color:'hsl(0,100%,60%)'}} />
+                            <i> 清新小包一号店</i>
                         </p>
                     </div>
                 </div>
+                <div styleName="inner">
+                    <h3>活动已完成</h3>
+                    <p>
+                        平台返款冻结押金：<span>222.8</span>元，
+                        平台已返还：<span>122</span>元/ <span>3</span>笔，
+                        平台待返还：<span>10.8</span>元/ <span>0</span>笔 
+                    </p>
+                    <p>
+                        已发放佣金：<span>33.8</span>金币/ <span>3</span>笔，
+                        待发放佣金：<span>00.0</span>金币/ <span>0</span>笔 
+                    </p>
+                </div>
             </div>
-            <Divider/>
-            <div>
-                <Table column={col1} data={data} />
-            </div>
-            <Divider/>
-            <h2>下单要求</h2>
-            <ul styleName="commad">
-                <li>要与小二先聊天</li>
-                <li>不领优惠券</li>
-                <li>禁止使用信用卡、花呗付款</li>
-                <li>商品不包邮，无需买手联系客服。商家每单额外支付10元作为运费押金，活动完成后运费押金将全部退还商家</li>
-            </ul>
-            <Divider/>
-            <h2>活动商品</h2>
-            <Table column={col2} data={goodsData} />
-            <Divider/>
-            <h2>费用合计</h2>
-            <Table column={col3} data={costData} />
-            <footer>
-                <p>费用合计 押金：<span>226.80</span>元  金币：<span>39.7</span></p>
-            </footer>
         </div>
-    </BasicLayout>
+        <Divider/>
+        <div>
+            <Table column={col1} data={data} />
+        </div>
+        <Divider/>
+        <h2>下单要求</h2>
+        <ul styleName="commad">
+            <li>要与小二先聊天</li>
+            <li>不领优惠券</li>
+            <li>禁止使用信用卡、花呗付款</li>
+            <li>商品不包邮，无需买手联系客服。商家每单额外支付10元作为运费押金，活动完成后运费押金将全部退还商家</li>
+        </ul>
+        <Divider/>
+        <h2>活动商品</h2>
+        <Table column={col2} data={goodsData} />
+        <Divider/>
+        <h2>费用合计</h2>
+        <Table column={col3} data={costData} />
+        <footer>
+            <p>费用合计 押金：<span>226.80</span>元  金币：<span>39.7</span></p>
+        </footer>
+    </div>
 }
 
 export default Activity

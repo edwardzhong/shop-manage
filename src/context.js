@@ -2,18 +2,19 @@ import React, { createContext, useReducer, useContext } from 'react'
 import bindActions from './common/bindActions'
 import * as actions from './action'
 import rootReducer from './reducer'
-import menus from './config/menu'
+import pages from './config/page'
 
-const menukey = { open:[],select:['1']};
-// const m = menus.filter(i=>i.path == location.hash.substr(1))[0];
-// if(m){
-//     if(m.key.length > 1){
-//         menukey.open = [m.key.charAt(0)];
-//     }
-//     menukey.select = [ m.key ];
-//     console.log('-- menu init --')
-// }
-
+const path = location.hash.substr(1);
+const menukey ={open:[], select:['1']};
+for(let p of pages){
+    if(p.path == path){
+        if(p.key.length>1){
+            menukey.open=[p.key.charAt(0)];
+        }
+        menukey.select = [p.key];
+        break;
+    }
+}
 const Context = createContext(null);
 const initState = Object.assign(rootReducer({}, {}), { 
     menukey
