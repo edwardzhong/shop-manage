@@ -33,14 +33,14 @@ module.exports = {
                     name:'base',
                     priority: 10,
                 },
-                styles: {
-                    reuseExistingChunk:true,
-                    name: 'styles',
-                    test: /\.css$/,
-                    chunks: 'all',
-                    enforce: true,
-                    priority: 20, 
-                }
+                // styles: {
+                //     reuseExistingChunk:true,
+                //     name: 'styles',
+                //     test: /\.css$/,
+                //     chunks: 'all',
+                //     enforce: true,
+                //     priority: 20, 
+                // }
             }
         }
     },
