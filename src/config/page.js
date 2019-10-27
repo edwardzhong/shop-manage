@@ -1,8 +1,9 @@
 export default [
-	{ key: "1", name: "home", path: "/", layout: "basic", exect: true },
-	{ key: "21", name: "info", path: "/info", layout: "basic", exect: true },
+	{ key: "1", title:'首页', name: "home", path: "/", layout: "basic", exect: true },
+	{ key: "21", title:'基本信息', name: "info", path: "/info", layout: "basic", exect: true },
 	{
 		key: "22",
+		title:'绑定店铺',
 		name: "bindshop",
 		path: "/bindshop",
 		layout: "basic",
@@ -10,6 +11,7 @@ export default [
 	},
 	{
 		key: "31",
+		title:'发起活动',
 		name: "publish",
 		path: "/publish",
 		layout: "basic",
@@ -17,20 +19,23 @@ export default [
 	},
 	{
 		key: "32",
+		title:'活动详情',
 		name: "activity",
 		path: "/activity",
 		layout: "basic",
 		exect: true
 	},
-	{ 
-		key: "33", 
-		name: "order", 
-		path: "/order", 
-		layout: "basic", 
-		exect: true 
+	{
+		key: "33",
+		title:'订单详情',
+		name: "order",
+		path: "/order",
+		layout: "basic",
+		exect: true
 	},
 	{
 		key: "41",
+		title:'充值金币',
 		name: "chargecoin",
 		path: "/chargecoin",
 		layout: "basic",
@@ -38,6 +43,7 @@ export default [
 	},
 	{
 		key: "42",
+		title:'充值押金',
 		name: "chargecash",
 		path: "/chargecash",
 		layout: "basic",
@@ -45,6 +51,7 @@ export default [
 	},
 	{
 		key: "43",
+		title:'押金提现',
 		name: "cashout",
 		path: "/cashout",
 		layout: "basic",
@@ -52,6 +59,7 @@ export default [
 	},
 	{
 		key: "44",
+		title:'资金记录',
 		name: "records",
 		path: "/records",
 		layout: "basic",
