@@ -184,6 +184,18 @@ function compressPicture(img, size) {
     return canvas.toDataURL("image/jpeg");
 }
 
+//产生随机数字字母
+function randomCode (l = 4) {
+    let arr = [];
+    const codes ='01234567890123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    while(arr.length < l){
+        let i = Math.floor(Math.random()*codes.length);
+        if(arr.indexOf(i) < 0){
+            arr.push(i);
+        }
+    }
+    return arr.map(i => codes[i]);
+}
 export {
     deepCopy,
     stringFormat,
@@ -193,5 +205,6 @@ export {
     htmlDecode,
     getContentSummary,
     wordCount,
-    compressPicture
+    compressPicture,
+    randomCode
 };

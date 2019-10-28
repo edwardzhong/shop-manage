@@ -10,6 +10,7 @@
 .item{
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 15px 0;
     border-bottom: 1px solid $border-color;
     h3{
@@ -26,5 +27,17 @@
         display: flex;
         justify-content: space-between;
         padding: 4px 0 4px 20px;
+    }
+}
+.form-item{
+    display: flex;
+    padding: 5px;
+    align-items: center;
+    label{
+        width: 120px;
+        text-align: right;
+    }
+    input{
+        width: 200px;
     }
 }

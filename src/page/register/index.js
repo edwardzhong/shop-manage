@@ -1,18 +1,25 @@
 import React,{useState,useRef,useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import useForm  from '../../common/useForm';
+import { registerService,smsCode } from '../../service'
 import { getContext } from '../../context'
+import { randomCode } from '../../common/util'
 import '../sign.scss'
-import { Icon, Input } from 'antd';
+import { Icon, Input, message } from 'antd';
+message.config({
+    top: 30,
+    duration: 1.5,
+});
 
-const Register =()=>{
+const Register =({hsitory})=>{
     const [ formState, { text, password }] = useForm();
-    const [nameErr,setNameErr] = useState('');
+    const [phoneErr,setPhoneErr] = useState('');
     const [imgErr,setImgErr] = useState('');
     const [codeErr,setCodeErr] = useState('');
     const [passErr,setPassErr] = useState('');
-    const [codes,setCodes] = useState(genCode());
+    const [codes,setCodes] = useState(randomCode());
     const canvasRef = useRef(null);
+    const {dispatch} = getContext();
 
     useEffect(() => {
         drawCode(codes);
@@ -20,19 +27,6 @@ const Register =()=>{
             console.log('destroy')
         };
     },codes);
-
-    //产生随机数字字母
-    function genCode (l = 4) {
-        let arr = [];
-        const codes ='01234567890123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        while(arr.length < l){
-            let i = Math.floor(Math.random()*codes.length);
-            if(arr.indexOf(i) < 0){
-                arr.push(i);
-            }
-        }
-        return arr.map(i => codes[i]);
-    }
 
     // 产生图形验证码
     const drawCode = arr =>{
@@ -75,17 +69,26 @@ const Register =()=>{
     };
 
     const updateCode = () =>{
-        setCodes(genCode());
+        setCodes(randomCode());
     };
 
+    const checkPhone = ()=>{
+        const values = formState.values;
+        if(!values.phone){
+            setPhoneErr('手机号不能为空');
+            return false;
+        }
+        if(!/^(13\d|14[57]|15[012356789]|18\d|17[013678])\d{8}$/.test(values.phone)){
+            setPhoneErr('请输入正确的手机号');
+            return false;
+        }
+        setPhoneErr('');
+        return true;
+    }
     const submit = e => {
         e.preventDefault();
+        if(!checkPhone()) return;
         const values = formState.values;
-        if(!values.name){
-            setNameErr('手机号不能为空');
-            return;
-        }
-        setNameErr('');
         const imgcode = values.imgcode;
         if(!imgcode){
             setImgErr('图形码不能为空');
@@ -117,22 +120,50 @@ const Register =()=>{
             return;
         }
         setPassErr('');
+        const hide = message.loading('发送请求..', 0);
+        registerService(dispatch,{ telephone: values.phone, password: values.pass, sms_code: values.code}).then(ret=>{
+            hide();
+            const data = ret.data;
+            console.log(data);
+            if(data.error_code === 0){
+                history.push('/login');
+            } else {
+                message.error(data.msg.join(''));
+            }
+        },err => {
+            hide();
+            console.log(ret);
+            message.error(err.message);
+        });
+    }
+    const getCode = ()=>{
+        if(!checkPhone()) return;
+        smsCode({ telephone: formState.values.phone }).then(ret=>{
+            const data = ret.data;
+            if(data.error_code === 0){
+                message.success('手机验证码已发送，请注意查收');
+            } else {
+                message.error(data.msg.join(''));
+            }
+        },err=>{
+            message.error(err.message);
+        })
     }
 
     return <div styleName="tabs">
         <div>
             <div styleName="form-item">
-                <Input styleName={nameErr ? 'has-error':''} {...text('name')} maxLength={20} prefix={<Icon type="mobile" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="手机号" />
+                <Input styleName={phoneErr ? 'has-error':''} {...text('phone')} maxLength={20} prefix={<Icon type="mobile" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="手机号" />
             </div>
-            <div styleName="error">{nameErr}</div>
+            <div styleName="error">{phoneErr}</div>
             <div styleName="form-item">
                 <Input styleName={imgErr ? 'has-error':''} {...text('imgcode')} maxLength={4} prefix={<Icon type="barcode" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="图形码" />
                 <canvas ref={canvasRef} styleName="code-img" onClick={updateCode} />
             </div>
             <div styleName="error">{imgErr}</div>
             <div styleName="form-item">
-                <Input styleName={codeErr ? 'has-error':''} {...text('code')} maxLength={4}  prefix={<Icon type="key" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="手机验证码" />
-                <button className="btn" styleName="code-btn">获取验证码</button>
+                <Input styleName={codeErr ? 'has-error':''} {...text('code')} maxLength={6}  prefix={<Icon type="key" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="手机验证码" />
+                <button className="btn" styleName="code-btn" onClick={getCode}>获取验证码</button>
             </div>
             <div styleName="error">{codeErr}</div>
             <div styleName="form-item">

@@ -1,24 +1,29 @@
-import { post } from "./common/request";
-import { loginAdd, loginClear, selfClear} from "./action";
+import { get, post, put } from "./common/request";
+import { loginAdd, loginClear, selfAdd, selfClear, selfUpdate } from "./action";
 
-const login = arg => post("login/sign", arg);
-const register = arg => post("login/register", arg);
-const logout = arg => post("login/signout", arg);
+const login = arg => post("shopcms/login/", arg);
+const register = arg => post("shopcms/register/", arg);
+const smsCode = arg => post('tools/sms_code/',arg);
+const changePass = arg => post('shopcms/change_passwd/', arg);
+const userInfo = arg => get(`shopcms/userinfo/${arg.id}/`);
+const updateUser = arg => put(`shopcms/userinfo/${arg.id}/`,arg);
+const bindShop = arg => post('shopcms/store/',arg);
+const shopList  = ()=> get('shopcms/store/');
 
 async function loginService(dispatch, payload) {
 	try {
 		const ret = await login(payload);
-		if (ret.code == 200) {
-            dispatch(loginAdd(ret.data));
-            // account.save(ret.data);
+		if (ret.data.error_code === 0) {
+            dispatch(loginAdd(ret.data.data));
+            localStorage.setItem('loginInfo', JSON.stringify(ret.data.data));
 		} else {
             dispatch(loginClear());
-            // account.clear();
+            localStorage.removeItem('loginInfo');
 		}
 		return ret;
 	} catch (err) {
         dispatch(loginClear());
-        // account.clear();
+        localStorage.removeItem('loginInfo');
 		return err;
 	}
 }
@@ -26,29 +31,9 @@ async function loginService(dispatch, payload) {
 async function registerService(dispatch, payload) {
 	try {
 		const ret = await register(payload);
-		if (ret.code == 200) {
-			const loginRet = await login(payload);
-			loginRet.isSucc = true;
-			if (loginRet.code == 200) {
-                dispatch(loginAdd(loginRet.data));
-                // account.save(loginRet.data);
-			}
-			return loginRet;
-		} else {
-			return ret;
-		}
-	} catch (err) {
-		return err;
-	}
-}
-
-async function logoutService(dispatch) {
-	try {
-		const ret = await logout();
-		if (ret.code == 200) {
-			dispatch(loginClear());
-            dispatch(selfClear());
-            // account.clear();
+		if (ret.data.error_code === 0) {
+			dispatch(loginAdd(ret.data.data));
+			localStorage.setItem('loginInfo', JSON.stringify(ret.data.data));
 		}
 		return ret;
 	} catch (err) {
@@ -56,8 +41,48 @@ async function logoutService(dispatch) {
 	}
 }
 
+async function userInfoService(dispatch, payload) {
+	try{
+		const ret = await userInfo(payload);
+		if (ret.data.error_code === 0) {
+			dispatch(selfAdd(ret.data.data));
+			localStorage.setItem('selfInfo', JSON.stringify(ret.data.data));
+		}
+		return ret;
+	} catch(err){
+		return err;
+	}
+}
+
+async function userUpdateService(dispatch, payload) {
+	try{
+		const ret = await updateUser(payload);
+		if (ret.data.error_code === 0) {
+			dispatch(selfAdd(ret.data.data));
+			localStorage.setItem('selfInfo', JSON.stringify(ret.data.data));
+		}
+		return ret;
+	} catch(err){
+		return err;
+	}
+}
+
+async function logoutService(dispatch) {
+	dispatch(loginClear());
+	dispatch(selfClear());
+	localStorage.removeItem('loginInfo');
+	localStorage.removeItem('selfInfo');
+}
+
 export {
+	smsCode,
+	changePass,
+	shopList,
+	bindShop,
+	
 	loginService,
 	registerService,
-	logoutService
+	logoutService,
+	userInfoService,
+	userUpdateService,
 };

@@ -1,27 +1,63 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import { getContext } from '../../context'
-import { Checkbox, Steps } from 'antd'
+import { Radio, Steps, message } from 'antd'
 import Table from '../../component/table'
+import { randomCode,timeStr } from '../../common/util'
+import useForm  from '../../common/useForm';
+import { shopList, bindShop as bindRequset} from '../../service'
 import './style.scss'
 const { Step } = Steps;
 
 const BindShop = () => {
     const { state, actions } = getContext();
+    const [storeType, setStoreType] = useState('1');
+    const [list , setList] = useState([]);
+    const [ formState, { text, password }] = useForm({code:randomCode(6).join('')});
+    const statusObj ={
+        '0':'不通过',
+        '1':'通过',
+        '2':'审核中',
+    };
+    useEffect(()=>{
+        shopList().then(ret=>{
+            const data = ret.data;
+            if(data.error_code === 0){
+                const list = data.data.map(l=>{
+                    l.platform = l.platformtype.name;
+                    l.telephone = l.shopuser.telephone;
+                    l.sname = statusObj[''+l.status];
+                    l.date = timeStr(l.create_time);
+                    return l;
+                });
+                setList(list);
+            }
+        })
+    },[]);
     const column = [
-        {title:'所属平台',data:'ter'},
-        {title:'店铺名',data:'name'},
-        {title:'店铺旺旺',data:'ww'},
-        {title:'店铺网址',data:'adr'},
-        {title:'状态',data:'status'},
+        {title:'所属平台',data:'platform'},
+        {title:'店铺名',data:'store_name'},
+        {title:'店铺旺旺',data:'store_acount'},
+        {title:'店铺网址',data:'store_url'},
+        {title:'状态',data:'sname'},
         {title:'绑定日期',data:'date'},
     ];
-    const data = [
-        { ter:'taobao', name:'清新小铺', ww:'new', adr:'http://aa.com', status:'审核通过', date:'2019-1-1' },
-        { ter:'taobao', name:'清新小铺', ww:'new', adr:'http://aa.com', status:'审核通过', date:'2019-1-1' },
-    ];
-    const onChange=()=>{
-
-    };
+    
+    const submit = ()=>{
+        const values = formState.values;
+        const hide = message.loading('发送请求..', 0);
+        bindRequset({...values, platformtype_id:storeType}).then(ret=>{
+            hide();
+            const data = ret.data;
+            if(data.error_code === 0){
+                message.success('店铺绑定成功', 2);
+            } else {
+                message.error(data.msg, 2);
+            }
+        },err => {
+            hide();
+            message.error(err.message, 2);
+        });
+    }
     return <div styleName="content">
         <header styleName="header">
             <div>
@@ -36,27 +72,29 @@ const BindShop = () => {
         <p styleName="desc">请先完成下面的店铺信息，绑定店铺后即可进入报名活动页面</p>
         <div styleName="form">
             <div styleName="form-item">
-                <label>店铺类型：</label>
-                <Checkbox onChange={onChange}>淘宝</Checkbox>
-                <Checkbox onChange={onChange}>天猫</Checkbox>
+                <label styleName="label">店铺类型：</label>
+                <Radio.Group defaultValue={storeType}>
+                    <Radio value="1">淘宝</Radio>
+                    <Radio value="2">天猫</Radio>
+                </Radio.Group>
             </div>
             <div styleName="form-item">
-                <label>店铺主旺旺：</label>
-                <input className="input"/>
+                <label styleName="label">店铺主旺旺：</label>
+                <input className="input" {...text('store_acount')}/>
                 <span>（店铺主旺旺绑定后无法修改和删除）</span>
             </div>
             <div styleName="form-item">
-                <label>店铺名称：</label>
-                <input className="input"/>
+                <label styleName="label">店铺名称：</label>
+                <input className="input" {...text('store_name')} />
                 <span>（店铺名称绑定后无法修改和删除）</span>
             </div>
             <div styleName="form-item">
-                <label>店铺首页网址：</label>
-                <input className="input"/>
+                <label styleName="label">店铺首页网址：</label>
+                <input className="input" {...text('store_url')} />
             </div>
             <div styleName="form-item">
-                <label>验证码：</label>
-                <input className="input" styleName="code-input" defaultValue="assd-123" />
+                <label styleName="label">验证码：</label>
+                <input className="input" styleName="code-input"  {...text('code')} />
                 <button className="btn">复制</button>
             </div>
             <div styleName="img-block">
@@ -66,21 +104,21 @@ const BindShop = () => {
                 <p>提示：店铺绑定成功后，商品标题中添加的验证码可以去掉</p>
             </div>
             <div styleName="form-item">
-                <label>商品网址（URL）：</label>
-                <input className="input"/>
+                <label styleName="label">商品网址（URL）：</label>
+                <input className="input" {...text('goods_url')} />
             </div>
             <div styleName="form-item">
-                <label/>
+                <label styleName="label"/>
                 <p styleName="error">如无法绑定店铺或绑定店铺失败，请联系在线客服处理</p>
             </div>
             <div styleName="form-item">
-                <label/>
-                <button className="btn primary">确认绑定</button>
+                <label styleName="label"/>
+                <button className="btn primary" onClick={submit}>确认绑定</button>
             </div>
         </div>
         <div styleName="shop-list">
             <h3>已绑定的店铺</h3>
-            <Table column={column} data={data}/>
+            <Table column={column} data={list}/>
             <p>共2条</p>
         </div>
     </div>

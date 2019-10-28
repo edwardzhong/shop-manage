@@ -1,6 +1,7 @@
-import React,{ useState } from 'react'
+import React,{ useState, useEffect } from 'react'
 import { useHistory, Link } from 'react-router-dom'
 import { getContext } from '../../context'
+import { logoutService, userInfoService, loginService } from '../../service'
 import menus from '../../config/page'
 import { Layout, Menu, Icon, Avatar, Dropdown } from 'antd'
 import './style.scss'
@@ -9,12 +10,27 @@ const { SubMenu } = Menu;
 const { Header, Sider, Footer, Content } = Layout;
 
 const BasicLayout = ({ children }) => {
-    const { state, actions } = getContext();
+    const { state, actions, dispatch } = getContext();
+    const {loginInfo,usefInfo} = state;
     const { menukey } = state;
     const { updateOpenKey, updateSelectKey } = actions;
     const [ collapsed, setCollapse ] = useState(false);
     const history = useHistory();
-
+    useEffect(()=>{
+        if(!loginInfo.token){
+            history.push('/login');
+        }
+    });
+    useEffect(() => {
+        userInfoService(dispatch,{id:loginInfo.user_id}).then(ret=>{
+           const data = ret.data;
+           if(data.error_code !== 0){
+               console.log(data);
+           } 
+        },err=>{
+            console.log(err);
+        })
+    },[]);
     const toggle =()=> {
         setCollapse(!collapsed);
     };
@@ -30,6 +46,10 @@ const BasicLayout = ({ children }) => {
             }
         }
     };
+    const logout = e =>{
+        e.preventDefault();
+        logoutService(dispatch);
+    }
 
     const menu = (
         <Menu>
@@ -38,7 +58,7 @@ const BasicLayout = ({ children }) => {
             </Menu.Item>
             <Menu.Divider/>
             <Menu.Item>
-                <Link to="/login">退出登录</Link>
+                <a onClick={logout}>退出登录</a>
             </Menu.Item>
         </Menu>
     );
@@ -78,7 +98,7 @@ const BasicLayout = ({ children }) => {
                 <Dropdown styleName="right" overlay={menu} placement="bottomRight">
                     <div>
                         <Avatar icon="user" />
-                        <span> 1775005</span>
+                        <span> {loginInfo.username} </span>
                     </div>
                 </Dropdown>
             </Header>

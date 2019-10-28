@@ -1,9 +1,10 @@
 import createAction from './common/createAction'
 
-export const addComment = createAction('ADD_COMMENT', 'comment');
-export const removeComment = createAction('REMOVE_COMMENT', 'id');
-export const updateName = createAction('UPDATE_NAME');
-export const updateEmail = createAction('UPDATE_EMAIL');
+export const loginAdd = createAction('LOGINADD', 'info');
+export const loginClear = createAction('LOGINCLEAR');
+export const selfAdd = createAction('SELFADD', 'info');
+export const selfClear = createAction('SELFCLEAR');
+export const selfUpdate = createAction('SELFUPDATE', 'info');
 
 export const updateOpenKey = createAction('UPDATEOPENKEY','keys');
 export const updateSelectKey = createAction('UPDATESELECTKEY','keys');

@@ -10,7 +10,7 @@
     border-bottom: 1px solid $border-color;
 }
 .steps{
-    width: 240px;
+    width: 240px !important;
 }
 .title{
     font-size: 18px;
@@ -31,7 +31,7 @@
     justify-content: left;
     align-items: center;
     padding: 6px 0;
-    label:first-child{
+    .label:first-child{
         text-align: right;
         width: 130px;
         font-weight: bold;

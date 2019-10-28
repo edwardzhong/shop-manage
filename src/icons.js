@@ -6,6 +6,7 @@ export {default as LockOutline} from '@ant-design/icons/lib/outline/LockOutline'
 export {default as PayCircleOutline} from '@ant-design/icons/lib/outline/PayCircleOutline';
 export {default as MoneyCollectOutline} from '@ant-design/icons/lib/outline/MoneyCollectOutline';
 export {default as CloseCircleFill} from '@ant-design/icons/lib/fill/CloseCircleFill';
+export {default as CheckCircleFill} from '@ant-design/icons/lib/fill/CheckCircleFill';
 export {default as BarcodeOutline} from '@ant-design/icons/lib/outline/BarcodeOutline';
 export {default as CarryOutOutline} from '@ant-design/icons/lib/outline/CarryOutOutline';
 export {default as HomeOutline} from '@ant-design/icons/lib/outline/HomeOutline';
@@ -16,6 +17,7 @@ export {default as RightOutline} from '@ant-design/icons/lib/outline/RightOutlin
 export {default as PlusCircleFill} from '@ant-design/icons/lib/fill/PlusCircleFill';
 export {default as CheckOutline} from '@ant-design/icons/lib/outline/CheckOutline';
 export {default as CheckCircleOutline} from '@ant-design/icons/lib/outline/CheckCircleOutline';
+export {default as LoadingOutline} from '@ant-design/icons/lib/outline/LoadingOutline';
 
 
 
