@@ -43,7 +43,7 @@ const Login = ({ history }) => {
             if(data.error_code === 0){
                 history.push('/')    
             } else {
-                message.error(data.msg.join(''));
+                message.error(data.msg);
             }
         },err=>{
             hide();
@@ -81,7 +81,7 @@ const Login = ({ history }) => {
             if(data.error_code === 0){
                 history.push('/')    
             } else {
-                message.error(data.msg.join(''));
+                message.error(data.msg);
             }
         },err=>{
             hide();
@@ -96,7 +96,7 @@ const Login = ({ history }) => {
             if(data.error_code === 0){
                 message.success('手机验证码已发送，请注意查收');
             } else {
-                message.error(data.msg.join(''));
+                message.error(data.msg);
             }
         },err=>{
             message.error(err.message);

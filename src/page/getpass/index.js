@@ -73,7 +73,7 @@ const GetPass = ({history})=>{
             if(data.error_code === 0){
                 message.success('手机验证码已发送，请注意查收');
             } else {
-                message.error(data.msg.join(''));
+                message.error(data.msg);
             }
         },err=>{
             message.error(err.message);
@@ -114,7 +114,7 @@ const GetPass = ({history})=>{
                 setCurr(3);
                 history.goBack();
             } else {
-                message.error(data.msg.join(''));
+                message.error(data.msg);
             }
         },err=>{
             hide();

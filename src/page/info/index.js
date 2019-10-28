@@ -30,7 +30,7 @@ const Info = ({history}) => {
                 pass.current.value = '';
                 setVisible(false);
             } else {
-                message.error(data.msg.join(''));
+                message.error(data.msg);
             }
         },err=>{
             hide();
