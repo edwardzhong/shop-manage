@@ -1,5 +1,5 @@
 import { get, post, put } from "./common/request";
-import { loginAdd, loginClear, selfAdd, selfClear, selfUpdate } from "./action";
+import { loginAdd, loginClear, selfAdd, selfClear } from "./action";
 
 const login = arg => post("shopcms/login/", arg);
 const register = arg => post("shopcms/register/", arg);

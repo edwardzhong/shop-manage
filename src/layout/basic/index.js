@@ -16,21 +16,21 @@ const BasicLayout = ({ children }) => {
     const { updateOpenKey, updateSelectKey } = actions;
     const [ collapsed, setCollapse ] = useState(false);
     const history = useHistory();
-    useEffect(()=>{
-        if(!loginInfo.token){
-            history.push('/login');
-        }
-    });
-    useEffect(() => {
-        userInfoService(dispatch,{id:loginInfo.user_id}).then(ret=>{
-           const data = ret.data;
-           if(data.error_code !== 0){
-               console.log(data);
-           } 
-        },err=>{
-            console.log(err);
-        })
-    },[]);
+        useEffect(()=>{
+            if(!loginInfo.token){
+                history.push('/login');
+            }
+        });
+        useEffect(() => {
+            userInfoService(dispatch,{id:loginInfo.user_id}).then(ret=>{
+               const data = ret.data;
+               if(data.error_code !== 0){
+                   console.log(data);
+               } 
+            },err=>{
+                console.log(err);
+            })
+        },[]); 
     const toggle =()=> {
         setCollapse(!collapsed);
     };

@@ -4,6 +4,7 @@ import { Radio, Steps, message } from 'antd'
 import Table from '../../component/table'
 import { randomCode,timeStr } from '../../common/util'
 import useForm  from '../../common/useForm';
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 import { shopList, bindShop as bindRequset} from '../../service'
 import './style.scss'
 const { Step } = Steps;
@@ -13,7 +14,8 @@ const BindShop = () => {
     const [storeType, setStoreType] = useState('1');
     const [list , setList] = useState([]);
     const [ formState, { text, password }] = useForm({code:randomCode(6).join('')});
-    const statusObj ={
+    const values = formState.values;
+    const statusObj = {
         '0':'不通过',
         '1':'通过',
         '2':'审核中',
@@ -26,7 +28,7 @@ const BindShop = () => {
                     l.platform = l.platformtype.name;
                     l.telephone = l.shopuser.telephone;
                     l.sname = statusObj[''+l.status];
-                    l.date = timeStr(l.create_time);
+                    l.date = timeStr(new Date(l.create_time));
                     return l;
                 });
                 setList(list);
@@ -43,7 +45,6 @@ const BindShop = () => {
     ];
     
     const submit = ()=>{
-        const values = formState.values;
         const hide = message.loading('发送请求..', 0);
         bindRequset({...values, platformtype_id:storeType}).then(ret=>{
             hide();
@@ -95,7 +96,10 @@ const BindShop = () => {
             <div styleName="form-item">
                 <label styleName="label">验证码：</label>
                 <input className="input" styleName="code-input"  {...text('code')} />
-                <button className="btn">复制</button>
+                <CopyToClipboard text={values.code}>
+                    <button className="btn">复制</button>
+                </CopyToClipboard>
+                
             </div>
             <div styleName="img-block">
                 <p>1、将验证码加到您店铺的某个商家商品的标题上，类似这样</p>
@@ -119,7 +123,7 @@ const BindShop = () => {
         <div styleName="shop-list">
             <h3>已绑定的店铺</h3>
             <Table column={column} data={list}/>
-            <p>共2条</p>
+            <p>共{list.length}条</p>
         </div>
     </div>
 }

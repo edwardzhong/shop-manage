@@ -12,6 +12,7 @@ message.config({
 const Info = ({history}) => {
     const { state, dispatch } = getContext();
     const [visible, setVisible ] = useState(false);
+    const [qvisible, setQVisible ] = useState(false);
     const pass = useRef(null)
     const qq = useRef(null)
     const { userInfo } = state;
@@ -20,15 +21,20 @@ const Info = ({history}) => {
         e.preventDefault();
         setVisible(true);
     }
-    const handleOk =()=>{
-        
+    const openQModel = e =>{
+        e.preventDefault();
+        setQVisible(true);
+    }
+    const sendRequest = param =>{
         const hide = message.loading('发送请求..', 0);
-        userUpdateService(dispatch,{tixian_password:pass.current.value, qq:qq.current.value,id:userInfo.id}).then(ret=>{
+        param.id = userInfo.id;
+        userUpdateService(dispatch,param).then(ret=>{
             hide();
             const data = ret.data;
             if(data.error_code === 0){
                 pass.current.value = '';
                 setVisible(false);
+                setQVisible(false);
             } else {
                 message.error(data.msg);
             }
@@ -36,9 +42,18 @@ const Info = ({history}) => {
             hide();
             message.error(err.message);
         });
+    }
+    const handleOk =()=>{
+        sendRequest({tixian_password:pass.current.value});
     };
+    const handleQOk =()=>{
+        sendRequest({qq:qq.current.value});
+    }
     const handleCancel =()=>{
         setVisible(false);
+    }
+    const handleQCancel =()=>{
+        setQVisible(false);
     }
     return <div styleName="content">
         <h2 styleName="title">账号设置</h2>
@@ -58,7 +73,7 @@ const Info = ({history}) => {
                 <li>
                     <h4>QQ</h4>
                     <p>{userInfo.qq}</p>
-                    <a onClick={openModel}>{ userInfo.qq?'修改':'添加'}</a>
+                    <a onClick={openQModel}>{ userInfo.qq?'修改':'添加'}</a>
                 </li>
                 <li>
                     <h4>手机</h4>
@@ -72,6 +87,8 @@ const Info = ({history}) => {
                 <label>提现密码：</label>
                 <input className="input" ref={pass} />
             </div>
+        </Modal>
+        <Modal title="修改信息" visible={qvisible} okText="确定" cancelText="取消" onOk={handleQOk} onCancel={handleQCancel}>
             <div styleName="form-item">
                 <label>QQ：</label>
                 <input className="input" defaultValue = {userInfo.qq} ref={qq}/>
