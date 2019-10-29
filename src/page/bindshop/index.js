@@ -7,16 +7,17 @@ import useForm  from '../../common/useForm';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import { shopList, bindShop as bindRequset} from '../../service'
 import './style.scss'
+import goodPic from '../../../public/bindgood.png';
 const { Step } = Steps;
 
 const BindShop = () => {
     const { state, actions } = getContext();
     const [storeType, setStoreType] = useState('1');
     const [list , setList] = useState([]);
-    const [ formState, { text, password }] = useForm({code:randomCode(6).join('')});
+    const [ formState, { text }] = useForm({code:randomCode(6).join('')});
     const values = formState.values;
     const statusObj = {
-        '0':'不通过',
+        '0':'不通过',   
         '1':'通过',
         '2':'审核中',
     };
@@ -103,7 +104,10 @@ const BindShop = () => {
             </div>
             <div styleName="img-block">
                 <p>1、将验证码加到您店铺的某个商家商品的标题上，类似这样</p>
-                <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />
+                <div styleName="img">
+                    <img alt="example" src={goodPic} />
+                    <p>{values.code}</p>
+                </div>
                 <p>2、将这个商品详情页链接复制到下面输入框</p>
                 <p>提示：店铺绑定成功后，商品标题中添加的验证码可以去掉</p>
             </div>

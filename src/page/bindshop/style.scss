@@ -50,6 +50,18 @@
     p{
         padding: 10px 0;
     }
+    .img{
+        position: relative;
+        width: 600px;
+        img{
+            width: 100%;
+        }
+        p{
+            position: absolute;
+            top: 2px;
+            left: 295px;
+        }
+    }
 }
 .shop-list{
     max-width: 900px;
