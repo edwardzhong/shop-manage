@@ -8,8 +8,8 @@ const PrevBtn =({ children, clickFn})=>(
     </div>
 )
 
-const NextBtn =({ children, clickFn})=>(
-    <div styleName="step-btn" onClick={clickFn}>
+const NextBtn =({ children, clickFn, disable })=>(
+    <div styleName={ disable ? "step-btn gray":"step-btn" } onClick={clickFn}>
         <span>{children}</span><Icon type="right" />
     </div>
 )

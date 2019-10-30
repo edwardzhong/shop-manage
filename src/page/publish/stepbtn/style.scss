@@ -7,4 +7,7 @@
     &:hover{
         color: darken($blue,10);
     }
+    &.gray{
+        color: #888;
+    }
 }

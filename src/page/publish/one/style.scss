@@ -1,11 +1,14 @@
 .alist{
     min-width: 200px;
     max-width: 600px;
+    width: 100%;
     border:1px solid $border-color;
     li{
         display: flex;
         justify-content: space-between;
         padding: 8px 8px;
+        width: 100%;
+        cursor: pointer;
         &:not(:last-child){
             border-bottom: 1px solid $border-color;
         }
@@ -18,7 +21,6 @@
     }
     i{
         text-align: right;
-        width: 80px;
         font-style: normal;
         color: $red;
     }

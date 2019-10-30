@@ -1,7 +1,7 @@
 import React,{useState,useRef,useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import useForm  from '../../common/useForm';
-import { registerService,smsCode } from '../../service'
+import { registerSer,smsCode } from '../../service'
 import { getContext } from '../../context'
 import { randomCode } from '../../common/util'
 import '../sign.scss'
@@ -121,7 +121,7 @@ const Register =({hsitory})=>{
         }
         setPassErr('');
         const hide = message.loading('发送请求..', 0);
-        registerService(dispatch,{ telephone: values.phone, password: values.pass, sms_code: values.code}).then(ret=>{
+        registerSer(dispatch,{ telephone: values.phone, password: values.pass, sms_code: values.code}).then(ret=>{
             hide();
             const data = ret.data;
             console.log(data);

@@ -1,7 +1,7 @@
 import React,{useState} from 'react'
 import { Route, Redirect, Switch, Link } from 'react-router-dom'
 import { getContext } from '../../context'
-import {loginService,smsCode} from '../../service'
+import {loginSer,smsCode} from '../../service'
 import useForm  from '../../common/useForm';
 import { Tabs, Icon, Input, message } from 'antd';
 import '../sign.scss'
@@ -33,7 +33,7 @@ const Login = ({ history }) => {
         }
         setPassErr('');
         const hide = message.loading('发送请求..', 0);
-        loginService(dispatch,{
+        loginSer(dispatch,{
             telephone: values.name,
             password: values.pass,
             way: "code"
@@ -71,7 +71,7 @@ const Login = ({ history }) => {
         const values = formState.values;
         setCodeErr('');
         const hide = message.loading('发送请求..', 0);
-        loginService(dispatch,{
+        loginSer(dispatch,{
             telephone: values.phone,
             sms_code: values.code,
             way: "sms"

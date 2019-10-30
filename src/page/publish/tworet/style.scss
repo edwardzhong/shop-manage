@@ -14,6 +14,7 @@ h5{
     padding: 10px;
     div{
         display: flex;
+        padding-bottom: 5px;
     }
     i{
         font-style: normal;
@@ -29,4 +30,11 @@ h5{
         margin-left: auto;
         margin-right: 10px;
     }
+}
+.btn-wrap{
+    padding: 5px 0;
+}
+.divider{
+    border-bottom:1px solid $border-color;
+    margin: 10px 0;
 }

@@ -1,7 +1,7 @@
 import React,{ useState, useEffect } from 'react'
 import { useHistory, Link } from 'react-router-dom'
 import { getContext } from '../../context'
-import { logoutService, userInfoService, loginService } from '../../service'
+import { logoutSer, userInfoSer } from '../../service'
 import menus from '../../config/page'
 import { Layout, Menu, Icon, Avatar, Dropdown } from 'antd'
 import './style.scss'
@@ -22,13 +22,11 @@ const BasicLayout = ({ children }) => {
             }
         });
         useEffect(() => {
-            userInfoService(dispatch,{id:loginInfo.user_id}).then(ret=>{
+            userInfoSer(dispatch,{id:loginInfo.user_id}).then(ret=>{
                const data = ret.data;
                if(data.error_code !== 0){
                    console.log(data);
                } 
-            },err=>{
-                console.log(err);
             })
         },[]); 
     const toggle =()=> {
@@ -48,7 +46,7 @@ const BasicLayout = ({ children }) => {
     };
     const logout = e =>{
         e.preventDefault();
-        logoutService(dispatch);
+        logoutSer(dispatch);
     }
 
     const menu = (

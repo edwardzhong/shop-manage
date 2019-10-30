@@ -18,17 +18,31 @@ h4{
     }
     input{
         flex-shrink: 1;
-        width: 200px;
+        width: 160px;
         &.long{
             width: 500px;
         }
     }
-    span{
-        padding-left: 6px;
+    i{
+        padding: 0 6px;
+        font-style: normal;
         color: $red;
     }
 }
+.label{
+    padding-left: 10px;
+}
 .search-good{
+    p{
+        margin: 0;
+    }
+}
+.img-list{
+    display: flex;
+}
+.img-block{
+    display: flex;
+    padding-right: 20px;
     .img{
         width: 100px;
         height: 100px;
@@ -39,18 +53,26 @@ h4{
             height: 100%;
         }
     }
-    p{
-        margin: 0;
-    }
 }
 .search-item{
     display: flex;
+    flex-flow: row wrap;
     align-items: center;
-    label{
-        padding-left: 10px;
-    }
+    padding-left: 10px;
     input{
         width: 200px;
+    }
+}
+.search-header{
+    display: flex;
+    padding: 5px 0;
+    i{
+        padding-right: 6px;
+        font-style: normal;
+        color: $red;
+    }
+    h3,h4{
+        padding: 0;
     }
 }
 .plus-btn{
@@ -59,3 +81,11 @@ h4{
     cursor: pointer;
 }
 
+.divider{
+    border-bottom:1px solid $border-color;
+    margin: 10px 0;
+}
+
+.btn-wrap{
+    padding: 10px;
+}

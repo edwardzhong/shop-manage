@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { getContext } from '../../context'
-import { userUpdateService } from '../../service'
+import { userUpdateSer } from '../../service'
 import { Modal, message } from 'antd'
 import './style.scss'
 message.config({
@@ -28,7 +28,7 @@ const Info = ({history}) => {
     const sendRequest = param =>{
         const hide = message.loading('发送请求..', 0);
         param.id = userInfo.id;
-        userUpdateService(dispatch,param).then(ret=>{
+        userUpdateSer(dispatch,param).then(ret=>{
             hide();
             const data = ret.data;
             if(data.error_code === 0){

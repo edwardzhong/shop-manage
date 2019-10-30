@@ -18,6 +18,7 @@ export {default as PlusCircleFill} from '@ant-design/icons/lib/fill/PlusCircleFi
 export {default as CheckOutline} from '@ant-design/icons/lib/outline/CheckOutline';
 export {default as CheckCircleOutline} from '@ant-design/icons/lib/outline/CheckCircleOutline';
 export {default as LoadingOutline} from '@ant-design/icons/lib/outline/LoadingOutline';
+export {default as PlusOutline} from '@ant-design/icons/lib/outline/PlusOutline';
 
 
 
