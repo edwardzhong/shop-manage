@@ -10,7 +10,7 @@ import './style.scss'
 const Two = ({prevStep, nextStep})=>{
     const context = getContext();
     const {state, actions} = context;
-    const {setkw,addkw,clearkw} = actions;
+    const {setkw,addkw,clearkw, addSorts, addCities, addDis} = actions;
     const [sorts,setSorts] = useState([]);
     const [dis,setDis]= useState([]);
     const [cities,setTicies] = useState([]);
@@ -21,17 +21,22 @@ const Two = ({prevStep, nextStep})=>{
     const [goodStandard,setGoodStandard] = useState(info.goods_standard);
     const [goodPrice,setGoodPrice] = useState(info.goods_price);
     const [goodNum,setGoodNum] = useState(info.goods_nums_per_order);
-    const id = state.activityInfo.id||8
+    const [question,setQuestion] = useState(info.question);
+    const [answer,setAnswer] = useState(info.answer);
+
+    const id = state.activityInfo.id||21;
+    const store_id = state.activityInfo.store_id||15;
+    const activitytype_id = state.activityInfo.activitytype_id||1;
     const img1 = useRef(null);
     const img2 = useRef(null);
     const kw = {
         name: "",
         price_range: [10,100],
-        send_address: 0,
+        send_address: '不选择',//0
         brand: "",
-        sort_way: 1,
-        service: [1],
-        store_classify: 1,
+        sort_way: '综合',//1
+        service: ['包邮'],//[1]
+        store_classify: '旗舰店',//1
         extra_info: "",
     }
     useEffect(()=>{
@@ -39,30 +44,43 @@ const Two = ({prevStep, nextStep})=>{
             const data = ret.data;
             if(data.error_code === 0){
                 const info = data.data;
+                setInfo(info);
+                setGoodUrl(info.goods_url);
+                setGoodTitle(info.goods_title);
+                setGoodStandard(info.goods_standard);
+                setGoodPrice(info.goods_price);
+                setGoodNum(info.goods_nums_per_order);
+                setQuestion(info.question);
+                setAnswer(info.answer);
                 if(!info.keyword_set||!info.keyword_set.length){
                     addKeyword();
                 } else {
                     const list = info.keyword_set.map(k=>({
+                            uid:k.id,
                             id:k.id,
                             name: k.name,
                             price_range: k.price_range.split('|'),
-                            send_address: k.send_address,
+                            send_address: Number(k.send_address),
                             brand: k.brand,
-                            sort_way: k.sort_way,
-                            service: k.service.split('|'),
-                            store_classify: k.store_classify,
+                            sort_way: Number(k.sort_way),
+                            service: k.service.split('|').map(s=>Number(s)),
+                            store_classify: Number(k.store_classify),
                             extra_info: k.extra_info,
                         })
                     );
                     setkw(list);
                 }
-                setInfo(info);
             }
         });
         getKwSortway().then(ret=>{
             const data = ret.data;
             if(data.error_code === 0){
-                setSorts(data.data);
+                const list = data.data.map(l=>({
+                    id:l.name,
+                    name:l.name
+                }));
+                setSorts(list);
+                addSorts(list);
             }
         });
         getKwService().then(ret=>{
@@ -70,34 +88,35 @@ const Two = ({prevStep, nextStep})=>{
             if(data.error_code === 0){
                 const list = data.data.map(d=>({
                         label: d.name,
-                        value: d.id
+                        value: d.name
                     })
                 )
                 setDis(list);
+                addDis(data.data);
             }
         });
         getCities().then(ret=>{
             const data = ret.data;
             if(data.error_code === 0){
-                setTicies(data.data);
+                const list = data.data.map(l=>({
+                    id:l.name,
+                    name:l.name
+                }));
+                setTicies(list);
+                addCities(list);
             }
         })
         return clearkw;
     },[]);
 
     const addKeyword = ()=>{
-        const id = Math.floor(Math.random() * 100000);
-        addkw({id:id,...kw});
-    }
-
-    const nameChange = ({target})=>{
-        updatekw({id,name:target.value});
+        addkw({uid:Math.floor(Math.random() * 100000),...kw});
     }
 
     const confirmInfo=()=>{
-        const kws = state.kwList.map(k=>({
+        const kws = state.kwList.map(k=>{
+            let obj = {
                 activity_id:id,
-                id: k.id,
                 name: k.name,
                 price_range: k.price_range.join('|'),
                 send_address: k.send_address,
@@ -106,24 +125,34 @@ const Two = ({prevStep, nextStep})=>{
                 service: k.service.join('|'),
                 store_classify: k.store_classify,
                 extra_info: k.extra_info,
-            })
-        );
+            }
+            if(k.id){
+                obj.id = k.id;
+            }
+            return obj;
+        });
         const aparam = {
             activity_id:id, 
-            keyword_data:JSON.stringify(kws)
+            keyword_data:kws
         };
         const bparam = {
-            id:id, 
+            id:id,
+            store_id:store_id,
+            activitytype_id:activitytype_id, 
             goods_url:goodUrl||'',
             goods_title:goodTitle||'',
             goods_standard:goodStandard||'',
-            goods_price:goodPrice||'',
-            goods_nums_per_order:goodNum||'',
+            goods_price: goodPrice||'',
+            goods_nums_per_order: goodNum||'',
             img_one: img1.current.src||'',
-            img_two: img2.current.src||''
+            img_two: img2.current.src||'',
+            question: question,
+            answer: answer
         };
         console.log(aparam,bparam);
+        const hide = message.loading('请求中...');
         Promise.all([addkeyword(aparam),updateActivity(bparam)]).then(ret=>{
+            hide();
             const [aRet,bRet] = ret;
             const adata = aRet.data;
             const bdata = bRet.data;
@@ -131,16 +160,17 @@ const Two = ({prevStep, nextStep})=>{
             const msgs = [];
             if(adata.error_code === 0 && bdata.error_code === 0){
                 nextStep();
-                return;
+            } else {
+                if(adata.error_code !== 0){
+                    msgs.push(adata.msg);
+                }
+                if(bdata.error_code !== 0){
+                    msgs.push(bdata.msg);
+                }
+                message.error(msgs.join('|'),2);
             }
-            if(adata.error_code !== 0){
-                msgs.push(adata.msg);
-            }
-            if(bdata.error_code !== 0){
-                msgs.push(bdata.msg);
-            }
-            message.error(msgs.join('|'),2);
         },err=> {
+            hide();
             message.error(err.message,2);
         });
     }
@@ -158,6 +188,13 @@ const Two = ({prevStep, nextStep})=>{
     }
     const goodNumChange = ({target})=>{
         setGoodNum(target.value);
+    }
+
+    const questionChange = ({target})=>{
+        setQuestion(target.value);
+    }
+    const answerChange = ({target})=>{
+        setAnswer(target.value);
     }
     return <>
         <h3>填写商品信息</h3>
@@ -221,20 +258,20 @@ const Two = ({prevStep, nextStep})=>{
                 <i>*</i><h3>设置商品校验问题</h3>
             </header>
             <div styleName="search-item">
-                <Input/>
+                <Input value={question} onChange={questionChange} />
             </div>
             <h4>答案</h4>
             <div styleName="search-item">
-                <Input/>
+                <Input value={answer} onChange={answerChange} />
             </div>
             <div styleName="btn-wrap">
                 <button className="btn primary" onClick={confirmInfo}>确认提交信息</button>
             </div>
         </div>
-        {/* <footer>
+        <footer>
             <PrevBtn clickFn={prevStep}>上一步</PrevBtn>
-            <NextBtn disable={true}>下一步</NextBtn>
-        </footer> */}
+            <NextBtn clickFn={nextStep}>下一步</NextBtn>
+        </footer>
     </>
 }
 

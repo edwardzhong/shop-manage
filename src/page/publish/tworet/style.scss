@@ -12,10 +12,6 @@ h5{
 }
 .block{
     padding: 10px;
-    div{
-        display: flex;
-        padding-bottom: 5px;
-    }
     i{
         font-style: normal;
         color: $red;
@@ -23,12 +19,32 @@ h5{
     p{
         padding-right: 30px;
     }
-    input{
-        width: 200px;
-    }
+
     a{
         margin-left: auto;
         margin-right: 10px;
+    }
+
+}
+.req-block {
+    label{
+        display: block;
+        padding: 10px 0;
+    }
+    input{
+        width: 200px;
+    }
+}
+.block-div{
+    display: flex;
+    div{
+        display: flex;
+    }
+}
+.block-item{
+    div{
+        display: flex;
+        padding-bottom: 5px;
     }
 }
 .btn-wrap{
@@ -37,4 +53,9 @@ h5{
 .divider{
     border-bottom:1px solid $border-color;
     margin: 10px 0;
+}
+.kw-item{
+    span{
+        padding-left: 15px;
+    }
 }

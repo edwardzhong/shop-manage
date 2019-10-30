@@ -5,7 +5,7 @@ import './style.scss'
 
 const {Option} = Select;
 const KwItem = ({index,info,sorts,dis,cities})=> {
-    const id = info.id;
+    const uid = info.uid;
     const context = getContext();
     const {removekw,updatekw} = context.actions;
     const minPrice = useRef(null);
@@ -16,50 +16,50 @@ const KwItem = ({index,info,sorts,dis,cities})=> {
     const [services,setServices] = useState(info.service);
 
     const nameChange = ({target})=>{
-        updatekw({id,name:target.value});
+        updatekw({uid,name:target.value});
     }
     const brandChange = ({target})=>{
-        updatekw({id,brand:target.value});
+        updatekw({uid,brand:target.value});
     }
     const extraChange = ({target})=>{
-        updatekw({id,extra_info:target.value});
+        updatekw({uid,extra_info:target.value});
     }
     const minChange = ({target})=>{
-        updatekw({id,price_range:[target.value,maxPrice.current.state.value]});
+        updatekw({uid,price_range:[target.value,maxPrice.current.state.value]});
     }
     const maxChange = ({target})=>{
-        updatekw({id,price_range:[minPrice.current.state.value,target.value]});
+        updatekw({uid,price_range:[minPrice.current.state.value,target.value]});
     }
     const sortChange = ({target})=>{
         const val = target.value;
         setSortVal(val);
-        updatekw({id,sort_way:val});
+        updatekw({uid,sort_way:val});
     }
     const shopTypeChange = ({target})=>{
         const val = target.value;
         setShopType(val);
-        updatekw({id,store_classify:val});
+        updatekw({uid,store_classify:val});
     }
     const servicesChange = ids=>{
         setServices(ids);
-        updatekw({id,service:ids});
+        updatekw({uid,service:ids});
     }
     const addChange = id=>{
-        setAddress(id);
-        updatekw({id,send_address:id});
+        setAddress(uid);
+        updatekw({uid,send_address:id});
     }
     const removeFn = () =>{
-        removekw(id);
+        removekw(uid);
     }
     return <>
         {index > 0 && <div styleName="divider"/> }
         <header styleName="search-header">
             <i>*</i>
             <h4>手机淘宝关键字来源{index+1}</h4>
-            {index > 0 && <a onClick={removeFn}> &nbsp;删除</a>}
+            <a onClick={removeFn}> &nbsp;删除</a>
         </header>
         <div styleName="search-item">
-            <Input defaultValue={info.name} onChange={nameChange}/>
+            <Input value={info.name} onChange={nameChange}/>
         </div>
         <header styleName="search-header">
             <i>*</i><h4>设置排序方式</h4>
@@ -74,11 +74,11 @@ const KwItem = ({index,info,sorts,dis,cities})=> {
         <h4>设置筛选方式</h4>
         <div styleName="search-item">
             <label>价格区间：</label>
-            <Input type="number" ref={minPrice} defaultValue={info.price_range[0]} onChange={minChange} />
+            <Input type="number" ref={minPrice} value={info.price_range[0]} onChange={minChange} />
             &nbsp;-&nbsp;
-            <Input type="number" ref={maxPrice} defaultValue={info.price_range[1]} onChange={maxChange} />
+            <Input type="number" ref={maxPrice} value={info.price_range[1]} onChange={maxChange} />
             <label styleName="label">筛选品牌：</label>
-            <Input defaultValue={info.brand} onChange={brandChange} />
+            <Input value={info.brand} onChange={brandChange} />
         </div>
         <h4>折扣和服务</h4>
         <div styleName="search-item">
@@ -89,23 +89,23 @@ const KwItem = ({index,info,sorts,dis,cities})=> {
         </header>
         <div styleName="search-item">
         <Radio.Group onChange={shopTypeChange} value={shopType}>
-            <Radio value={1}>旗舰店</Radio>
-            <Radio value={2}>专卖店</Radio>
-            <Radio value={3}>专营店</Radio>
+            <Radio value='旗舰店'>旗舰店</Radio>
+            <Radio value='专卖店'>专卖店</Radio>
+            <Radio value='专营店'>专营店</Radio>
         </Radio.Group>
         </div>
         <h4>发货地</h4>
         <div styleName="search-item">
             <Select value={address} onChange={addChange} style={{width:'100px'}}>
-                <Option value={0}>不选择</Option>
+                <Option value='不选择' key={999}>不选择</Option>
                 {
-                    cities.map((c,i)=><Option key={i} value={c.num}>{c.name}</Option>)
+                    cities.map((c,i)=><Option key={i} value={c.id}>{c.name}</Option>)
                 }
             </Select>
         </div>
         <h4>其他条件</h4>
         <div styleName="search-item">
-            <Input defaultValue={info.extra_info} onChange={extraChange}/>
+            <Input value={info.extra_info} onChange={extraChange}/>
         </div>
     </>
 }
