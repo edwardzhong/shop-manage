@@ -1,4 +1,4 @@
-import { get, post, put } from "./common/request";
+import { get, post, put, del } from "./common/request";
 import { loginAdd, loginClear, selfAdd, selfClear,setActivity } from "./action";
 
 const login = arg => post("shopcms/login/", arg);
@@ -20,6 +20,7 @@ const getCities = ()=> get('config/city/')
 const getActivity = arg => get(`shopcms/activity/${arg.id}/`);
 const updatekeyword = arg => put('shopcms/keyword/batch_update/',arg);
 const addkeyword = arg => post('shopcms/keyword/',arg);
+const removekeyword = arg => del(`shopcms/keyword/${arg.id}/`,arg);
 
 async function loginSer(dispatch, payload) {
 	// try {
@@ -96,7 +97,8 @@ export {
 	updatekeyword,
 	updateActivity,
 	addkeyword,
-	
+	removekeyword,
+
 	loginSer,
 	registerSer,
 	logoutSer,

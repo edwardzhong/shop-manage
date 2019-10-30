@@ -1,7 +1,7 @@
 import React,{useRef,useState,useEffect} from 'react'
 import {Input, Icon, message} from 'antd'
 import { PrevBtn, NextBtn } from '../stepbtn'
-import {getActivity, getKwSortway,getKwService,getCities,updatekeyword, addkeyword, updateActivity} from '../../../service'
+import {getActivity, getKwSortway,getKwService,getCities,updatekeyword, addkeyword as addkeywordReq, updateActivity} from '../../../service'
 import {getContext} from '../../../context'
 import useForm from '../../../common/useForm'
 import KwItem from './kwItem'
@@ -13,7 +13,7 @@ const Two = ({prevStep, nextStep})=>{
     const {setkw,addkw,clearkw, addSorts, addCities, addDis} = actions;
     const [sorts,setSorts] = useState([]);
     const [dis,setDis]= useState([]);
-    const [cities,setTicies] = useState([]);
+    const [cities,setCicies] = useState([]);
     const [info,setInfo] = useState({});
 
     const [goodUrl,setGoodUrl] = useState(info.goods_url);
@@ -24,19 +24,19 @@ const Two = ({prevStep, nextStep})=>{
     const [question,setQuestion] = useState(info.question);
     const [answer,setAnswer] = useState(info.answer);
 
-    const id = state.activityInfo.id||21;
+    const id = state.activityInfo.id||34;
     const store_id = state.activityInfo.store_id||15;
     const activitytype_id = state.activityInfo.activitytype_id||1;
     const img1 = useRef(null);
     const img2 = useRef(null);
     const kw = {
         name: "",
-        price_range: [10,100],
-        send_address: '不选择',//0
+        price_range: '10|100',
+        send_address: '不选择',
         brand: "",
-        sort_way: '综合',//1
-        service: ['包邮'],//[1]
-        store_classify: '旗舰店',//1
+        sort_way: '综合',
+        service: '包邮',
+        store_classify: '旗舰店',
         extra_info: "",
     }
     useEffect(()=>{
@@ -60,11 +60,11 @@ const Two = ({prevStep, nextStep})=>{
                             id:k.id,
                             name: k.name,
                             price_range: k.price_range.split('|'),
-                            send_address: Number(k.send_address),
+                            send_address: k.send_address,
                             brand: k.brand,
-                            sort_way: Number(k.sort_way),
-                            service: k.service.split('|').map(s=>Number(s)),
-                            store_classify: Number(k.store_classify),
+                            sort_way: k.sort_way,
+                            service: (k.service||'').split('|'),
+                            store_classify: k.store_classify,
                             extra_info: k.extra_info,
                         })
                     );
@@ -80,7 +80,7 @@ const Two = ({prevStep, nextStep})=>{
                     name:l.name
                 }));
                 setSorts(list);
-                addSorts(list);
+                // addSorts(list);
             }
         });
         getKwService().then(ret=>{
@@ -92,7 +92,7 @@ const Two = ({prevStep, nextStep})=>{
                     })
                 )
                 setDis(list);
-                addDis(data.data);
+                // addDis(data.data);
             }
         });
         getCities().then(ret=>{
@@ -102,15 +102,25 @@ const Two = ({prevStep, nextStep})=>{
                     id:l.name,
                     name:l.name
                 }));
-                setTicies(list);
-                addCities(list);
+                setCicies(list);
+                // addCities(list);
             }
         })
         return clearkw;
     },[]);
 
     const addKeyword = ()=>{
-        addkw({uid:Math.floor(Math.random() * 100000),...kw});
+        addkeywordReq({ activity_id:id, keyword_data:[kw] }).then(ret=>{
+            const data = ret.data;
+            if(data.error_code === 0){
+                let item = data.data.slice(-1)[0];
+                item.uid = id;
+                item.price_range = item.price_range.split('|');
+                item.service = item.service.split('|');
+                addkw(item);
+            }
+        });
+        // addkw({uid:Math.floor(Math.random() * 100000),...kw});
     }
 
     const confirmInfo=()=>{
@@ -151,7 +161,7 @@ const Two = ({prevStep, nextStep})=>{
         };
         console.log(aparam,bparam);
         const hide = message.loading('请求中...');
-        Promise.all([addkeyword(aparam),updateActivity(bparam)]).then(ret=>{
+        Promise.all([updatekeyword(aparam),updateActivity(bparam)]).then(ret=>{
             hide();
             const [aRet,bRet] = ret;
             const adata = aRet.data;
@@ -250,7 +260,7 @@ const Two = ({prevStep, nextStep})=>{
                 </div>
             </div>
             {
-                state.kwList.map((item,i)=><KwItem key={item.id} index={i} info={item} sorts={sorts} dis={dis} cities={cities} />)
+                state.kwList.map((item,i)=><KwItem key={item.uid} index={i} info={item} sorts={sorts} dis={dis} cities={cities} />)
             }
             <div styleName="plus-btn" onClick={addKeyword}> <Icon type="plus" /> 增加搜索关键词 </div>
             <div styleName="divider"/>
@@ -268,10 +278,10 @@ const Two = ({prevStep, nextStep})=>{
                 <button className="btn primary" onClick={confirmInfo}>确认提交信息</button>
             </div>
         </div>
-        <footer>
+        {/* <footer>
             <PrevBtn clickFn={prevStep}>上一步</PrevBtn>
             <NextBtn clickFn={nextStep}>下一步</NextBtn>
-        </footer>
+        </footer> */}
     </>
 }
 

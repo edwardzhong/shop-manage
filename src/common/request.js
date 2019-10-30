@@ -35,4 +35,4 @@ axios.interceptors.request.use(function(config) {
 export const get = (url, param) => axios.get(url, { params: param });
 export const post = (url, param) => axios.post(url, param);
 export const put = (url, param) => axios.put(url, param);
-export const del = (url, param) => axios.delete(url, param);
+export const del = (url, param) => axios.delete(url, {data: param});

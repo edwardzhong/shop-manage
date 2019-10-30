@@ -6,17 +6,15 @@ import {getContext} from '../../../context'
 import './style.scss'
 
 const TwoRet = ({prevStep, nextStep}) =>{
+    const context = getContext();
+    const {state} = context;
     const [req,setReq] = useState(false);
     const [info, setInfo] = useState({store:{platformtype:{name:''}}});
     const [kwList, setkwList] = useState([]);
     const [reqList, setReqList] = useState([]);
     const [reqRet, setReqRet] = useState([])
 
-    const shopType = {'1':'旗舰店','2':'专卖店','3':'专营店'};
-    const context = getContext();
-    const { state }= context;
-    const {sorts,dis,cities } = state;
-    const id = state.activityInfo.id||22;
+    const id = state.activityInfo.id||34;
     const store_id = state.activityInfo.store_id||15;
     const activitytype_id = state.activityInfo.activitytype_id||1;
 
@@ -39,26 +37,7 @@ const TwoRet = ({prevStep, nextStep}) =>{
                 setInfo(data.data);
                 setReqRet((data.data.order_requirement||'').split('|'));
                 const list = (data.data.keyword_set||[]).map((k,i)=>{
-                    // const sort = sorts.find(s=>s.id == k.sort_way);
-                    // const sname = sort? sort.name:'';
-                    // const dname = [];
-                    // k.service.split('|').forEach(i=>{
-                    //     let item = dis.find(d=>d.id == i);
-                    //     if(item){
-                    //         dname.push(item.name);
-                    //     }
-                    // });
-                    // const add = cities.find(c=>c.num == k.send_address);
-                    // const aname = add? ('所在地:'+add.name):'';
                     return {
-                        // goodName: k.name,
-                        // sortName: '排序方式:' + sname,
-                        // brandName: k.brand?('筛选品牌:' + k.brand):'',
-                        // disName:'折扣与服务:'+ dname.join('|'),
-                        // typeName:'店铺类型:'+ shopType[''+k.store_classify],
-                        // otherName: k.extra_info?('其他条件:'+ k.extra_info):'',
-                        // priceName:'价格:' + k.price_range.replace('|','-') +'元',
-                        // sendName:''+ aname
                         goodName: k.name,
                         sortName: '排序方式:' + k.sort_way,
                         brandName: k.brand?('筛选品牌:' + k.brand):'',
@@ -141,9 +120,9 @@ const TwoRet = ({prevStep, nextStep}) =>{
         {
             req ? <>
                 <div styleName="block">
-                    <div>要与小二先聊天</div>
-                    <div>不领优惠券</div>
-                    <div>禁止使用信用卡、花呗付款</div>
+                    {
+                        reqRet.map((r,i)=><div key={i}>{r}</div>)
+                    }
                 </div>
                 <div styleName="block">
                     <div><a onClick={()=>setReq(false)}>修改</a></div>
@@ -164,7 +143,9 @@ const TwoRet = ({prevStep, nextStep}) =>{
         
         <footer>
             <PrevBtn clickFn={prevStep}>上一步</PrevBtn>
-            <NextBtn clickFn={nextStep}>下一步</NextBtn>
+            {
+                req ? <NextBtn clickFn={nextStep}>下一步</NextBtn> : <NextBtn disable={true}>下一步</NextBtn>
+            }
         </footer>
     </>
 }

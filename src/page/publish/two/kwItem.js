@@ -1,19 +1,24 @@
 import React,{useRef,useState} from 'react'
 import {Input, Select, Checkbox, Radio} from 'antd'
 import {getContext} from '../../../context'
+import {removekeyword} from '../../../service'
 import './style.scss'
 
 const {Option} = Select;
 const KwItem = ({index,info,sorts,dis,cities})=> {
     const uid = info.uid;
     const context = getContext();
-    const {removekw,updatekw} = context.actions;
+    const {state,actions} = context;
+    const {removekw,updatekw} = actions;
     const minPrice = useRef(null);
     const maxPrice = useRef(null);
     const [sortVal,setSortVal] = useState(info.sort_way);
     const [shopType,setShopType] = useState(info.store_classify);
     const [address,setAddress] = useState(info.send_address);
     const [services,setServices] = useState(info.service);
+    const activity_id = state.activityInfo.id||34;
+    const store_id = state.activityInfo.store_id||15;
+    const activitytype_id = state.activityInfo.activitytype_id||1;
 
     const nameChange = ({target})=>{
         updatekw({uid,name:target.value});
@@ -45,11 +50,16 @@ const KwItem = ({index,info,sorts,dis,cities})=> {
         updatekw({uid,service:ids});
     }
     const addChange = id=>{
-        setAddress(uid);
+        setAddress(id);
         updatekw({uid,send_address:id});
     }
     const removeFn = () =>{
-        removekw(uid);
+        removekeyword({id:uid, activity_id}).then(ret=>{
+            console.log(ret);
+            if(ret.data.error_code === 0){
+                removekw(uid);
+            }
+        })
     }
     return <>
         {index > 0 && <div styleName="divider"/> }
@@ -97,7 +107,7 @@ const KwItem = ({index,info,sorts,dis,cities})=> {
         <h4>发货地</h4>
         <div styleName="search-item">
             <Select value={address} onChange={addChange} style={{width:'100px'}}>
-                <Option value='不选择' key={999}>不选择</Option>
+                <Option value='不选择'>不选择</Option>
                 {
                     cities.map((c,i)=><Option key={i} value={c.id}>{c.name}</Option>)
                 }
