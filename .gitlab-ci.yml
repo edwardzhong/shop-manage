@@ -10,8 +10,7 @@ deploy-job:
   only:
     - master
   script:
-    - cd /home/django/builds/6Nxw5Yry/0/leolikang/shopp-manage
     - npm install
     - npm run build
     - rm -rf /webapps/shop/*
-    - mv /home/django/builds/6Nxw5Yry/0/leolikang/shopp-manage/dist/* /webapps/shop/
+    - mv ./* /webapps/shop/
