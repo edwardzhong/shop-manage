@@ -55,7 +55,6 @@ const KwItem = ({index,info,sorts,dis,cities})=> {
     }
     const removeFn = () =>{
         removekeyword({id:uid, activity_id}).then(ret=>{
-            console.log(ret);
             if(ret.data.error_code === 0){
                 removekw(uid);
             }
@@ -65,7 +64,7 @@ const KwItem = ({index,info,sorts,dis,cities})=> {
         {index > 0 && <div styleName="divider"/> }
         <header styleName="search-header">
             <i>*</i>
-            <h4>手机淘宝关键字来源{index+1}</h4>
+            <h4>关键字来源{index+1}</h4>
             <a onClick={removeFn}> &nbsp;删除</a>
         </header>
         <div styleName="search-item">

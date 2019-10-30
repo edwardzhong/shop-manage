@@ -3,14 +3,13 @@ import {Input, Icon, message} from 'antd'
 import { PrevBtn, NextBtn } from '../stepbtn'
 import {getActivity, getKwSortway,getKwService,getCities,updatekeyword, addkeyword as addkeywordReq, updateActivity} from '../../../service'
 import {getContext} from '../../../context'
-import useForm from '../../../common/useForm'
 import KwItem from './kwItem'
 import './style.scss'
 
 const Two = ({prevStep, nextStep})=>{
     const context = getContext();
     const {state, actions} = context;
-    const {setkw,addkw,clearkw, addSorts, addCities, addDis} = actions;
+    const {setkw,addkw,clearkw } = actions;
     const [sorts,setSorts] = useState([]);
     const [dis,setDis]= useState([]);
     const [cities,setCicies] = useState([]);
@@ -66,8 +65,8 @@ const Two = ({prevStep, nextStep})=>{
                             service: (k.service||'').split('|'),
                             store_classify: k.store_classify,
                             extra_info: k.extra_info,
-                        })
-                    );
+                        }
+                    ));
                     setkw(list);
                 }
             }
@@ -76,11 +75,11 @@ const Two = ({prevStep, nextStep})=>{
             const data = ret.data;
             if(data.error_code === 0){
                 const list = data.data.map(l=>({
-                    id:l.name,
-                    name:l.name
-                }));
+                        id:l.name,
+                        name:l.name
+                    }
+                ));
                 setSorts(list);
-                // addSorts(list);
             }
         });
         getKwService().then(ret=>{
@@ -89,21 +88,20 @@ const Two = ({prevStep, nextStep})=>{
                 const list = data.data.map(d=>({
                         label: d.name,
                         value: d.name
-                    })
-                )
+                    }
+                ))
                 setDis(list);
-                // addDis(data.data);
             }
         });
         getCities().then(ret=>{
             const data = ret.data;
             if(data.error_code === 0){
                 const list = data.data.map(l=>({
-                    id:l.name,
-                    name:l.name
-                }));
+                        id:l.name,
+                        name:l.name
+                    }
+                ));
                 setCicies(list);
-                // addCities(list);
             }
         })
         return clearkw;
@@ -114,18 +112,20 @@ const Two = ({prevStep, nextStep})=>{
             const data = ret.data;
             if(data.error_code === 0){
                 let item = data.data.slice(-1)[0];
-                item.uid = id;
-                item.price_range = item.price_range.split('|');
-                item.service = item.service.split('|');
-                addkw(item);
+                if(item){
+                    item.uid = item.id;
+                    item.price_range = item.price_range.split('|');
+                    item.service = item.service.split('|');
+                    addkw(item);
+                }
             }
         });
         // addkw({uid:Math.floor(Math.random() * 100000),...kw});
     }
 
     const confirmInfo=()=>{
-        const kws = state.kwList.map(k=>{
-            let obj = {
+        const kws = state.kwList.map(k=>({
+                id: k.id,
                 activity_id:id,
                 name: k.name,
                 price_range: k.price_range.join('|'),
@@ -136,19 +136,11 @@ const Two = ({prevStep, nextStep})=>{
                 store_classify: k.store_classify,
                 extra_info: k.extra_info,
             }
-            if(k.id){
-                obj.id = k.id;
-            }
-            return obj;
-        });
-        const aparam = {
-            activity_id:id, 
-            keyword_data:kws
-        };
-        const bparam = {
-            id:id,
-            store_id:store_id,
-            activitytype_id:activitytype_id, 
+        ));
+        const param = {
+            id,
+            store_id,
+            activitytype_id, 
             goods_url:goodUrl||'',
             goods_title:goodTitle||'',
             goods_standard:goodStandard||'',
@@ -156,12 +148,11 @@ const Two = ({prevStep, nextStep})=>{
             goods_nums_per_order: goodNum||'',
             img_one: img1.current.src||'',
             img_two: img2.current.src||'',
-            question: question,
-            answer: answer
+            question,
+            answer
         };
-        console.log(aparam,bparam);
         const hide = message.loading('请求中...');
-        Promise.all([updatekeyword(aparam),updateActivity(bparam)]).then(ret=>{
+        Promise.all([updatekeyword({ activity_id:id, keyword_data:kws}),updateActivity(param)]).then(ret=>{
             hide();
             const [aRet,bRet] = ret;
             const adata = aRet.data;
