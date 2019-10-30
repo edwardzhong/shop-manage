@@ -124,6 +124,26 @@ const Two = ({prevStep, nextStep})=>{
     }
 
     const confirmInfo=()=>{
+        if(!goodUrl){
+            message.error('商品链接不能为空',1.5);
+            return;
+        }
+        if(!goodTitle){
+            message.error('商品标题不能为空',1.5);
+            return;
+        }
+        if(!goodStandard){
+            message.error('商品规格不能为空',1.5);
+            return;
+        }
+        if(!goodPrice){
+            message.error('商品价格不能为空',1.5);
+            return;
+        }
+        if(!goodNum){
+            message.error('商品件数不能为空',1.5);
+            return;
+        }
         const kws = state.kwList.map(k=>({
                 id: k.id,
                 activity_id:id,
@@ -137,6 +157,17 @@ const Two = ({prevStep, nextStep})=>{
                 extra_info: k.extra_info,
             }
         ));
+        let nameValid = true;
+        for(let k of kws){
+            if(!k.name){
+                nameValid = false;
+                break;
+            }
+        }
+        if(!nameValid){
+            message.error('关键字来源不能为空',1.5);
+            return;
+        }
         const param = {
             id,
             store_id,
