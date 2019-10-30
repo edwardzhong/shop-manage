@@ -128,6 +128,10 @@ const Two = ({prevStep, nextStep})=>{
             message.error('商品链接不能为空',1.5);
             return;
         }
+        if(!/^https?:\/\/\w+\.\w+$/.test(goodUrl)){
+            message.error('商品链接格式不正确',1.5);
+            return; 
+        }
         if(!goodTitle){
             message.error('商品标题不能为空',1.5);
             return;

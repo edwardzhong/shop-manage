@@ -46,6 +46,30 @@ const BindShop = () => {
     ];
     
     const submit = ()=>{
+        if(!values.store_acount){
+            message.error('店铺主旺旺不能为空',1.5);
+            return;
+        }
+        if(!values.store_name){
+            message.error('店铺名称不能为空',1.5);
+            return;
+        }
+        if(!values.store_url){
+            message.error('店铺首页网址不能为空',1.5);
+            return;
+        }
+        if(!/^https?:\/\/\w+\.\w+$/.test(values.store_url)){
+            message.error('店铺首页网址格式不正确',1.5);
+            return; 
+        }
+        if(!values.goods_url){
+            message.error('商品网址不能为空',1.5);
+            return;
+        }
+        if(!/^https?:\/\/\w+\.\w+$/.test(values.goods_url)){
+            message.error('商品网址格式不正确',1.5);
+            return; 
+        }
         const hide = message.loading('发送请求..', 0);
         bindRequset({...values, platformtype_id:storeType}).then(ret=>{
             hide();
