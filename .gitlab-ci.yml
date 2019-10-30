@@ -13,4 +13,4 @@ deploy-job:
     - npm install
     - npm run build
     - rm -rf /webapps/shop/*
-    - mv ./* /webapps/shop/
+    - mv ./dist/* /webapps/shop/
