@@ -3,10 +3,6 @@ import { Tabs, Select } from 'antd'
 import Table from '../../component/table'
 import './style.scss'
 import {timeStr} from '../../common/util'
-import DatePicker, { registerLocale } from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import es from 'date-fns/locale/zh-CN';
-registerLocale('zh-CN', es);
 
 const { TabPane } = Tabs;
 const { Option } = Select;
@@ -74,8 +70,8 @@ const Records = () => {
                         <Option value="2">tmall</Option>
                     </Select>
                     <label>起始时间：</label>
-                    <DatePicker className="input" locale="zh-CN" onChange={datesChange1} value={s1} />&nbsp;-&nbsp;
-                    <DatePicker className="input" locale="zh-CN" onChange={datetChange1} value={t1} />
+                    {/* <DatePicker className="input" locale="zh-CN" onChange={datesChange1} value={s1} />&nbsp;-&nbsp;
+                    <DatePicker className="input" locale="zh-CN" onChange={datetChange1} value={t1} /> */}
                 </div>
                 <div styleName="search">
                     <label>任务编号：</label>
@@ -87,8 +83,8 @@ const Records = () => {
             <TabPane tab="提现记录" key="2">
                 <div styleName="search">
                     <label>起始时间：</label>
-                    <DatePicker className="input" locale="zh-CN" onChange={dateChange} />&nbsp;-&nbsp;
-                    <DatePicker className="input" locale="zh-CN" onChange={dateChange} />
+                    {/* <DatePicker className="input" locale="zh-CN" onChange={dateChange} />&nbsp;-&nbsp;
+                    <DatePicker className="input" locale="zh-CN" onChange={dateChange} /> */}
                     <label>提现状态：</label>
                     <Select defaultValue="0" style={{ width: 100 }}>
                         <Option value="0">全部</Option>
@@ -114,8 +110,8 @@ const Records = () => {
                         <Option value="2">tmall</Option>
                     </Select>
                     <label>起始时间：</label>
-                    <DatePicker className="input" locale="zh-CN" onChange={dateChange} />&nbsp;-&nbsp;
-                    <DatePicker className="input" locale="zh-CN" onChange={dateChange} />
+                    {/* <DatePicker className="input" locale="zh-CN" onChange={dateChange} />&nbsp;-&nbsp;
+                    <DatePicker className="input" locale="zh-CN" onChange={dateChange} /> */}
                 </div>
                 <div styleName="search">
                     <label>任务编号：</label>

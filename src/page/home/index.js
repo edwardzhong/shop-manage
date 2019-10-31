@@ -4,10 +4,6 @@ import { Avatar, Tabs, Radio, Select, Icon, Progress, Pagination, Divider} from 
 import Table from '../../component/table'
 import { getContext } from '../../context'
 import './style.scss'
-import DatePicker,{ registerLocale } from "react-datepicker"; 
-import "react-datepicker/dist/react-datepicker.css";
-import es from 'date-fns/locale/zh-CN';
-registerLocale('zh-CN', es);
 
 const { TabPane } = Tabs;
 const {Option} = Select;
@@ -212,8 +208,8 @@ const Home = ({ history }) => {
                 </div>
                 <div styleName="bar-item">
                     <label>发布日期：</label>
-                    <DatePicker className="input" locale="zh-CN"  onChange={dateChange} />&nbsp;-&nbsp;
-                    <DatePicker className="input" locale="zh-CN"  onChange={dateChange}/>
+                    {/* <DatePicker className="input" locale="zh-CN"  onChange={dateChange} />&nbsp;-&nbsp;
+                    <DatePicker className="input" locale="zh-CN"  onChange={dateChange}/> */}
                     <label>高级搜索：</label>
                     <input className="input" styleName="search" />
                     <button className="btn primary">查询</button>
