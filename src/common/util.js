@@ -32,7 +32,9 @@ function stringFormat(str, ...args) {
 }
 
 function timeStr(d){
-    const date = `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+    const M = ('0' + (d.getMonth()+1)).slice(-2);
+    const D = ('0' + d.getDate()).slice(-2);
+    const date = `${d.getFullYear()}-${M}-${D}`;
     const time = ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2) + ":" + ("0" + d.getSeconds()).slice(-2);
     return `${date} ${time}`;
 }

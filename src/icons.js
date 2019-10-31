@@ -19,6 +19,10 @@ export {default as CheckOutline} from '@ant-design/icons/lib/outline/CheckOutlin
 export {default as CheckCircleOutline} from '@ant-design/icons/lib/outline/CheckCircleOutline';
 export {default as LoadingOutline} from '@ant-design/icons/lib/outline/LoadingOutline';
 export {default as PlusOutline} from '@ant-design/icons/lib/outline/PlusOutline';
+export {default as CloseOutline} from '@ant-design/icons/lib/outline/CloseOutline';
+export {default as CalendarOutline} from '@ant-design/icons/lib/outline/CalendarOutline';
+
+
 
 
 

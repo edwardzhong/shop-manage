@@ -23,7 +23,7 @@ const Two = ({prevStep, nextStep})=>{
     const [question,setQuestion] = useState(info.question);
     const [answer,setAnswer] = useState(info.answer);
 
-    const id = state.activityInfo.id||34;
+    const id = state.activityInfo.id||45;
     const store_id = state.activityInfo.store_id||15;
     const activitytype_id = state.activityInfo.activitytype_id||1;
     const img1 = useRef(null);
@@ -304,10 +304,10 @@ const Two = ({prevStep, nextStep})=>{
                 <button className="btn primary" onClick={confirmInfo}>确认提交信息</button>
             </div>
         </div>
-        {/* <footer>
+        <footer>
             <PrevBtn clickFn={prevStep}>上一步</PrevBtn>
-            <NextBtn clickFn={nextStep}>下一步</NextBtn>
-        </footer> */}
+            {/* <NextBtn clickFn={nextStep}>下一步</NextBtn> */}
+        </footer>
     </>
 }
 

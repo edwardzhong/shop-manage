@@ -14,7 +14,7 @@ const TwoRet = ({prevStep, nextStep}) =>{
     const [reqList, setReqList] = useState([]);
     const [reqRet, setReqRet] = useState([])
 
-    const id = state.activityInfo.id||34;
+    const id = state.activityInfo.id||45;
     const store_id = state.activityInfo.store_id||15;
     const activitytype_id = state.activityInfo.activitytype_id||1;
 
@@ -70,6 +70,8 @@ const TwoRet = ({prevStep, nextStep}) =>{
             hide();
             if(ret.data.error_code === 0){
                 setReq(true);
+            } else {
+                message.error(ret.data.msg,2);   
             }
         },err=>{
             hide();
