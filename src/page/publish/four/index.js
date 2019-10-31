@@ -75,7 +75,8 @@ const Four = ({prevStep,nextStep}) =>{
             </div>            
             <div>
                 <Checkbox disabled>图文好评：选择此服务后，接手活动</Checkbox>(<i>0金币/单</i>)
-            </div>            <div>
+            </div>            
+            <div>
                 <Checkbox disabled>视频评价：选择此服务后，接手活动</Checkbox>(<i>0金币/单</i>)
             </div>
         </div>

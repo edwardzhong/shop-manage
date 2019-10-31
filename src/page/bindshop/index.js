@@ -58,7 +58,7 @@ const BindShop = () => {
             message.error('店铺首页网址不能为空',1.5);
             return;
         }
-        if(!/^https?:\/\/\w+\.\w+$/.test(values.store_url)){
+        if(!/^https?:\/\/\w+\..+$/.test(values.store_url)){
             message.error('店铺首页网址格式不正确',1.5);
             return; 
         }
@@ -66,7 +66,7 @@ const BindShop = () => {
             message.error('商品网址不能为空',1.5);
             return;
         }
-        if(!/^https?:\/\/\w+\.\w+$/.test(values.goods_url)){
+        if(!/^https?:\/\/\w+\..+$/.test(values.goods_url)){
             message.error('商品网址格式不正确',1.5);
             return; 
         }

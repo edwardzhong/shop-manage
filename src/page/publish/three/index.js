@@ -2,6 +2,8 @@ import React,{useState} from 'react'
 import {Input, Checkbox, Divider} from 'antd'
 import Table from '../../../component/table'
 import {PrevBtn,NextBtn} from '../stepbtn'
+import { getActivity,getOrderRequire,updateActivity } from '../../../service'
+import {getContext} from '../../../context'
 import './style.scss'
 
 const Three = ({prevStep,nextStep}) =>{
