@@ -5,6 +5,10 @@
         color: $red;
     }
 }
+.divider{
+    margin: 10px 0;
+    border-bottom: 1px solid $border-color;
+}
 .block{
     div{
         display: flex;

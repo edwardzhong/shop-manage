@@ -13,6 +13,4 @@ export const removekw = createAction('REMOVEKW','uid');
 export const updatekw = createAction('UPDATEKW','info');
 export const setkw = createAction('SETKW','info');
 export const clearkw = createAction('CLEARKW','info');
-export const addSorts = createAction('ADDSORTS','info');
 export const addCities = createAction('ADDCITIES','info');
-export const addDis = createAction('ADDDIS','info');

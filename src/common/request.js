@@ -7,12 +7,14 @@ axios.defaults.withCredentials = true;
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
 
 axios.interceptors.request.use(function(config) {
-    const info = localStorage.getItem("loginInfo");
     const params = config.method == "get" ? config.params || {} : config.data || {};
-    if (info) {
-        const obj = JSON.parse(info);
-        if(obj.token){
-            config.headers.Authorization = 'Bearer ' + obj.token;
+    if(!/^config\//.test(config.url)){
+        const info = localStorage.getItem("loginInfo");
+        if (info) {
+            const obj = JSON.parse(info);
+            if(obj.token){
+                config.headers.Authorization = 'Bearer ' + obj.token;
+            }
         }
     }
     params._t = Math.random();

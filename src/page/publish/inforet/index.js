@@ -1,11 +1,13 @@
 import React,{useState,useEffect} from 'react'
 import { Input, Checkbox, message } from 'antd'
 import { PrevBtn, NextBtn } from '../stepbtn'
+import {useHistory} from 'react-router-dom'
 import { getActivity,getOrderRequire,updateActivity } from '../../../service'
 import {getContext} from '../../../context'
 import './style.scss'
 
-const TwoRet = ({prevStep, nextStep}) =>{
+const InfoRet = ({setStep}) =>{
+    const history = useHistory();
     const context = getContext();
     const {state} = context;
     const [req,setReq] = useState(false);
@@ -19,6 +21,7 @@ const TwoRet = ({prevStep, nextStep}) =>{
     const activitytype_id = state.activityInfo.activitytype_id||1;
 
     useEffect(()=>{
+        setStep(1);
         getOrderRequire().then(ret=>{
             const data = ret.data;
             if(data.error_code === 0){
@@ -88,7 +91,7 @@ const TwoRet = ({prevStep, nextStep}) =>{
                     <label>商品：</label>
                     <p>{info.goods_title}</p>
                 </div>
-                <a onClick={prevStep}>修改</a>
+                <a onClick={()=>history.push('/publish/info')}>修改</a>
             </div>
             <div styleName="block-div">
                 <label>规格：</label>
@@ -144,12 +147,12 @@ const TwoRet = ({prevStep, nextStep}) =>{
         }
         
         <footer>
-            <PrevBtn clickFn={prevStep}>上一步</PrevBtn>
+            <PrevBtn clickFn={()=>history.push('/publish/info')}>上一步</PrevBtn>
             {
-                req ? <NextBtn clickFn={nextStep}>下一步</NextBtn> : <NextBtn disable={true}>下一步</NextBtn>
+                req ? <NextBtn clickFn={()=>history.push('/publish/num')}>下一步</NextBtn> : <NextBtn disable={true}>下一步</NextBtn>
             }
         </footer>
     </>
 }
 
-export default TwoRet
+export default InfoRet

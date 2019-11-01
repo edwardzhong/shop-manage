@@ -15,6 +15,62 @@ export default [
 		name: "publish",
 		path: "/publish",
 		layout: "basic",
+		exect: false
+	},
+	{
+		key: "31",
+		title:'活动类型',
+		name: "",
+		path: "/publish/init",
+		layout: "basic",
+		exect: true
+	},
+	{
+		key: "31",
+		title:'商品信息',
+		name: "",
+		path: "/publish/info",
+		layout: "basic",
+		exect: true
+	},
+	{
+		key: "31",
+		title:'商品信息确认',
+		name: "",
+		path: "/publish/inforet",
+		layout: "basic",
+		exect: true
+	},
+	{
+		key: "31",
+		title:'活动数量',
+		name: "",
+		path: "/publish/num",
+		layout: "basic",
+		exect: true
+	},
+	{
+		key: "31",
+		title:'增值服务',
+		name: "",
+		path: "/publish/ser",
+		layout: "basic",
+		exect: true
+	},
+	{
+		key: "31",
+		title:'支付活动',
+		name: "",
+		path: "/publish/pay",
+		layout: "basic",
+		exect: true
+	},
+	{
+		key: "31",
+		title:'活动支付成功',
+		name: "",
+		path: "/publish/ret",
+		layout: "basic",
 		exect: true
 	},
 	{

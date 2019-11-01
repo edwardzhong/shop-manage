@@ -6,22 +6,31 @@
         color: $red;
     }
 }
+.divider{
+    margin: 10px 0;
+    border-bottom: 1px solid $border-color;
+}
 .list{
     li{
         display: flex;
         padding: 5px 10px;
     }
-    .pay-li{
-        display: flex;
-        justify-content: space-between;
-        p{
-            font-size: 16px;
-        }
+}
+.pay-li{
+    display: flex;
+    justify-content: space-between;
+    p{
+        font-size: 16px;
     }
 }
 .pay{
     p{
         text-align: right;
-        font-size: 16px;;
+        font-size: 16px;
+        padding-bottom:5px;
     }
+}
+.btn-block{
+    text-align: center;
+    padding: 10px;
 }

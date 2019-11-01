@@ -21,6 +21,10 @@ const getActivity = arg => get(`shopcms/activity/${arg.id}/`);
 const updatekeyword = arg => put('shopcms/keyword/batch_update/',arg);
 const addkeyword = arg => post('shopcms/keyword/',arg);
 const removekeyword = arg => del(`shopcms/keyword/${arg.id}/`,arg);
+const getAvailableMoney = () => get('shopcms/account_available/');
+const moneyOut = arg => post('shopcms/account_output_log/', arg);
+const payActivity = arg => post('shopcms/account_activity/');
+const coinIn = arg => post('shopcms/account_gold_input/')
 
 async function loginSer(dispatch, payload) {
 	// try {
@@ -98,6 +102,9 @@ export {
 	updateActivity,
 	addkeyword,
 	removekeyword,
+	getAvailableMoney,
+	moneyOut,
+	payActivity,
 
 	loginSer,
 	registerSer,

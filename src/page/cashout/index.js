@@ -1,13 +1,69 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
+import { moneyOut, getAvailableMoney } from '../../service'
+import {Link} from 'react-router-dom'
+import {message} from 'antd'
 import './style.scss'
 
-const Cashout =()=>{
+const Cashout =({history})=>{
+    const [money,setMoney] = useState(0);
+    const [num,setNum] = useState('');
+    const [pass,setPass] = useState('');
+
+    useEffect(()=>{
+        getAvailableMoney().then(ret=>{
+            const data = ret.data;
+            if(data.error_code === 0){
+                setMoney(data.data.available_money);
+            }
+        })
+    },[]);
+    const numChange = ({target}) =>{
+        setNum(target.value);
+    }
+    const passChange = ({target}) =>{
+        setPass(target.value);
+    }
+    const submit = () => {
+        if(!num){
+            message.error('金额不能为空',1.5);
+            return;
+        }
+        if(Number(num)<5){
+            message.error('每次提现至少5元',1.5);
+            return;
+        }
+        if(Number(num) > money){
+            message.error('提现的押金不足',1.5);
+            return;
+        }
+        if(!pass){
+            message.error('密码不能为空',1.5);
+            return;
+        }
+        const hide = message.loading('请求中...')
+        moneyOut({tixian_password: pass, money_num: num }).then(ret=>{
+            hide();
+            const data = ret.data;
+            if(data.error_code === 0){
+                message.success('已成功提交押金提现',1.5)
+                setTimeout(() => {
+                    history.push('/');    
+                }, 1600);
+            } else {
+                message.error(data.msg,2);
+            }
+        },err=>{
+            hide();
+            message.error(err.message,2);
+        })
+    }
     return <div styleName="content">
         <h2>押金提现</h2>
+        <div styleName="divider"></div>
         <div styleName="block">
             <div>
                 <label>押金：</label>
-                <p><i>0.00</i>元</p>
+                <p><i>{money.toFixed(2)}</i>元</p>
             </div>
             <div>
                 <label>退款方式：</label>
@@ -15,7 +71,7 @@ const Cashout =()=>{
             </div>
             <div>
                 <label>提取金额：</label>
-                <p><input type="text" className="input"/> <span>每次最少提现5元</span></p>
+                <p><input type="number" className="input" value={num} onChange={numChange} /> <span>每次最少提现5元</span></p>
             </div>
             <div>
                 <label></label>
@@ -31,11 +87,11 @@ const Cashout =()=>{
             </div>
             <div>
                 <label>提现密码：</label>
-                <p><input type="text" className="input"/> <a>找回提现密码</a></p>
+                <p><input type="text" className="input" value={pass} onChange={passChange} /> <Link to='/getpass'>找回提现密码</Link></p>
             </div>
             <div>
                 <label></label>
-                <button className="btn primary">申请提现</button>
+                <button className="btn primary" onClick={submit}>申请提现</button>
             </div>
         </div>
         <h2>温馨提示</h2>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link,useHistory } from "react-router-dom";
 import "./style.scss";
 
-const Ret = () => {
+const Result = ({setStep}) => {
 	const history = useHistory();
 	const [sec, setSec] = useState(5);
 	let timer;
@@ -14,6 +14,9 @@ const Ret = () => {
 			return;
 		}
 	}
+	useEffect(()=>{
+		setStep(5);
+	},[]);
 	useEffect(() => {
 		if(sec <= 0) {
 			clearTimeout(timer);
@@ -48,4 +51,4 @@ const Ret = () => {
 	);
 };
 
-export default Ret;
+export default Result;

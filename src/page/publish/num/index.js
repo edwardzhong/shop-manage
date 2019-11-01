@@ -2,6 +2,7 @@ import React,{ useState, useEffect } from 'react'
 import {Input, Radio, Divider,message} from 'antd'
 import Table from '../../../component/table'
 import {PrevBtn,NextBtn} from '../stepbtn'
+import {useHistory} from 'react-router-dom'
 import { getActivity,updatekeyword,updateActivity } from '../../../service'
 import {getContext} from '../../../context'
 import './style.scss'
@@ -17,7 +18,8 @@ const KwItem = ({index,info})=>{
         <span>{info.name}</span><Input type="number" value={info.quantity} onChange={quanChange}/> <span>单</span>
     </div>
 }
-const Three = ({prevStep,nextStep}) =>{
+const Num = ({setStep}) =>{
+    const history = useHistory();
     const context = getContext();
     const {state,actions } = context;
     const {setkw} = actions;
@@ -29,6 +31,7 @@ const Three = ({prevStep,nextStep}) =>{
     const [quantity,setQuan] = useState(1);
     const [num,setNum] = useState(1);
     useEffect(()=>{
+        setStep(2);
         getActivity({id}).then(ret=>{
             const data = ret.data;
             if(data.error_code === 0){
@@ -96,7 +99,7 @@ const Three = ({prevStep,nextStep}) =>{
             console.log(adata,bdata);
             const msgs = [];
             if(adata.error_code === 0 && bdata.error_code === 0){
-                nextStep();
+                history.push('/publish/ser');
             } else {
                 if(adata.error_code !== 0){
                     msgs.push(adata.msg);
@@ -143,10 +146,10 @@ const Three = ({prevStep,nextStep}) =>{
             <Table column={column} data={data}/>
         </div>
         <footer>
-            <PrevBtn clickFn={prevStep}>上一步</PrevBtn>
+            <PrevBtn clickFn={()=>history.push('/publish/inforet')}>上一步</PrevBtn>
             <NextBtn clickFn={confirm}>下一步</NextBtn>
         </footer>
     </>
 }
 
-export default Three
+export default Num

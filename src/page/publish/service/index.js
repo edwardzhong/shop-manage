@@ -3,6 +3,7 @@ import { Checkbox, Radio, Select, Divider, DatePicker,message} from 'antd'
 import {PrevBtn,NextBtn} from '../stepbtn'
 import { getActivity, updateActivity, getPlusService,getCities } from '../../../service'
 import {getContext} from '../../../context'
+import {useHistory} from 'react-router-dom'
 import {timeStr} from '../../../common/util'
 import './style.scss'
 import locale from 'antd/es/date-picker/locale/zh_CN';
@@ -11,7 +12,8 @@ import 'moment/locale/zh-cn';
 moment.locale('zh-cn');
 const {Option} = Select;
 
-const Four = ({prevStep,nextStep}) =>{
+const Service = ({setStep}) =>{
+    const history = useHistory();
     const context = getContext();
     const {state} = context;
     const id = state.activityInfo.id||45;
@@ -75,6 +77,7 @@ const Four = ({prevStep,nextStep}) =>{
     const [feeList,setFeeList] = useState([]);
    
     useEffect(()=>{
+        setStep(3);
         getActivity({id}).then(ret=>{
             setPageStatus(ret);
             setTimeout(()=>{
@@ -384,7 +387,7 @@ const Four = ({prevStep,nextStep}) =>{
         submit().then(ret=>{
             hide();
             if(ret.data.error_code === 0){
-                nextStep();
+                history.push('/publish/pay');
             }
         });
     }
@@ -566,7 +569,7 @@ const Four = ({prevStep,nextStep}) =>{
         </div>
         <Divider/>
         <footer>
-            <PrevBtn clickFn={prevStep}>上一步</PrevBtn>
+            <PrevBtn clickFn={()=>history.push('/publish/num')}>上一步</PrevBtn>
             <NextBtn clickFn={next}>下一步</NextBtn>
         </footer>
         <h4>费用合计</h4>
@@ -607,6 +610,6 @@ const Four = ({prevStep,nextStep}) =>{
     </>
 }
 
-export default Four
+export default Service
 
 

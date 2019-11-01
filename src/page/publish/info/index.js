@@ -1,12 +1,14 @@
 import React,{useRef,useState,useEffect} from 'react'
 import {Input, Icon, message} from 'antd'
 import { PrevBtn, NextBtn } from '../stepbtn'
+import {useHistory} from 'react-router-dom'
 import {getActivity, getKwSortway,getKwService,getCities,updatekeyword, addkeyword as addkeywordReq, updateActivity} from '../../../service'
 import {getContext} from '../../../context'
 import KwItem from './kwItem'
 import './style.scss'
 
-const Two = ({prevStep, nextStep})=>{
+const Info = ({setStep})=>{
+    const history = useHistory();
     const context = getContext();
     const {state, actions} = context;
     const {setkw,addkw,clearkw } = actions;
@@ -33,12 +35,13 @@ const Two = ({prevStep, nextStep})=>{
         price_range: '10|100',
         send_address: '不选择',
         brand: "",
-        sort_way: '综合',
-        service: '包邮',
+        sort_way: '',
+        service: '',
         store_classify: '旗舰店',
         extra_info: "",
     }
     useEffect(()=>{
+        setStep(1);
         getActivity({id}).then(ret=>{
             const data = ret.data;
             if(data.error_code === 0){
@@ -195,7 +198,7 @@ const Two = ({prevStep, nextStep})=>{
             console.log(adata,bdata);
             const msgs = [];
             if(adata.error_code === 0 && bdata.error_code === 0){
-                nextStep();
+                history.push('/publish/inforet')
             } else {
                 if(adata.error_code !== 0){
                     msgs.push(adata.msg);
@@ -305,10 +308,10 @@ const Two = ({prevStep, nextStep})=>{
             </div>
         </div>
         <footer>
-            <PrevBtn clickFn={prevStep}>上一步</PrevBtn>
+            <PrevBtn clickFn={()=>history.push('/publish/init')}>上一步</PrevBtn>
             {/* <NextBtn clickFn={nextStep}>下一步</NextBtn> */}
         </footer>
     </>
 }
 
-export default Two
+export default Info

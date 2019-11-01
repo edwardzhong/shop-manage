@@ -5,8 +5,6 @@ import loginInfo from './loginInfo'
 import userInfo from './userInfo'
 import kwList from './kwList'
 import cities from './cities'
-import dis from './dis'
-import sorts from './sorts'
 
 const rootReducer = combineReducers({
   activityInfo,
@@ -15,8 +13,6 @@ const rootReducer = combineReducers({
   menukey,
   kwList,
   cities,
-  dis,
-  sorts
 });
 
 export default rootReducer
