@@ -1,41 +1,41 @@
 import React, { useState, useEffect } from "react";
-import { Link,useHistory } from "react-router-dom";
-import {getContext} from '../../../context'
+import { Link, useHistory } from "react-router-dom";
+import { getContext } from "../../../context";
 import "./style.scss";
 
-const Result = ({setStep}) => {
+const Result = ({ setStep }) => {
 	const history = useHistory();
 	const context = getContext();
-	const {actions,state}= context;
+	const { actions, state } = context;
 	const [sec, setSec] = useState(5);
 	let timer;
-	function fn(){
-		setSec(sec-1);
-		if(sec <= 0) {
+	function fn() {
+		setSec(sec - 1);
+		if (sec <= 0) {
 			clearTimeout(timer);
-			history.push('/');
+			history.push("/");
 			return;
 		}
 	}
-	useEffect(()=>{
-		if(!state.activityInfo.id){
-			history.push('/publish/init');
+	useEffect(() => {
+		if (!state.activityInfo.id) {
+			history.push("/publish/init");
 			return;
 		}
 		actions.clearActivity();
 		setStep(5);
-	},[]);
+	}, []);
 	useEffect(() => {
-		if(sec <= 0) {
+		if (sec <= 0) {
 			clearTimeout(timer);
-			history.push('/');
+			history.push("/");
 			return;
 		}
 		timer = setTimeout(fn, 1000);
 		return () => {
 			clearTimeout(timer);
 		};
-	},[sec]);
+	}, [sec]);
 	return (
 		<div styleName='result'>
 			<i styleName='check-circle'>

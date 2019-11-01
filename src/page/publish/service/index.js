@@ -9,7 +9,7 @@ import locale from 'antd/es/date-picker/locale/zh_CN';
 import moment from 'moment';
 import 'moment/locale/zh-cn';
 moment.locale('zh-cn');
-const {Option} = Select;
+const { Option } = Select;
 
 const Service = ({setStep}) =>{
     const history = useHistory();
@@ -102,7 +102,11 @@ const Service = ({setStep}) =>{
     },[]);
     useEffect(()=>{
         if(!isFirst){
-            submit();
+            submit().then(ret => {
+                if(ret.data.error_code === 0){
+                    setPageStatus(ret);
+                }
+            });
         }
     },[lim,apo,sex,hor,horVal,tq,tqVal,week,weekVal,rep,pub])
     const limChange =({target})=>{
@@ -153,9 +157,7 @@ const Service = ({setStep}) =>{
     const setInputDis = h =>{
         document.querySelectorAll('.input').forEach((ele,i)=>{
             ele.disabled = i < h? true: false;
-            if(i<h){
-                ele.value = '';
-            }
+            if(i<h) ele.value = '';
         });
     }
     const timeChange = (d,s) =>{
@@ -291,14 +293,13 @@ const Service = ({setStep}) =>{
 
         // console.log(JSON.stringify(param));
         return updateActivity(param).then(ret=>{
-            setPageStatus(ret);
             if(ret.data.error_code !== 0){
                 message.error(ret.data.msg,2);
             }
             return ret;
-        },err=>{
+        },err => {
             message.error(err.message,2);
-            return ret;
+            return err;
         });
     }
 
@@ -385,7 +386,7 @@ const Service = ({setStep}) =>{
             setFeeList(flist);
         }
     }
-    const next = () =>{
+    const nextStep = () =>{
         const hide = message.loading('请求中...');
         submit().then(ret=>{
             hide();
@@ -509,38 +510,38 @@ const Service = ({setStep}) =>{
                 <DatePicker showTime placeholder="选择时间" format='YYYY-MM-DD HH:mm' locale={locale} onChange={dateChange} onOk={dateChange} value={moment(dates)}/>
             </div>
             <div styleName="hour-item">
-                <label> 0时 </label><input type="number" className="input" onChange={hourChange} /><span> 单 </span>
-                <label> 1时 </label><input type="number" className="input" onChange={hourChange} /><span> 单 </span>
-                <label> 2时 </label><input type="number" className="input" onChange={hourChange} /><span> 单 </span>
-                <label> 3时 </label><input type="number" className="input" onChange={hourChange} /><span> 单 </span>
-                <label> 4时 </label><input type="number" className="input" onChange={hourChange} /><span> 单 </span>
+                <label> 0时 </label><input type="number" className="input" step="1" min="0" max="1000" onChange={hourChange} /><span> 单 </span>
+                <label> 1时 </label><input type="number" className="input" step="1" min="0" max="1000" onChange={hourChange} /><span> 单 </span>
+                <label> 2时 </label><input type="number" className="input" step="1" min="0" max="1000" onChange={hourChange} /><span> 单 </span>
+                <label> 3时 </label><input type="number" className="input" step="1" min="0" max="1000" onChange={hourChange} /><span> 单 </span>
+                <label> 4时 </label><input type="number" className="input" step="1" min="0" max="1000" onChange={hourChange} /><span> 单 </span>
             </div>
             <div styleName="hour-item">
-                <label> 5时 </label><input type="number" className="input" onChange={hourChange} /><span> 单 </span>
-                <label> 6时 </label><input type="number" className="input" onChange={hourChange} /><span> 单 </span>
-                <label> 7时 </label><input type="number" className="input" onChange={hourChange} /><span> 单 </span>
-                <label> 8时 </label><input type="number" className="input" onChange={hourChange} /><span> 单 </span>
-                <label> 9时 </label><input type="number" className="input" onChange={hourChange} /><span> 单 </span>
+                <label> 5时 </label><input type="number" className="input" step="1" min="0" max="1000" onChange={hourChange} /><span> 单 </span>
+                <label> 6时 </label><input type="number" className="input" step="1" min="0" max="1000" onChange={hourChange} /><span> 单 </span>
+                <label> 7时 </label><input type="number" className="input" step="1" min="0" max="1000" onChange={hourChange} /><span> 单 </span>
+                <label> 8时 </label><input type="number" className="input" step="1" min="0" max="1000" onChange={hourChange} /><span> 单 </span>
+                <label> 9时 </label><input type="number" className="input" step="1" min="0" max="1000" onChange={hourChange} /><span> 单 </span>
             </div>
             <div styleName="hour-item">
-                <label> 10时 </label><input type="number" className="input" onChange={hourChange} /><span> 单 </span>
-                <label> 11时 </label><input type="number" className="input" onChange={hourChange} /><span> 单 </span>
-                <label> 12时 </label><input type="number" className="input" onChange={hourChange} /><span> 单 </span>
-                <label> 13时 </label><input type="number" className="input" onChange={hourChange} /><span> 单 </span>
-                <label> 14时 </label><input type="number" className="input" onChange={hourChange} /><span> 单 </span>
+                <label> 10时 </label><input type="number" className="input" step="1" min="0" max="1000" onChange={hourChange} /><span> 单 </span>
+                <label> 11时 </label><input type="number" className="input" step="1" min="0" max="1000" onChange={hourChange} /><span> 单 </span>
+                <label> 12时 </label><input type="number" className="input" step="1" min="0" max="1000" onChange={hourChange} /><span> 单 </span>
+                <label> 13时 </label><input type="number" className="input" step="1" min="0" max="1000" onChange={hourChange} /><span> 单 </span>
+                <label> 14时 </label><input type="number" className="input" step="1" min="0" max="1000" onChange={hourChange} /><span> 单 </span>
             </div>
             <div styleName="hour-item">
-                <label> 15时 </label><input type="number" className="input" onChange={hourChange} /><span> 单 </span>
-                <label> 16时 </label><input type="number" className="input" onChange={hourChange} /><span> 单 </span>
-                <label> 17时 </label><input type="number" className="input" onChange={hourChange} /><span> 单 </span>
-                <label> 18时 </label><input type="number" className="input" onChange={hourChange} /><span> 单 </span>
-                <label> 19时 </label><input type="number" className="input" onChange={hourChange} /><span> 单 </span>
+                <label> 15时 </label><input type="number" className="input" step="1" min="0" max="1000" onChange={hourChange} /><span> 单 </span>
+                <label> 16时 </label><input type="number" className="input" step="1" min="0" max="1000" onChange={hourChange} /><span> 单 </span>
+                <label> 17时 </label><input type="number" className="input" step="1" min="0" max="1000" onChange={hourChange} /><span> 单 </span>
+                <label> 18时 </label><input type="number" className="input" step="1" min="0" max="1000" onChange={hourChange} /><span> 单 </span>
+                <label> 19时 </label><input type="number" className="input" step="1" min="0" max="1000" onChange={hourChange} /><span> 单 </span>
             </div>
             <div styleName="hour-item">
-                <label> 20时 </label><input type="number" className="input" onChange={hourChange} /><span> 单 </span>
-                <label> 21时 </label><input type="number" className="input" onChange={hourChange} /><span> 单 </span>
-                <label> 22时 </label><input type="number" className="input" onChange={hourChange} /><span> 单 </span>
-                <label> 23时 </label><input type="number" className="input" onChange={hourChange} /><span> 单 </span>
+                <label> 20时 </label><input type="number" className="input" step="1" min="0" max="1000" onChange={hourChange} /><span> 单 </span>
+                <label> 21时 </label><input type="number" className="input" step="1" min="0" max="1000" onChange={hourChange} /><span> 单 </span>
+                <label> 22时 </label><input type="number" className="input" step="1" min="0" max="1000" onChange={hourChange} /><span> 单 </span>
+                <label> 23时 </label><input type="number" className="input" step="1" min="0" max="1000" onChange={hourChange} /><span> 单 </span>
                 <span>已分配<i>{num}</i>单</span>
                 <span>未分配<i>{Number(info.quantity) - num}</i>单</span>
             </div>
@@ -573,7 +574,7 @@ const Service = ({setStep}) =>{
         <Divider/>
         <footer>
             <PrevBtn clickFn={()=>history.push('/publish/num')}>上一步</PrevBtn>
-            <NextBtn clickFn={next}>下一步</NextBtn>
+            <NextBtn clickFn={nextStep}>下一步</NextBtn>
         </footer>
         <h4>费用合计</h4>
         <table styleName="table">
