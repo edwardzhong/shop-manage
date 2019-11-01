@@ -16,9 +16,7 @@ const KwItem = ({index,info,sorts,dis,cities})=> {
     const [shopType,setShopType] = useState(info.store_classify);
     const [address,setAddress] = useState(info.send_address);
     const [services,setServices] = useState(info.service);
-    const activity_id = state.activityInfo.id||45;
-    const store_id = state.activityInfo.store_id||15;
-    const activitytype_id = state.activityInfo.activitytype_id||1;
+    const activity_id = state.activityInfo.id;
 
     const nameChange = ({target})=>{
         updatekw({uid,name:target.value});

@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react'
-import { moneyOut, getAvailableMoney } from '../../service'
+import { moneyOut, getAccount } from '../../service'
 import {Link} from 'react-router-dom'
 import {message} from 'antd'
 import './style.scss'
@@ -10,10 +10,10 @@ const Cashout =({history})=>{
     const [pass,setPass] = useState('');
 
     useEffect(()=>{
-        getAvailableMoney().then(ret=>{
+        getAccount().then(ret=>{
             const data = ret.data;
             if(data.error_code === 0){
-                setMoney(data.data.available_money);
+                setMoney(data.data.account_yajin.available_money);
             }
         })
     },[]);

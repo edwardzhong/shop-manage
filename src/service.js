@@ -8,23 +8,27 @@ const changePass = arg => post('shopcms/change_passwd/', arg);
 const userInfo = arg => get(`shopcms/userinfo/${arg.id}/`);
 const updateUser = arg => put(`shopcms/userinfo/${arg.id}/`,arg);
 const bindShop = arg => post('shopcms/store/',arg);
-const shopList  = arg => get('shopcms/store/', arg);
-const activityList = () => get('config/activity_type/');
+const getShopList  = arg => get('shopcms/store/', arg);
 const createActivity = arg => post('shopcms/activity/', arg);
 const updateActivity = arg => put(`shopcms/activity/${arg.id}/`,arg);
+const activityList = () => get('config/activity_type/');
 const getKwSortway = () => get('config/keywords_sortway/');
 const getKwService = () => get('config/keywords_service/');
 const getOrderRequire = ()=> get('config/order_requirement/')
 const getPlusService = ()=> get('config/add_service/')
 const getCities = ()=> get('config/city/')
+const getShopType =()=> get('config/store_type/');
+
 const getActivity = arg => get(`shopcms/activity/${arg.id}/`);
 const updatekeyword = arg => put('shopcms/keyword/batch_update/',arg);
 const addkeyword = arg => post('shopcms/keyword/',arg);
 const removekeyword = arg => del(`shopcms/keyword/${arg.id}/`,arg);
-const getAvailableMoney = () => get('shopcms/account_available/');
+const getAccount = () => get('shopcms/account/');
 const moneyOut = arg => post('shopcms/account_output_log/', arg);
-const payActivity = arg => post('shopcms/account_activity/');
-const coinIn = arg => post('shopcms/account_gold_input/')
+const payActivity = arg => post('shopcms/account_activity/',arg);
+const coinIn = arg => post('shopcms/account_gold_input/', arg)
+const getMoneyOutRecords = () => get('supercms/check_tx/');
+const getAccountRecords = arg => get('shopcms/account_activity/', arg)
 
 async function loginSer(dispatch, payload) {
 	// try {
@@ -89,7 +93,7 @@ async function createActivitySer(dispatch,payload){
 export {
 	smsCode,
 	changePass,
-	shopList,
+	getShopList,
 	bindShop,
 	getActivity,
 	activityList,
@@ -102,9 +106,13 @@ export {
 	updateActivity,
 	addkeyword,
 	removekeyword,
-	getAvailableMoney,
+	getAccount,
 	moneyOut,
 	payActivity,
+	coinIn,
+	getMoneyOutRecords,
+	getAccountRecords,
+	getShopType,
 
 	loginSer,
 	registerSer,

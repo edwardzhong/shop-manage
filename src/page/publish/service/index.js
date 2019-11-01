@@ -4,7 +4,6 @@ import {PrevBtn,NextBtn} from '../stepbtn'
 import { getActivity, updateActivity, getPlusService,getCities } from '../../../service'
 import {getContext} from '../../../context'
 import {useHistory} from 'react-router-dom'
-import {timeStr} from '../../../common/util'
 import './style.scss'
 import locale from 'antd/es/date-picker/locale/zh_CN';
 import moment from 'moment';
@@ -16,9 +15,9 @@ const Service = ({setStep}) =>{
     const history = useHistory();
     const context = getContext();
     const {state} = context;
-    const id = state.activityInfo.id||45;
-    const store_id = state.activityInfo.store_id||15;
-    const activitytype_id = state.activityInfo.activitytype_id||1;
+    const id = state.activityInfo.id;
+    const store_id = state.activityInfo.store_id;
+    const activitytype_id = state.activityInfo.activitytype_id;
     const [info,setInfo] = useState({
         quantity:0,
         goods_title:'',
@@ -69,14 +68,18 @@ const Service = ({setStep}) =>{
     const [rep,setRep] = useState('默认好评')
     const [pub,setPub] = useState('定时发布')
 
-    const [times,setTime] = useState(timeStr(new Date()))
-    const [dates,setDate] = useState(timeStr(new Date()))
+    const [times,setTime] = useState(moment(new Date()).format('YYYY-MM-DD HH:mm'))
+    const [dates,setDate] = useState(moment(new Date()).format('YYYY-MM-DD HH:mm'))
     const [num,setNum] = useState(0);
     const [interval,setInter] = useState('1');
     const [count,setCount] = useState('1');
     const [feeList,setFeeList] = useState([]);
    
     useEffect(()=>{
+        if(!id){
+            history.push('/publish/init');
+            return;
+        }
         setStep(3);
         getActivity({id}).then(ret=>{
             setPageStatus(ret);
@@ -156,11 +159,11 @@ const Service = ({setStep}) =>{
         });
     }
     const timeChange = (d,s) =>{
-        setTime(d.format('YYYY-MM-DD HH:mm:ss'));
+        setTime(d.format('YYYY-MM-DD HH:mm'));
     } 
 
     const dateChange = (d,s)=>{
-        setDate(d.format('YYYY-MM-DD HH:mm:ss'));
+        setDate(d.format('YYYY-MM-DD HH:mm'));
         setInputDis(d.hour());
     } 
 
@@ -489,7 +492,7 @@ const Service = ({setStep}) =>{
             </div>
             <div styleName="desc">
                 <label>报名活动时间：</label>
-                <DatePicker showTime placeholder="选择时间" locale={locale} onChange={timeChange} onOk={timeChange} value={moment(times)}/>
+                <DatePicker showTime placeholder="选择时间" format='YYYY-MM-DD HH:mm' locale={locale} onChange={timeChange} onOk={timeChange} value={moment(times)}/>
                 &nbsp;<i> 发布时间与当前时间至少错开2小时</i>
             </div>
             <div styleName="desc">
@@ -503,7 +506,7 @@ const Service = ({setStep}) =>{
             </div>
             <div styleName="desc">
                 <label>选择发布日期：</label>
-                <DatePicker showTime placeholder="选择时间" locale={locale} onChange={dateChange} onOk={dateChange} value={moment(dates)}/>
+                <DatePicker showTime placeholder="选择时间" format='YYYY-MM-DD HH:mm' locale={locale} onChange={dateChange} onOk={dateChange} value={moment(dates)}/>
             </div>
             <div styleName="hour-item">
                 <label> 0时 </label><input type="number" className="input" onChange={hourChange} /><span> 单 </span>

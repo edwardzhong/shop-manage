@@ -25,9 +25,9 @@ const Info = ({setStep})=>{
     const [question,setQuestion] = useState(info.question);
     const [answer,setAnswer] = useState(info.answer);
 
-    const id = state.activityInfo.id||45;
-    const store_id = state.activityInfo.store_id||15;
-    const activitytype_id = state.activityInfo.activitytype_id||1;
+    const id = state.activityInfo.id;
+    const store_id = state.activityInfo.store_id;
+    const activitytype_id = state.activityInfo.activitytype_id;
     const img1 = useRef(null);
     const img2 = useRef(null);
     const kw = {
@@ -41,6 +41,10 @@ const Info = ({setStep})=>{
         extra_info: "",
     }
     useEffect(()=>{
+        if(!id){
+            history.push('/publish/init');
+            return;
+        }
         setStep(1);
         getActivity({id}).then(ret=>{
             const data = ret.data;

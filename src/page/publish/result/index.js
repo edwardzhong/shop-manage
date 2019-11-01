@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link,useHistory } from "react-router-dom";
+import {getContext} from '../../../context'
 import "./style.scss";
 
 const Result = ({setStep}) => {
 	const history = useHistory();
+	const context = getContext();
+	const {actions,state}= context;
 	const [sec, setSec] = useState(5);
 	let timer;
 	function fn(){
@@ -15,6 +18,11 @@ const Result = ({setStep}) => {
 		}
 	}
 	useEffect(()=>{
+		if(!state.activityInfo.id){
+			history.push('/publish/init');
+			return;
+		}
+		actions.clearActivity();
 		setStep(5);
 	},[]);
 	useEffect(() => {

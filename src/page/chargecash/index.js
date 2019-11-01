@@ -6,6 +6,7 @@ const { TabPane } = Tabs;
 const ChargeCash =()=>{
     return <div styleName="content">
         <h2>押金充值</h2>
+        <div styleName="divider"></div>
         <p>充值一般 <i>2-3</i>分钟后自动到账，若 <i>30</i>分钟内未到帐请联系客服</p>
         <h3>请选择支付方式</h3>
         <p><i>温馨提示：请确保支付的银行账户为本人账户</i></p>

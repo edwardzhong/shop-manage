@@ -16,11 +16,15 @@ const InfoRet = ({setStep}) =>{
     const [reqList, setReqList] = useState([]);
     const [reqRet, setReqRet] = useState([])
 
-    const id = state.activityInfo.id||45;
-    const store_id = state.activityInfo.store_id||15;
-    const activitytype_id = state.activityInfo.activitytype_id||1;
+    const id = state.activityInfo.id;
+    const store_id = state.activityInfo.store_id;
+    const activitytype_id = state.activityInfo.activitytype_id;
 
     useEffect(()=>{
+        if(!id){
+            history.push('/publish/init');
+            return;
+        }
         setStep(1);
         getOrderRequire().then(ret=>{
             const data = ret.data;

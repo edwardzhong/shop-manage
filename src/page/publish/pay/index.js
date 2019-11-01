@@ -2,7 +2,7 @@ import React,{useState,useEffect} from 'react'
 import {Icon,Divider,message} from 'antd'
 import {PrevBtn,NextBtn} from '../stepbtn'
 import {Link,useHistory} from 'react-router-dom'
-import { getActivity,getAvailableMoney,payActivity } from '../../../service'
+import { getActivity,getAccount,payActivity } from '../../../service'
 import {getContext} from '../../../context'
 import './style.scss'
 
@@ -10,8 +10,9 @@ const Pay=({setStep})=>{
     const history = useHistory();
     const context = getContext();
     const {state} = context;
-    const id = state.activityInfo.id||45;
+    const id = state.activityInfo.id;
     const [money,setMoney] = useState(0);
+    const [coin,setCoin] = useState(0);
     const [info,setInfo] = useState({
         quantity:0,
         bill:{
@@ -24,6 +25,10 @@ const Pay=({setStep})=>{
         }
     });
     useEffect(()=>{
+        if(!id){
+            history.push('/publish/init');
+            return;
+        }
         setStep(4);
         getActivity({id}).then(ret=>{
             const data = ret.data;
@@ -32,19 +37,28 @@ const Pay=({setStep})=>{
                 setInfo(info);
             }
         });
-        getAvailableMoney().then(ret=>{
+        getAccount().then(ret=>{
             const data = ret.data;
             if(data.error_code === 0){
-                setMoney(data.data.available_money);
+                setMoney(data.data.account_yajin.available_money);
+                setCoin(data.data.account_gold.available_money);
             }
         })
     },[])
 
-    const submit = () =>{
+    const submit = () => {
+        if(info.bill.total_service_fee + info.bill.total_service_fee > coin){
+            message.error('金币不足，请充值后重试');
+            return;
+        }
+        if(info.bill.total_yajin_fee > money){
+            message.error('押金不足，请充值后重试');
+            return;
+        }
         const hide = message.loading('请求中...');
         payActivity({
             yajin_money_num: info.bill.total_yajin_fee,
-            gold_money_num: info.bill.total_service_fee + info.bill.total_service_fee,
+            gold_money_num: info.bill.total_service_fee + info.bill.total_add_service_fee,
             activity_id: id
         }).then(ret=>{
             hide();
@@ -81,8 +95,14 @@ const Pay=({setStep})=>{
                 <Icon type="pay-circle" style={{color:'hsl(200,70%,50%)'}} /> 金币支付
             </div>
             <div styleName="pay-item">
-                <p>可用金币：(<span>16.00</span>) 1金币 = 1元</p>
-                <p>支付：<span>{info.bill.total_add_service_fee + info.bill.total_service_fee}</span> 金币不足 还差 <span>209</span>金币 <Link to="/chargecoin">前去充值</Link></p>
+                <p>可用金币：(<span>{coin.toFixed(2)}</span>) 1金币 = 1元</p>
+                <p>支付：<span>{info.bill.total_add_service_fee + info.bill.total_service_fee}</span> 
+                {
+                    coin - info.bill.total_add_service_fee - info.bill.total_service_fee < 0 && <>
+                        金币不足 还差 <span>{info.bill.total_add_service_fee + info.bill.total_service_fee - coin }</span>金币 <Link to="/chargecoin">前去充值</Link>
+                    </>
+                }
+                </p>
             </div>
             <div styleName="pay-label">
                 <Icon type="money-collect" style={{color:'hsl(200,70%,50%)'}} /> 押金支付

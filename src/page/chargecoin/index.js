@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import { Checkbox, Radio, message } from 'antd'
-import { getAvailableMoney, coinIn } from '../../service'
+import { getAccount, coinIn } from '../../service'
 import { Link } from 'react-router-dom'
 import './style.scss'
 
@@ -9,10 +9,10 @@ const ChargeCoin =({history})=>{
     const [num,setNum] = useState(100);
 
     useEffect(()=>{
-        getAvailableMoney().then(ret=>{
+        getAccount().then(ret=>{
             const data = ret.data;
             if(data.error_code === 0){
-                setMoney(Number(data.data.available_money));
+                setMoney(data.data.account_yajin.available_money);
             }
         })
     },[]);

@@ -3,7 +3,7 @@ import {Tabs, Radio, message} from 'antd'
 import { NextBtn } from '../stepbtn'
 import {useHistory} from 'react-router-dom'
 import {getContext} from '../../../context'
-import {shopList,activityList,createActivitySer} from '../../../service'
+import {getShopList,activityList,createActivitySer} from '../../../service'
 import './style.scss'
 
 const Init = ({setStep})=>{
@@ -18,7 +18,7 @@ const Init = ({setStep})=>{
     const history = useHistory();
     useEffect(()=>{
         setStep(0);
-        shopList().then(ret=>{
+        getShopList().then(ret=>{
             const data = ret.data;
             if(data.error_code === 0){
                 setShList(data.data);
@@ -45,29 +45,29 @@ const Init = ({setStep})=>{
         setActType(target.value);
     }
     const submit =()=>{
-        history.push('/publish/info')
+        // history.push('/publish/info')
         const store_id = pf == '1'?tShop:mShop;
-        // if(!store_id){
-        //     message.error('请选择店铺',1.5);
-        //     return;
-        // }
-        // if(!actType){
-        //     message.error('请选择活动类型',1.5);
-        //     return;
-        // }
-        // const hide = message.loading('发送请求...');
-        // createActivitySer(dispatch,{store_id, activitytype_id: actType}).then(ret=>{
-        //     hide();
-        //     const data = ret.data;
-        //     if(data.error_code === 0){
-        //         history.push('/publish/info');
-        //     } else {
-        //         message.error(data.msg,2);
-        //     }
-        // },err=>{
-        //     hide();
-        //     message.error(err.message,2);
-        // });
+        if(!store_id){
+            message.error('请选择店铺',1.5);
+            return;
+        }
+        if(!actType){
+            message.error('请选择活动类型',1.5);
+            return;
+        }
+        const hide = message.loading('发送请求...');
+        createActivitySer(dispatch,{store_id, activitytype_id: actType}).then(ret=>{
+            hide();
+            const data = ret.data;
+            if(data.error_code === 0){
+                history.push('/publish/info');
+            } else {
+                message.error(data.msg,2);
+            }
+        },err=>{
+            hide();
+            message.error(err.message,2);
+        });
     }
     return <>
         <h3>选择店铺</h3>

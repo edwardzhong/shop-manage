@@ -3,7 +3,14 @@
     i{
         font-style: normal;
         color: $red;
+        &[aria-label]{
+            color: #999;
+        }
     }
+}
+.divider{
+    margin: 10px 0;
+    border-bottom: 1px solid $border-color;
 }
 .search{
     padding: 5px 0;

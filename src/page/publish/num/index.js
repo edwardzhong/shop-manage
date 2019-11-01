@@ -31,6 +31,10 @@ const Num = ({setStep}) =>{
     const [quantity,setQuan] = useState(1);
     const [num,setNum] = useState(1);
     useEffect(()=>{
+        if(!id){
+            history.push('/publish/init');
+            return;
+        }
         setStep(2);
         getActivity({id}).then(ret=>{
             const data = ret.data;

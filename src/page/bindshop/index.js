@@ -5,7 +5,7 @@ import Table from '../../component/table'
 import { randomCode,timeStr } from '../../common/util'
 import useForm  from '../../common/useForm';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
-import { shopList, bindShop as bindRequset} from '../../service'
+import { getShopList, bindShop as bindRequset} from '../../service'
 import './style.scss'
 import goodPic from '../../../public/bindgood.png';
 const { Step } = Steps;
@@ -22,7 +22,7 @@ const BindShop = () => {
         '2':'审核中',
     };
     useEffect(()=>{
-        shopList().then(ret=>{
+        getShopList().then(ret=>{
             const data = ret.data;
             if(data.error_code === 0){
                 const list = data.data.map(l=>{
