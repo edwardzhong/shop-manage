@@ -8,33 +8,21 @@ const Result = ({ setStep }) => {
 	const context = getContext();
 	const { actions, state } = context;
 	const [sec, setSec] = useState(5);
-	let timer;
-	function fn() {
-		setSec(sec - 1);
-		if (sec <= 0) {
-			clearTimeout(timer);
-			history.push("/");
-			return;
-		}
-	}
+	
 	useEffect(() => {
 		if (!state.activityInfo.id) {
 			history.push("/publish/init");
 			return;
 		}
-		actions.clearActivity();
 		setStep(5);
+		actions.clearActivity();
 	}, []);
 	useEffect(() => {
-		if (sec <= 0) {
-			clearTimeout(timer);
-			history.push("/");
-			return;
-		}
-		timer = setTimeout(fn, 1000);
-		return () => {
-			clearTimeout(timer);
-		};
+		let timer = setInterval(() => {
+			setSec(sec - 1);
+			if(sec == 0) history.push("/");
+		}, 1000);;
+		return () => clearInterval(timer);
 	}, [sec]);
 	return (
 		<div styleName='result'>
