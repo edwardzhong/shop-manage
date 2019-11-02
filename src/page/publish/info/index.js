@@ -1,12 +1,18 @@
 import React,{useRef,useState,useEffect} from 'react'
-import {Input, Icon, message} from 'antd'
-import { PrevBtn, NextBtn } from '../stepbtn'
+import {Input, Icon, message, Upload} from 'antd'
+import { PrevBtn } from '../stepbtn'
 import {useHistory} from 'react-router-dom'
 import {getActivity, getKwSortway,getKwService,getCities,updatekeyword, addkeyword as addkeywordReq, updateActivity} from '../../../service'
+import qnUpload from '../../../common/upload'
 import {getContext} from '../../../context'
 import KwItem from './kwItem'
 import './style.scss'
 
+const UploadButton = ({ loading }) =>(
+    <div>
+      <Icon type={ loading ? 'loading' : 'plus'} />
+    </div>
+);
 const Info = ({setStep})=>{
     const history = useHistory();
     const context = getContext();
@@ -25,11 +31,16 @@ const Info = ({setStep})=>{
     const [question,setQuestion] = useState(info.question);
     const [answer,setAnswer] = useState(info.answer);
 
-    const id = state.activityInfo.id;
-    const store_id = state.activityInfo.store_id;
-    const activitytype_id = state.activityInfo.activitytype_id;
-    const img1 = useRef(null);
-    const img2 = useRef(null);
+    const id = state.activityInfo.id||54;
+    const store_id = state.activityInfo.store_id||15;
+    const activitytype_id = state.activityInfo.activitytype_id||1;
+    // const img1 = useRef(null);
+    // const img2 = useRef(null);
+    const [img1,setImg1] = useState('');
+    const [img2,setImg2] = useState('');
+    const [loading,setLoading] = useState(false);
+    const [loading2,setLoading2] = useState(false);
+
     const kw = {
         name: "",
         price_range: '10|100',
@@ -58,6 +69,8 @@ const Info = ({setStep})=>{
                 setGoodNum(info.goods_nums_per_order);
                 setQuestion(info.question);
                 setAnswer(info.answer);
+                setImg1(info.img_one);
+                setImg2(info.img_two);
                 if(!info.keyword_set||!info.keyword_set.length){
                     addKeyword();
                 } else {
@@ -188,8 +201,8 @@ const Info = ({setStep})=>{
             goods_standard:goodStandard||'',
             goods_price: goodPrice||'',
             goods_nums_per_order: goodNum||'',
-            img_one: img1.current.src||'',
-            img_two: img2.current.src||'',
+            img_one: img1||'',
+            img_two: img2||'',
             question,
             answer
         };
@@ -239,6 +252,23 @@ const Info = ({setStep})=>{
     const answerChange = ({target})=>{
         setAnswer(target.value);
     }
+    const uploadImg = (e,fl,fn)=>{
+        fl(true);
+        qnUpload(e.file||e.target.files[0]).then(ret => {
+            fl(false);
+            fn('http://image.futurestudio.pro/'+ret.key);
+        }, err => {
+            fl(false);
+            message.error(err.message,2);
+        });
+    }
+
+    const imgChange = e =>{
+        uploadImg(e,setLoading,setImg1);
+    }
+    const imgChange2 = e =>{
+        uploadImg(e,setLoading2,setImg2);
+    }
     return <>
         <h3>填写商品信息</h3>
         <div>
@@ -271,7 +301,8 @@ const Info = ({setStep})=>{
             <div styleName="img-list">
                 <div styleName="img-block">
                     <div styleName="img">
-                        <img ref={img1} src="https:////g-search3.alicdn.com/img/bao/uploaded/i4/i2/2204161850475/O1CN01bmGRYi1FNageOpDRL_!!2204161850475.jpg" alt=""/>
+                        {img1?<img src={img1}/>:<UploadButton loading={loading}/>}
+                        <input type="file" onChange={imgChange}/>
                     </div>
                     <div>
                         <p>商品主图1</p>
@@ -282,7 +313,8 @@ const Info = ({setStep})=>{
                 </div>
                 <div styleName="img-block">
                     <div styleName="img">
-                        <img ref={img2} src="https:////g-search3.alicdn.com/img/bao/uploaded/i4/i2/2204161850475/O1CN01bmGRYi1FNageOpDRL_!!2204161850475.jpg" alt=""/>
+                        {img2?<img src={img2}/>:<UploadButton loading={loading2}/>}
+                        <input type="file" onChange={imgChange2}/>
                     </div>
                     <div>
                         <p>商品主图1</p>
@@ -319,3 +351,4 @@ const Info = ({setStep})=>{
 }
 
 export default Info
+

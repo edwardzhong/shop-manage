@@ -38,6 +38,7 @@ function timeStr(d){
     const time = ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2) + ":" + ("0" + d.getSeconds()).slice(-2);
     return `${date} ${time}`;
 }
+
 function formatTime (str) {
     const d = new Date(str);
     const n = new Date();
@@ -186,6 +187,22 @@ function compressPicture(img, size) {
     return canvas.toDataURL("image/jpeg");
 }
 
+/**
+ * base64 装换为 Blob 对象
+ * @param {String} base64 
+ */
+function dataURLtoBlob(base64) {
+    var arr = base64.split(','), 
+        mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]), 
+        n = bstr.length, 
+        u8arr = new Uint8Array(n);
+    while(n--){
+        u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new Blob([u8arr], {type:mime});
+}
+
 //产生随机数字字母
 function randomCode (l = 4) {
     let arr = [];
@@ -208,5 +225,6 @@ export {
     getContentSummary,
     wordCount,
     compressPicture,
+    dataURLtoBlob,
     randomCode
 };

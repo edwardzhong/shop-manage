@@ -15,9 +15,9 @@ const Service = ({setStep}) =>{
     const history = useHistory();
     const context = getContext();
     const {state} = context;
-    const id = state.activityInfo.id;
-    const store_id = state.activityInfo.store_id;
-    const activitytype_id = state.activityInfo.activitytype_id;
+    const id = state.activityInfo.id||55;
+    const store_id = state.activityInfo.store_id||1;
+    const activitytype_id = state.activityInfo.activitytype_id||15;
     const [info,setInfo] = useState({
         quantity:0,
         goods_title:'',
@@ -270,7 +270,7 @@ const Service = ({setStep}) =>{
         }
         if(pub=='分时发布'){
             publish.result = {
-                enroll_time: dates,
+                enroll_time: moment(dates).format('YYYY-MM-DD'),
                 quantity:{},
             }
             document.querySelectorAll('.input').forEach((ele,i)=>{

@@ -29,6 +29,7 @@ const payActivity = arg => post("shopcms/account_activity/", arg);
 const coinIn = arg => post("shopcms/account_gold_input/", arg);
 const getMoneyOutRecords = arg => get("shopcms/account_tixian/", arg);
 const getAccountRecords = arg => get("shopcms/account_activity/", arg);
+const getQiniuToken = ()=> get("tools/upimagstoken/");
 
 async function loginSer(dispatch, payload) {
 	// try {
@@ -113,6 +114,8 @@ export {
 	getMoneyOutRecords,
 	getAccountRecords,
 	getShopType,
+	getQiniuToken,
+	
 	loginSer,
 	registerSer,
 	logoutSer,
