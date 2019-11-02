@@ -114,7 +114,7 @@ const InfoRet = ({ setStep }) => {
 				{kwList.map((k, i) => (
 					<div key={i}>
 						<p styleName='kw-item'>
-							<strong> 来源关键字{i + 1}:{k.goodName} </strong>
+							<strong> 来源关键字{i + 1}:{k.goodName} </strong>{" "}
 							<span>{k.sortName}</span>
 							<span>{k.brandName}</span>
 							<span>{k.disName}</span>

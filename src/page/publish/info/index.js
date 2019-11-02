@@ -6,6 +6,7 @@ import {getActivity, getKwSortway,getKwService,getCities,updatekeyword, addkeywo
 import qnUpload from '../../../common/upload'
 import {getContext} from '../../../context'
 import KwItem from './kwItem'
+import UploadImg from './uploadimg'
 import './style.scss'
 
 const UploadButton = ({ loading }) =>(
@@ -38,8 +39,6 @@ const Info = ({setStep})=>{
     // const img2 = useRef(null);
     const [img1,setImg1] = useState('');
     const [img2,setImg2] = useState('');
-    const [loading,setLoading] = useState(false);
-    const [loading2,setLoading2] = useState(false);
 
     const kw = {
         name: "",
@@ -252,23 +251,7 @@ const Info = ({setStep})=>{
     const answerChange = ({target})=>{
         setAnswer(target.value);
     }
-    const uploadImg = (e,fl,fn)=>{
-        fl(true);
-        qnUpload(e.file||e.target.files[0]).then(ret => {
-            fl(false);
-            fn('http://image.futurestudio.pro/'+ret.key);
-        }, err => {
-            fl(false);
-            message.error(err.message,2);
-        });
-    }
 
-    const imgChange = e =>{
-        uploadImg(e,setLoading,setImg1);
-    }
-    const imgChange2 = e =>{
-        uploadImg(e,setLoading2,setImg2);
-    }
     return <>
         <h3>填写商品信息</h3>
         <div>
@@ -284,12 +267,12 @@ const Info = ({setStep})=>{
                 <label>商品规格：</label>
                 <Input value={goodStandard} onChange={goodStandardChange} />
                 <label>商品售价：</label>
-                <Input type="number" value={goodPrice} onChange={goodPriceChange} /> <span>元</span><i>*</i>
+                <Input type="number" value={goodPrice} onChange={goodPriceChange} /> <span>{" "}元</span><i>*</i>
                 <label>每单拍：</label>
-                <Input type="number" value={goodNum} onChange={goodNumChange} /><span>件</span><i>*</i>
+                <Input type="number" value={goodNum} onChange={goodNumChange} /><span>{" "}件</span><i>*</i>
             </div>
             <div styleName="good-item">
-                下单总金额 <i>{((Number(goodPrice) * Number(goodNum))||0).toFixed(2)}</i> 元
+                下单总金额 <i>{((Number(goodPrice) * Number(goodNum))||0).toFixed(2)}</i>{" "} 元
             </div>
         </div>
         <div styleName="divider"/>
@@ -299,30 +282,8 @@ const Info = ({setStep})=>{
                 <i>*</i><h4>设置搜索图片</h4>
             </header>
             <div styleName="img-list">
-                <div styleName="img-block">
-                    <div styleName="img">
-                        {img1?<img src={img1}/>:<UploadButton loading={loading}/>}
-                        <input type="file" onChange={imgChange}/>
-                    </div>
-                    <div>
-                        <p>商品主图1</p>
-                        <p>图片尺寸 1200*1200以内</p>
-                        <p>图片大小：不能大于2M</p>
-                        <p>图片格式：jpg、png、gif</p>
-                    </div>
-                </div>
-                <div styleName="img-block">
-                    <div styleName="img">
-                        {img2?<img src={img2}/>:<UploadButton loading={loading2}/>}
-                        <input type="file" onChange={imgChange2}/>
-                    </div>
-                    <div>
-                        <p>商品主图1</p>
-                        <p>图片尺寸 1200*1200以内</p>
-                        <p>图片大小：不能大于2M</p>
-                        <p>图片格式：jpg、png、gif</p>
-                    </div>
-                </div>
+                <UploadImg img={img1} setImg={setImg1} index="1"/>
+                <UploadImg img={img2} setImg={setImg2} index="2"/>
             </div>
             {
                 state.kwList.map((item,i)=><KwItem key={item.uid} index={i} info={item} sorts={sorts} dis={dis} cities={cities} />)
