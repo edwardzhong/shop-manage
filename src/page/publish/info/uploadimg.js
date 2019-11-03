@@ -1,14 +1,8 @@
 
 import React,{useState} from 'react'
 import qnUpload from '../../../common/upload'
-import {Icon,message} from 'antd'
-import './style.scss'
-
-const UploadButton = ({ loading }) =>(
-    <div>
-      <Icon type={ loading ? 'loading' : 'plus'} />
-    </div>
-);
+import { Icon, message } from 'antd'
+import './uploadimg.scss'
 
 const UploadImg = ({ img, setImg, index })=>{
     const [loading,setLoading] = useState(false);
@@ -27,7 +21,7 @@ const UploadImg = ({ img, setImg, index })=>{
     return <div styleName="img-block">
         <div styleName="img">
             {/* {img?<div style={{ backgroundImage: 'url('+img+')' }} />:<UploadButton loading={loading}/>} */}
-            {img?<img src={img} />:<UploadButton loading={loading}/>}
+            {img?<img src={img} />:<div> <Icon type={ loading ? 'loading' : 'plus'} /> </div>}
             <input type="file" onChange={imgChange}/>
         </div>
         <div>

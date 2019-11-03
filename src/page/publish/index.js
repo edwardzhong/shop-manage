@@ -50,19 +50,19 @@ const Publish = ({ history }) => {
 				<Route path='/publish/init'>
 					<Init setStep={setStep} />
 				</Route>
-				<Route path='/publish/info'>
+				<Route path='/publish/info/:id'>
 					<Info setStep={setStep} />
 				</Route>
-				<Route path='/publish/inforet'>
+				<Route path='/publish/inforet/:id'>
 					<InfoRet setStep={setStep} />
 				</Route>
-				<Route path='/publish/num'>
+				<Route path='/publish/num/:id'>
 					<Num setStep={setStep} />
 				</Route>
-				<Route path='/publish/ser'>
+				<Route path='/publish/ser/:id'>
 					<Service setStep={setStep} />
 				</Route>
-				<Route path='/publish/pay'>
+				<Route path='/publish/pay/:id'>
 					<Pay setStep={setStep} />
 				</Route>
 				<Route path='/publish/ret'>

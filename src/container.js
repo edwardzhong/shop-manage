@@ -13,7 +13,7 @@ const Layout = ({ children }) => {
     const { state } = getContext();
     const history = useHistory();
 
-	const page = pages.filter(p => p.path == pathname)[0];
+	const page = pages.filter(p => RegExp('^'+p.path).test(pathname))[0];
 	if (!page) {
 		return <NotExist/>;
 	}

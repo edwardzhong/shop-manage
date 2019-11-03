@@ -1,16 +1,14 @@
 import React,{useState,useEffect} from 'react'
 import {Icon,Divider,message} from 'antd'
 import {PrevBtn,NextBtn} from '../stepbtn'
-import {Link,useHistory} from 'react-router-dom'
+import {Link,useHistory,useParams} from 'react-router-dom'
 import { getActivity, getAccount, payActivity } from '../../../service'
-import {getContext} from '../../../context'
 import './style.scss'
 
 const Pay=({setStep})=>{
     const history = useHistory();
-    const context = getContext();
-    const {state} = context;
-    const id = state.activityInfo.id;
+    const params = useParams();
+    const id = params.id;
     const [money,setMoney] = useState(0);
     const [coin,setCoin] = useState(0);
     const [info,setInfo] = useState({
@@ -117,7 +115,7 @@ const Pay=({setStep})=>{
             </div>
         </div>
         <footer>
-            <PrevBtn clickFn={()=>history.push('/publish/ser')}>上一步</PrevBtn>
+            <PrevBtn clickFn={()=>history.push('/publish/ser/'+id)}>上一步</PrevBtn>
             <NextBtn clickFn={submit}>付款报名活动</NextBtn>
         </footer>
     </>

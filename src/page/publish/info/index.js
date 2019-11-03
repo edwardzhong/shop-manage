@@ -1,9 +1,8 @@
 import React,{useRef,useState,useEffect} from 'react'
 import {Input, Icon, message, Upload} from 'antd'
 import { PrevBtn } from '../stepbtn'
-import {useHistory} from 'react-router-dom'
-import {getActivity, getKwSortway,getKwService,getCities,updatekeyword, addkeyword as addkeywordReq, updateActivitySer} from '../../../service'
-import qnUpload from '../../../common/upload'
+import {useHistory,useParams} from 'react-router-dom'
+import {getActivity, getKwSortway,getKwService,getCities,updatekeyword, removekeyword, addkeyword as addkeywordReq, updateActivitySer} from '../../../service'
 import {getContext} from '../../../context'
 import KwItem from './kwItem'
 import UploadImg from './uploadimg'
@@ -16,9 +15,10 @@ const UploadButton = ({ loading }) =>(
 );
 const Info = ({setStep})=>{
     const history = useHistory();
+    const params = useParams();
+    const id = params.id;
     const context = getContext();
-    const {dispatch, state, actions} = context;
-    const {setkw,addkw,clearkw } = actions;
+    const { dispatch } = context;
     const [kwList,setkwList] = useState([]);
     const [sorts,setSorts] = useState([]);
     const [dis,setDis]= useState([]);
@@ -33,11 +33,6 @@ const Info = ({setStep})=>{
     const [question,setQuestion] = useState(info.question);
     const [answer,setAnswer] = useState(info.answer);
 
-    const id = state.activityInfo.id||54;
-    const store_id = state.activityInfo.store_id||15;
-    const activitytype_id = state.activityInfo.activitytype_id||1;
-    // const img1 = useRef(null);
-    // const img2 = useRef(null);
     const [img1,setImg1] = useState('');
     const [img2,setImg2] = useState('');
 
@@ -46,8 +41,8 @@ const Info = ({setStep})=>{
         price_range: '10|100',
         send_address: '不选择',
         brand: "",
-        sort_way: '',
-        service: '',
+        sort_way: '综合',
+        service: '包邮',
         store_classify: '旗舰店',
         extra_info: "",
     }
@@ -75,7 +70,6 @@ const Info = ({setStep})=>{
                     addKeyword();
                 } else {
                     const list = info.keyword_set.map(k=>({
-                            uid:k.id,
                             id:k.id,
                             name: k.name,
                             price_range: k.price_range.split('|'),
@@ -87,7 +81,6 @@ const Info = ({setStep})=>{
                             extra_info: k.extra_info,
                         }
                     ));
-                    setkw(list);
                     setkwList(list);
                 }
             }
@@ -125,7 +118,6 @@ const Info = ({setStep})=>{
                 setCicies(list);
             }
         })
-        return clearkw;
     },[]);
 
     const addKeyword = ()=>{
@@ -134,14 +126,34 @@ const Info = ({setStep})=>{
             if(data.error_code === 0){
                 let item = data.data.slice(-1)[0];
                 if(item){
-                    item.uid = item.id;
                     item.price_range = item.price_range.split('|');
                     item.service = item.service.split('|');
-                    addkw(item);
+                    kwList.push(item);
+                    setkwList([...kwList]);
                 }
             }
         });
-        // addkw({uid:Math.floor(Math.random() * 100000),...kw});
+    }
+    const removekw = kid =>{
+        removekeyword({id:kid, activity_id:id}).then(ret=>{
+            if(ret.data.error_code === 0){
+                const index = kwList.findIndex(i=>i.id==kid);
+                if(index > -1){
+                    kwList.splice(index,1);
+                    setkwList([...kwList]);
+                }
+            }
+        })
+    }
+
+    const updatekw = info=>{
+        for(let l of kwList){
+            if(l.id == info.id){
+                Object.assign(l,info);
+                break;
+            }
+        }
+        setkwList([...kwList]);
     }
 
     const confirmInfo=()=>{
@@ -169,7 +181,7 @@ const Info = ({setStep})=>{
             message.error('商品件数不能为空',1.5);
             return;
         }
-        const kws = state.kwList.map(k=>({
+        const kws = kwList.map(k=>({
                 id: k.id,
                 activity_id:id,
                 name: k.name,
@@ -195,8 +207,8 @@ const Info = ({setStep})=>{
         }
         const param = {
             id,
-            store_id,
-            activitytype_id, 
+            store_id:info.store.id,
+            activitytype_id:info.activitytype.id, 
             goods_url:goodUrl||'',
             goods_title:goodTitle||'',
             goods_standard:goodStandard||'',
@@ -216,7 +228,7 @@ const Info = ({setStep})=>{
             console.log(adata,bdata);
             const msgs = [];
             if(adata.error_code === 0 && bdata.error_code === 0){
-                history.push('/publish/inforet')
+                history.push('/publish/inforet/'+id)
             } else {
                 if(adata.error_code !== 0){
                     msgs.push(adata.msg);
@@ -269,12 +281,12 @@ const Info = ({setStep})=>{
                 <label>商品规格：</label>
                 <Input value={goodStandard} onChange={goodStandardChange} />
                 <label>商品售价：</label>
-                <Input type="number" value={goodPrice} onChange={goodPriceChange} /> <span>{" "}元</span><i>*</i>
+                <Input type="number" value={goodPrice} onChange={goodPriceChange} /> <span>&nbsp;元</span><i>*</i>
                 <label>每单拍：</label>
-                <Input type="number" value={goodNum} onChange={goodNumChange} /><span>{" "}件</span><i>*</i>
+                <Input type="number" value={goodNum} onChange={goodNumChange} /><span>&nbsp;件</span><i>*</i>
             </div>
             <div styleName="good-item">
-                下单总金额 <i>{((Number(goodPrice) * Number(goodNum))||0).toFixed(2)}</i>{" "} 元
+                下单总金额 <i>{((Number(goodPrice) * Number(goodNum))||0).toFixed(2)}</i>&nbsp; 元
             </div>
         </div>
         <div styleName="divider"/>
@@ -288,7 +300,9 @@ const Info = ({setStep})=>{
                 <UploadImg img={img2} setImg={setImg2} index="2"/>
             </div>
             {
-                kwList.map((item,i)=><KwItem key={item.uid} index={i} info={item} sorts={sorts} dis={dis} cities={cities} />)
+                kwList.map((item,i)=><KwItem key={item.id} index={i} info={item} sorts={sorts} dis={dis} cities={cities} 
+                removekw={removekw} updatekw={updatekw}
+                />)
             }
             <div styleName="plus-btn" onClick={addKeyword}> <Icon type="plus" /> 增加搜索关键词 </div>
             <div styleName="divider"/>

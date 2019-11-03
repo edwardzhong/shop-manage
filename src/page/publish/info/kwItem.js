@@ -1,69 +1,56 @@
 import React,{useRef,useState} from 'react'
 import {Input, Select, Checkbox, Radio} from 'antd'
-import {getContext} from '../../../context'
-import {removekeyword} from '../../../service'
 import './style.scss'
 
 const {Option} = Select;
-const KwItem = ({index,info,sorts,dis,cities})=> {
-    const uid = info.uid;
-    const context = getContext();
-    const {state,actions} = context;
-    const {removekw,updatekw} = actions;
+const KwItem = ({index,info,sorts,dis,cities,removekw,updatekw})=> {
+    const id = info.id;
     const minPrice = useRef(null);
     const maxPrice = useRef(null);
     const [sortVal,setSortVal] = useState(info.sort_way);
     const [shopType,setShopType] = useState(info.store_classify);
     const [address,setAddress] = useState(info.send_address);
     const [services,setServices] = useState(info.service);
-    const activity_id = state.activityInfo.id;
 
     const nameChange = ({target})=>{
-        updatekw({uid,name:target.value});
+        updatekw({id,name:target.value});
     }
     const brandChange = ({target})=>{
-        updatekw({uid,brand:target.value});
+        updatekw({id,brand:target.value});
     }
     const extraChange = ({target})=>{
-        updatekw({uid,extra_info:target.value});
+        updatekw({id,extra_info:target.value});
     }
     const minChange = ({target})=>{
-        updatekw({uid,price_range:[target.value,maxPrice.current.state.value]});
+        updatekw({id,price_range:[target.value,maxPrice.current.state.value]});
     }
     const maxChange = ({target})=>{
-        updatekw({uid,price_range:[minPrice.current.state.value,target.value]});
+        updatekw({id,price_range:[minPrice.current.state.value,target.value]});
     }
     const sortChange = ({target})=>{
         const val = target.value;
         setSortVal(val);
-        updatekw({uid,sort_way:val});
+        updatekw({id,sort_way:val});
     }
     const shopTypeChange = ({target})=>{
         const val = target.value;
         setShopType(val);
-        updatekw({uid,store_classify:val});
+        updatekw({id,store_classify:val});
     }
     const servicesChange = ids=>{
         setServices(ids);
-        updatekw({uid,service:ids});
+        updatekw({id,service:ids});
     }
-    const addChange = id=>{
-        setAddress(id);
-        updatekw({uid,send_address:id});
-    }
-    const removeFn = () =>{
-        removekeyword({id:uid, activity_id}).then(ret=>{
-            if(ret.data.error_code === 0){
-                removekw(uid);
-            }
-        })
+    const addChange = aid=>{
+        setAddress(aid);
+        updatekw({id,send_address:aid});
     }
     return <>
         {index > 0 && <div styleName="divider"/> }
         <header styleName="search-header">
             <i>*</i>
             <h4>关键字来源{index+1}</h4>
-            <a onClick={removeFn}> &nbsp;删除</a>
+            <a onClick={()=>removekw(id)}> &nbsp;删除</a>
         </header>
         <div styleName="search-item">
             <Input value={info.name} onChange={nameChange}/>
@@ -73,9 +60,9 @@ const KwItem = ({index,info,sorts,dis,cities})=> {
         </header>
         <div styleName="search-item">
             <Radio.Group onChange={sortChange} value={sortVal}>
-                {
-                    sorts.map((s,i)=><Radio key={i} value={s.id}>{s.name}</Radio>)
-                }
+            {
+                sorts.map((s,i)=><Radio key={i} value={s.id}>{s.name}</Radio>)
+            }
             </Radio.Group>
         </div>
         <h4>设置筛选方式</h4>

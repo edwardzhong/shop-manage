@@ -45,7 +45,7 @@ const Init = ({setStep})=>{
         setActType(target.value);
     }
     const submit =()=>{
-        // history.push('/publish/info')
+        // history.push('/publish/info/60')
         const store_id = pf == '1'?tShop:mShop;
         if(!store_id){
             message.error('请选择店铺',1.5);
@@ -60,7 +60,7 @@ const Init = ({setStep})=>{
             hide();
             const data = ret.data;
             if(data.error_code === 0){
-                history.push('/publish/info');
+                history.push('/publish/info/'+data.data.id);
             } else {
                 message.error(data.msg,2);
             }

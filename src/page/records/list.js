@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getAccountRecords } from "../../service";
-import { Select, DatePicker } from "antd";
+import { Select, DatePicker, Icon, Spin } from "antd";
 import Table from "../../component/table";
 import "./style.scss";
 import locale from "antd/es/date-picker/locale/zh_CN";
@@ -13,6 +13,7 @@ const { Option } = Select;
 const List = ({ tag, shopTypes, shopList }) => {
 	const [moneys, setMoneys] = useState([]);
 	const [moneyList, setMoneyList] = useState([]);
+	const [loading,setLoading] = useState(true);
 	const column = [
 		{ title: "店铺", data: "name" },
 		{ title: "收入(元)", data: "in", render: d => <i>{d}</i> },
@@ -52,8 +53,10 @@ const List = ({ tag, shopTypes, shopList }) => {
 	};
 
 	useEffect(() => {
+		setLoading(true);
 		getAccountRecords({ tag: tag }).then(ret => {
 			const data = ret.data;
+			setLoading(false);
 			if (data.error_code === 0) {
 				setMoneys(data.data);
 				setMoneyList(listFilter(data.data));
@@ -123,6 +126,11 @@ const List = ({ tag, shopTypes, shopList }) => {
 				<button className='btn primary' onClick={submit}> 查询 </button>
 			</div>
 			<Table column={column} data={moneyList} />
+			{
+				loading && <div styleName="loading">
+                    <Icon type="loading" style={{ fontSize: 30 }} spin />
+				</div>
+			}
 		</>
 	);
 };

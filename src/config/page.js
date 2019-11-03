@@ -31,7 +31,7 @@ export default [
 		name: "",
 		path: "/publish/info",
 		layout: "basic",
-		exect: true
+		exect: false
 	},
 	{
 		key: "31",

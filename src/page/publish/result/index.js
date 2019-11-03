@@ -6,13 +6,9 @@ import "./style.scss";
 const Result = ({ setStep }) => {
 	const history = useHistory();
 	const context = getContext();
-	const { actions, state } = context;
+	const { actions } = context;
 	const [sec, setSec] = useState(5);
 	useEffect(() => {
-		if (!state.activityInfo.id) {
-			history.push("/publish/init");
-			return;
-		}
 		setStep(5);
 		actions.clearActivity();
 	}, []);

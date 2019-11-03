@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { getActivity, updatekeyword, updateActivitySer } from "../../../service";
 import { getContext } from "../../../context";
 import { Input, Radio, Divider, message } from "antd";
@@ -7,33 +7,30 @@ import Table from "../../../component/table";
 import { PrevBtn, NextBtn } from "../stepbtn";
 import "./style.scss";
 
-const KwItem = ({ index, info }) => {
-	const context = getContext();
-	const { updatekw } = context.actions;
+const KwItem = ({ index, info, updatekw }) => {
 	const quanChange = ({ target }) => {
-		updatekw({ uid: info.id, quantity: target.value });
+		updatekw({ id: info.id, quantity: target.value });
 	};
 	return (
 		<div>
-			<label>手机淘宝关键词{index + 1}：</label>
-			<span>{info.name}</span>
-			<Input type='number' value={info.quantity} onChange={quanChange} />{" "}
+			<label>关键词{index + 1}：</label>
+			<span>{info.name} </span>&nbsp;
+			<Input type='number' value={info.quantity} onChange={quanChange} />
 			<span>单</span>
 		</div>
 	);
 };
 const Num = ({ setStep }) => {
 	const history = useHistory();
+	const params = useParams();
+	const id = params.id;
 	const context = getContext();
-	const { dispatch, state, actions } = context;
-	const { setkw } = actions;
-	const id = state.activityInfo.id || 45;
-	const store_id = state.activityInfo.store_id || 15;
-	const activitytype_id = state.activityInfo.activitytype_id || 1;
+	const { dispatch } = context;
 
 	const [info, setInfo] = useState({ bill: { single_service_fee: 0 } });
 	const [quantity, setQuan] = useState(1);
 	const [num, setNum] = useState(1);
+	const [kwList, setkwList] = useState([]);
 
 	useEffect(() => {
 		if (!id) {
@@ -51,10 +48,10 @@ const Num = ({ setStep }) => {
 				if (info.keyword_set && info.keyword_set.length) {
 					const list = info.keyword_set.map(k => ({
 						id: k.id,
-						uid: k.id,
+						name: k.name,
 						quantity: k.quantity || 0
 					}));
-					setkw(list);
+					setkwList(list);
 				}
 			}
 		});
@@ -81,10 +78,20 @@ const Num = ({ setStep }) => {
 	const numChange = ({ target }) => {
 		setNum(target.value);
 	};
+
+	const updatekw = info =>{
+		for(let l of kwList){
+			if(l.id == info.id){
+				Object.assign(l,info);
+				break;
+			}
+		}
+		setkwList([...kwList]);
+	}
 	const confirm = () => {
 		const n = quantity === 0 ? num : quantity;
 		let kn = 0;
-		const kws = state.kwList.map(k => ({
+		const kws = kwList.map(k => ({
 			id: k.id,
 			activity_id: id,
 			quantity: Number(k.quantity)
@@ -98,8 +105,8 @@ const Num = ({ setStep }) => {
 		}
 		const param = {
 			id: id,
-			store_id: store_id,
-			activitytype_id: activitytype_id,
+            store_id:info.store.id,
+            activitytype_id:info.activitytype.id, 
 			quantity: n
 		};
 		const hide = message.loading("请求中...");
@@ -111,7 +118,7 @@ const Num = ({ setStep }) => {
             console.log(adata, bdata);
             const msgs = [];
             if (adata.error_code === 0 && bdata.error_code === 0) {
-                history.push("/publish/ser");
+                history.push("/publish/ser/"+id);
             } else {
                 if (adata.error_code !== 0) {
                     msgs.push(adata.msg);
@@ -152,7 +159,7 @@ const Num = ({ setStep }) => {
 					注意：各关键词订单总数需要为
 					<i>{quantity === 0 ? num : quantity}</i>单
 				</p>
-				{state.kwList.map((item, i) => <KwItem key={i} index={i} info={item} /> )}
+				{ kwList.map((item, i) => <KwItem key={i} index={i} info={item} updatekw={updatekw} /> )}
 			</div>
 			<Divider />
 			<h4>费用小计</h4>
@@ -160,7 +167,7 @@ const Num = ({ setStep }) => {
 				<Table column={column} data={data} />
 			</div>
 			<footer>
-				<PrevBtn clickFn={() => history.push("/publish/inforet")}> 上一步 </PrevBtn>
+				<PrevBtn clickFn={() => history.push("/publish/inforet/"+id)}> 上一步 </PrevBtn>
 				<NextBtn clickFn={confirm}>下一步</NextBtn>
 			</footer>
 		</>

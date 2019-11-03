@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Input, Checkbox, message } from "antd";
 import { PrevBtn, NextBtn } from "../stepbtn";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { getActivity, getOrderRequire, updateActivitySer } from "../../../service";
 import { getContext } from "../../../context";
 import "./style.scss";
 
 const InfoRet = ({ setStep }) => {
 	const history = useHistory();
+	const params = useParams();
+	const id = params.id;
 	const context = getContext();
 	const { dispatch, state } = context;
 	const [req, setReq] = useState(false);
@@ -15,11 +17,7 @@ const InfoRet = ({ setStep }) => {
 	const [kwList, setkwList] = useState([]);
 	const [reqList, setReqList] = useState([]);
 	const [reqRet, setReqRet] = useState([]);
-
-	const id = state.activityInfo.id;
-	const store_id = state.activityInfo.store_id;
-	const activitytype_id = state.activityInfo.activitytype_id;
-
+	
 	useEffect(() => {
 		if (!id) {
 			history.push("/publish/init");
@@ -66,8 +64,8 @@ const InfoRet = ({ setStep }) => {
 		const param = {
 			order_requirement: reqRet.join("|"),
 			id: id,
-			store_id: store_id,
-			activitytype_id: activitytype_id
+            store_id:info.store.id,
+            activitytype_id:info.activitytype.id, 
 		};
 		const hide = message.loading("请求中...");
 		updateActivitySer(dispatch, param).then( ret => {
@@ -158,9 +156,9 @@ const InfoRet = ({ setStep }) => {
 			}
 
 			<footer>
-				<PrevBtn clickFn={() => history.push("/publish/info")}> 上一步 </PrevBtn>
+				<PrevBtn clickFn={() => history.push("/publish/info/"+id)}> 上一步 </PrevBtn>
 				{
-                    req ? <NextBtn clickFn={() => history.push("/publish/num")}> 下一步 </NextBtn>
+                    req ? <NextBtn clickFn={() => history.push("/publish/num/"+id)}> 下一步 </NextBtn>
 				    : <NextBtn disable={true}>下一步</NextBtn>
 				}
 			</footer>

@@ -3,7 +3,6 @@ import menukey from './menukey'
 import activityInfo from './activityInfo'
 import loginInfo from './loginInfo'
 import userInfo from './userInfo'
-import kwList from './kwList'
 import cities from './cities'
 
 const rootReducer = combineReducers({
@@ -11,7 +10,6 @@ const rootReducer = combineReducers({
   loginInfo,
   userInfo,
   menukey,
-  kwList,
   cities,
 });
 

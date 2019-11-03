@@ -1,9 +1,9 @@
 import React,{useState,useEffect} from 'react'
-import { Checkbox, Radio, Select, Divider, DatePicker,message} from 'antd'
-import {PrevBtn,NextBtn} from '../stepbtn'
+import { Checkbox, Radio, Select, Divider, DatePicker, message } from 'antd'
+import { PrevBtn, NextBtn } from '../stepbtn'
 import { getActivity, updateActivitySer, getPlusService, getCities } from '../../../service'
-import {getContext} from '../../../context'
-import {useHistory} from 'react-router-dom'
+import { getContext } from '../../../context'
+import { useHistory, useParams} from 'react-router-dom'
 import './style.scss'
 import locale from 'antd/es/date-picker/locale/zh_CN';
 import moment from 'moment';
@@ -13,11 +13,10 @@ const { Option } = Select;
 
 const Service = ({setStep}) =>{
     const history = useHistory();
+    const params = useParams();
+    const id = params.id;
     const context = getContext();
-    const { dispatch, state } = context;
-    const id = state.activityInfo.id||55;
-    const store_id = state.activityInfo.store_id||1;
-    const activitytype_id = state.activityInfo.activitytype_id||15;
+    const { dispatch } = context;
     const [info,setInfo] = useState({
         quantity:0,
         goods_title:'',
@@ -278,8 +277,8 @@ const Service = ({setStep}) =>{
 
         const param = {
             id:id,
-            store_id:store_id,
-            activitytype_id:activitytype_id, 
+            store_id:info.store.id,
+            activitytype_id:info.activitytype.id, 
             user_choice, reputation, publish
         }
 
@@ -374,7 +373,7 @@ const Service = ({setStep}) =>{
         submit().then(ret=>{
             hide();
             if(ret.data.error_code === 0){
-                history.push('/publish/pay');
+                history.push('/publish/pay/'+id);
             }
         });
     }
@@ -556,7 +555,7 @@ const Service = ({setStep}) =>{
         </div>
         <Divider/>
         <footer>
-            <PrevBtn clickFn={()=>history.push('/publish/num')}>上一步</PrevBtn>
+            <PrevBtn clickFn={()=>history.push('/publish/num/'+id)}>上一步</PrevBtn>
             <NextBtn clickFn={nextStep}>下一步</NextBtn>
         </footer>
         <h4>费用合计</h4>

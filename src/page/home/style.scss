@@ -79,6 +79,7 @@
         }
     }
     .footer{
+        padding: 20px;
         text-align: center;
     }
     .list{
@@ -152,4 +153,24 @@
 .tabs [role=tab]{
     font-size: 13px;
     width: auto !important;
+}
+
+.data-empty{
+    text-align: center;
+    padding: 10px;
+    color: #999;
+}
+.pages{
+    text-align: center;
+    padding: 20px;
+}
+
+.divider{
+    margin: 10px 0;
+    border-bottom: 1px solid $border-color;
+}
+.loading{
+    padding: 30px;
+    color: $blue;
+    text-align: center;
 }

@@ -16,9 +16,10 @@ const getKwSortway = () => get("config/keywords_sortway/");
 const getKwService = () => get("config/keywords_service/");
 const getOrderRequire = () => get("config/order_requirement/");
 const getPlusService = () => get("config/add_service/");
+const getOrders = () => get('shopcms/orders/');
 const getCities = () => get("config/city/");
 const getShopType = () => get("config/store_type/");
-
+const getActivityList = arg => get('shopcms/activity/shop_list/',arg);
 const getActivity = arg => get(`shopcms/activity/${arg.id}/`);
 const updatekeyword = arg => put("shopcms/keyword/batch_update/", arg);
 const addkeyword = arg => post("shopcms/keyword/", arg);
@@ -110,6 +111,7 @@ export {
 	getKwService,
 	getOrderRequire,
 	getPlusService,
+	getActivityList,
 	getCities,
 	updatekeyword,
 	addkeyword,
@@ -122,6 +124,7 @@ export {
 	getAccountRecords,
 	getShopType,
 	getQiniuToken,
+	getOrders,
 	
 	loginSer,
 	registerSer,
