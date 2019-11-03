@@ -2,7 +2,7 @@ import React,{useRef,useState,useEffect} from 'react'
 import {Input, Icon, message, Upload} from 'antd'
 import { PrevBtn } from '../stepbtn'
 import {useHistory} from 'react-router-dom'
-import {getActivity, getKwSortway,getKwService,getCities,updatekeyword, addkeyword as addkeywordReq, updateActivity} from '../../../service'
+import {getActivity, getKwSortway,getKwService,getCities,updatekeyword, addkeyword as addkeywordReq, updateActivitySer} from '../../../service'
 import qnUpload from '../../../common/upload'
 import {getContext} from '../../../context'
 import KwItem from './kwItem'
@@ -17,8 +17,9 @@ const UploadButton = ({ loading }) =>(
 const Info = ({setStep})=>{
     const history = useHistory();
     const context = getContext();
-    const {state, actions} = context;
+    const {dispatch, state, actions} = context;
     const {setkw,addkw,clearkw } = actions;
+    const [kwList,setkwList] = useState([]);
     const [sorts,setSorts] = useState([]);
     const [dis,setDis]= useState([]);
     const [cities,setCicies] = useState([]);
@@ -87,6 +88,7 @@ const Info = ({setStep})=>{
                         }
                     ));
                     setkw(list);
+                    setkwList(list);
                 }
             }
         });
@@ -206,7 +208,7 @@ const Info = ({setStep})=>{
             answer
         };
         const hide = message.loading('请求中...');
-        Promise.all([updatekeyword({ activity_id:id, keyword_data:kws}),updateActivity(param)]).then(ret=>{
+        Promise.all([updatekeyword({ activity_id:id, keyword_data:kws}),updateActivitySer(dispatch,param)]).then(ret=>{
             hide();
             const [aRet,bRet] = ret;
             const adata = aRet.data;
@@ -286,7 +288,7 @@ const Info = ({setStep})=>{
                 <UploadImg img={img2} setImg={setImg2} index="2"/>
             </div>
             {
-                state.kwList.map((item,i)=><KwItem key={item.uid} index={i} info={item} sorts={sorts} dis={dis} cities={cities} />)
+                kwList.map((item,i)=><KwItem key={item.uid} index={i} info={item} sorts={sorts} dis={dis} cities={cities} />)
             }
             <div styleName="plus-btn" onClick={addKeyword}> <Icon type="plus" /> 增加搜索关键词 </div>
             <div styleName="divider"/>

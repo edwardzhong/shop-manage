@@ -8,7 +8,6 @@ const Result = ({ setStep }) => {
 	const context = getContext();
 	const { actions, state } = context;
 	const [sec, setSec] = useState(5);
-	
 	useEffect(() => {
 		if (!state.activityInfo.id) {
 			history.push("/publish/init");

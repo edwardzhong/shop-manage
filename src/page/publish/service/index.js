@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import { Checkbox, Radio, Select, Divider, DatePicker,message} from 'antd'
 import {PrevBtn,NextBtn} from '../stepbtn'
-import { getActivity, updateActivity, getPlusService,getCities } from '../../../service'
+import { getActivity, updateActivitySer, getPlusService, getCities } from '../../../service'
 import {getContext} from '../../../context'
 import {useHistory} from 'react-router-dom'
 import './style.scss'
@@ -14,7 +14,7 @@ const { Option } = Select;
 const Service = ({setStep}) =>{
     const history = useHistory();
     const context = getContext();
-    const {state} = context;
+    const { dispatch, state } = context;
     const id = state.activityInfo.id||55;
     const store_id = state.activityInfo.store_id||1;
     const activitytype_id = state.activityInfo.activitytype_id||15;
@@ -85,7 +85,7 @@ const Service = ({setStep}) =>{
             setPageStatus(ret);
             setTimeout(()=>{
                 setFirst(false);
-            },1000);
+            },1500);
         });
         getPlusService().then(ret=>{
             const data = ret.data;
@@ -189,14 +189,6 @@ const Service = ({setStep}) =>{
         setCount(id);
     }
 
-    const buildObjList = list => list.map(l => {
-        const s = l.split('|');
-        const obj = {};
-            obj[s[0]] = s[1];
-            return obj;
-        }
-    )
-
     const getPrice = (name, ret) => {
         const obj = service.user_choice[name].find(r=>r.result == ret);
         if(obj){
@@ -211,14 +203,14 @@ const Service = ({setStep}) =>{
         if(lim){
             user_choice.push({
                 name:'地域限制',
-                result:buildObjList(limits),
+                result: limits,
                 price: service.user_choice['地域限制'][0].price,
             })
         }
         if(apo){
             user_choice.push({
                 name:'指定区域接单',
-                result: buildObjList(appoints),
+                result: appoints,
                 price: service.user_choice['指定区域接单'][0].price,
             })
         }
@@ -292,7 +284,7 @@ const Service = ({setStep}) =>{
         }
 
         // console.log(JSON.stringify(param));
-        return updateActivity(param).then(ret=>{
+        return updateActivitySer(dispatch,param).then(ret=>{
             if(ret.data.error_code !== 0){
                 message.error(ret.data.msg,2);
             }
@@ -302,15 +294,6 @@ const Service = ({setStep}) =>{
             return err;
         });
     }
-
-    const getSelList = arr => (arr.map(r=>{
-            let p = '';
-            for(let v in r){
-                p = v + '|' + r[v]
-            }
-            return p;
-        })
-    );
 
     const setPageStatus = ret =>{
         const data = ret.data;
@@ -322,11 +305,11 @@ const Service = ({setStep}) =>{
                 info.user_choice.forEach(i=>{
                     if(i.name == '地域限制'){
                         setLim(true);
-                        setLimits(getSelList(i.result));
+                        setLimits(i.result);
                     }
                     if(i.name == '指定区域接单'){
                         setApo(true);
-                        setAppoints(getSelList(i.result));
+                        setAppoints(i.result);
                     }
                     if(i.name == '性别选择'){
                         setSex(true);
@@ -406,7 +389,7 @@ const Service = ({setStep}) =>{
             <div styleName="com-item-sub">
                 <Select value={limits} mode="multiple" placeholder="请选择" onChange={limitChange} style={{ width: '100%', maxWidth:'800px' }}>
                     {
-                        cities.map((c,i)=><Option key={i} value={c.num + '|'+c.name}>{c.name}</Option>)
+                        cities.map((c,i)=><Option key={i} value={c.name}>{c.name}</Option>)
                     }
                 </Select>
             </div>
@@ -416,7 +399,7 @@ const Service = ({setStep}) =>{
             <div styleName="com-item-sub">
                 <Select value={appoints} mode="multiple" placeholder="请选择" onChange={appointChange} style={{ width: '100%', maxWidth:'800px' }}>
                     {
-                        cities.map((c,i)=><Option key={i} value={c.num+'|'+c.name}>{c.name}</Option>)
+                        cities.map((c,i)=><Option key={i} value={c.name}>{c.name}</Option>)
                     }
                 </Select>
             </div>

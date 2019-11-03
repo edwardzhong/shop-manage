@@ -47,6 +47,7 @@ const upload = (file, opt={}) => {
                     observable.subscribe(()=>{}, err => {
                         reject(err);
                     }, ret => {
+                        ret.domain_name = res.data.data.domain_name;
                         resolve(ret)
                     });
                 },reject);

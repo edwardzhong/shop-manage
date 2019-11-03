@@ -1,34 +1,34 @@
-import React,{ useState, useEffect } from 'react'
+import React,{ useState, useEffect, useMemo } from 'react'
 import { useHistory, Link } from 'react-router-dom'
 import { getContext } from '../../context'
 import { logoutSer, userInfoSer } from '../../service'
 import menus from '../../config/page'
 import { Layout, Menu, Icon, Avatar, Dropdown } from 'antd'
 import './style.scss'
+import { userInfo } from 'os'
 
 const { SubMenu } = Menu;
 const { Header, Sider, Footer, Content } = Layout;
 
 const BasicLayout = ({ children }) => {
     const { state, actions, dispatch } = getContext();
-    const {loginInfo,usefInfo} = state;
-    const { menukey } = state;
+    const { loginInfo, menukey } = state;
     const { updateOpenKey, updateSelectKey } = actions;
     const [ collapsed, setCollapse ] = useState(false);
     const history = useHistory();
-        useEffect(()=>{
-            if(!loginInfo.token){
-                history.push('/login');
-            }
-        });
-        useEffect(() => {
-            userInfoSer(dispatch,{id:loginInfo.user_id}).then(ret=>{
-               const data = ret.data;
-               if(data.error_code !== 0){
-                   console.log(data);
-               } 
-            })
-        },[]); 
+    useEffect(()=>{
+        if(!loginInfo.token){
+            history.push('/login');
+        }
+    });
+    useEffect(() => {
+        userInfoSer(dispatch,{id:loginInfo.user_id}).then(ret=>{
+            const data = ret.data;
+            if(data.error_code !== 0){
+                console.log(data);
+            } 
+        })
+    },[]); 
     const toggle =()=> {
         setCollapse(!collapsed);
     };
@@ -60,7 +60,7 @@ const BasicLayout = ({ children }) => {
             </Menu.Item>
         </Menu>
     );
-    return <Layout styleName="layout">
+    return useMemo(()=><Layout styleName="layout">
         <Sider styleName="side" trigger={null} breakpoint="lg" collapsible collapsed={collapsed} >
             <div styleName="logo" > Manage System </div>
             <Menu styleName="menu" theme="dark" mode="inline" 
@@ -107,7 +107,7 @@ const BasicLayout = ({ children }) => {
                 商家管理后台
             </Footer> */}
         </Layout>
-    </Layout>
+    </Layout>,[ userInfo, menukey ])
 }
 
 export default BasicLayout;

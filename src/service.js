@@ -91,6 +91,14 @@ async function createActivitySer(dispatch, payload) {
 	return ret;
 }
 
+async function updateActivitySer(dispatch, payload) {
+	const ret = await updateActivity(payload);
+	if (ret.data.error_code === 0) {
+		dispatch(setActivity(ret.data.data));
+	}
+	return ret;
+}
+
 export {
 	smsCode,
 	changePass,
@@ -104,7 +112,6 @@ export {
 	getPlusService,
 	getCities,
 	updatekeyword,
-	updateActivity,
 	addkeyword,
 	removekeyword,
 	getAccount,
@@ -121,5 +128,6 @@ export {
 	logoutSer,
 	userInfoSer,
 	userUpdateSer,
-	createActivitySer
+	createActivitySer,
+	updateActivitySer
 };

@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Input, Checkbox, message } from "antd";
 import { PrevBtn, NextBtn } from "../stepbtn";
 import { useHistory } from "react-router-dom";
-import { getActivity, getOrderRequire, updateActivity } from "../../../service";
+import { getActivity, getOrderRequire, updateActivitySer } from "../../../service";
 import { getContext } from "../../../context";
 import "./style.scss";
 
 const InfoRet = ({ setStep }) => {
 	const history = useHistory();
 	const context = getContext();
-	const { state } = context;
+	const { dispatch, state } = context;
 	const [req, setReq] = useState(false);
 	const [info, setInfo] = useState({ store: { platformtype: { name: "" } } });
 	const [kwList, setkwList] = useState([]);
@@ -70,7 +70,7 @@ const InfoRet = ({ setStep }) => {
 			activitytype_id: activitytype_id
 		};
 		const hide = message.loading("请求中...");
-		updateActivity(param).then( ret => {
+		updateActivitySer(dispatch, param).then( ret => {
             hide();
             if (ret.data.error_code === 0) {
                 setReq(true);

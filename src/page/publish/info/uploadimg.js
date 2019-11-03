@@ -16,7 +16,8 @@ const UploadImg = ({ img, setImg, index })=>{
         setLoading(true);
         qnUpload(e.file||e.target.files[0]).then(ret => {
             setLoading(false);
-            setImg('http://image.futurestudio.pro/'+ret.key);
+            // setImg(ret.domain_name + ret.key);
+            setImg('http://image.futurestudio.pro/' + ret.key);
         }, err => {
             setLoading(false);
             message.error(err.message,2);
@@ -25,7 +26,8 @@ const UploadImg = ({ img, setImg, index })=>{
 
     return <div styleName="img-block">
         <div styleName="img">
-            {img?<img src={img}/>:<UploadButton loading={loading}/>}
+            {/* {img?<div style={{ backgroundImage: 'url('+img+')' }} />:<UploadButton loading={loading}/>} */}
+            {img?<img src={img} />:<UploadButton loading={loading}/>}
             <input type="file" onChange={imgChange}/>
         </div>
         <div>

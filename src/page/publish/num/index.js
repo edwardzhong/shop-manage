@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { getActivity, updatekeyword, updateActivity } from "../../../service";
+import { getActivity, updatekeyword, updateActivitySer } from "../../../service";
 import { getContext } from "../../../context";
 import { Input, Radio, Divider, message } from "antd";
 import Table from "../../../component/table";
@@ -25,7 +25,7 @@ const KwItem = ({ index, info }) => {
 const Num = ({ setStep }) => {
 	const history = useHistory();
 	const context = getContext();
-	const { state, actions } = context;
+	const { dispatch, state, actions } = context;
 	const { setkw } = actions;
 	const id = state.activityInfo.id || 45;
 	const store_id = state.activityInfo.store_id || 15;
@@ -103,7 +103,7 @@ const Num = ({ setStep }) => {
 			quantity: n
 		};
 		const hide = message.loading("请求中...");
-		Promise.all([ updatekeyword({ activity_id: id, keyword_data: kws }), updateActivity(param) ]).then( ret => {
+		Promise.all([ updatekeyword({ activity_id: id, keyword_data: kws }), updateActivitySer(dispatch, param) ]).then( ret => {
             hide();
             const [aRet, bRet] = ret;
             const adata = aRet.data;

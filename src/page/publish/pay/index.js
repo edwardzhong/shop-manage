@@ -2,7 +2,7 @@ import React,{useState,useEffect} from 'react'
 import {Icon,Divider,message} from 'antd'
 import {PrevBtn,NextBtn} from '../stepbtn'
 import {Link,useHistory} from 'react-router-dom'
-import { getActivity,getAccount,payActivity } from '../../../service'
+import { getActivity, getAccount, payActivity } from '../../../service'
 import {getContext} from '../../../context'
 import './style.scss'
 
