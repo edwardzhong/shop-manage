@@ -36,7 +36,7 @@
             &:last-child{
                 flex: 1;
             }
-            div{
+            > div{
                 display: flex;
                 padding: 2px 0;
             }
@@ -90,9 +90,10 @@
         }
     }
     td,th{
-        text-align: left;
+        text-align: center;
         padding: 5px 10px;
         border-right: 1px solid $border-color;
         border-bottom: 1px solid $border-color;
     }
 }
+

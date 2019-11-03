@@ -362,51 +362,52 @@ const Home = ({ history }) => {
                 <li>活动编号</li>
                 <li>状态分布</li>
             </ul>
-            <ul styleName="list">
             {
-                loading ? <div styleName="loading">
-                    <Icon type="loading" style={{ fontSize: 30 }} spin />
-                </div>:
-                acts.map((l,i)=><li key={i}>
-                    <div>
-                        <header>
-                            {/* <Icon type="taobao-circle" style={{color:'hsl(0,100%,60%)'}} /> */}
-                            <span>{l.store_name}</span>
-                        </header>
-                        <div styleName="body">
-                        <div styleName="img"><img src={l.img_one}/></div>
-                            <span>{l.goods_title}</span>
-                        </div>
-                    </div>
-                    <div>
-                        <p>订单：<Link to="/order">{l.activity_num}</Link></p>
-                        <p>发布时间：
-                        {
-                            l.create_time && <span>{moment(l.create_time).format('YYYY-MM-DD HH:mm:ss')}</span>
-                        }
-                        </p>
-                        <p>支付时间：
-                        {
-                            l.publish_time && <span>{moment(l.publish_time).format('YYYY-MM-DD HH:mm:ss')}</span>
-                        }
-                        </p>
-                    </div>
-                    <div styleName="status">
-                        <div>活动状态：<span>{l.status}</span></div>
+                loading ? <div styleName="loading"> <Icon type="loading" style={{ fontSize: 30 }} spin /> </div> 
+                : acts.length <= 0 ? <div styleName="data-empty">没有数据</div> 
+                : <ul styleName="list">
+                {
+                    acts.map((l,i)=><li key={i}>
                         <div>
-                            待接单(<span>{l.pending}</span>) | 
-                            进行中(<span>{l.processing}</span>) | 
-                            待发货(<span>{l.wait_sending}</span>) | 
-                            已完成(<span>{l.finished}</span>) |
-                            待评价(<span>{l.wait_comment}</span>)
+                            <header>
+                                {/* <Icon type="taobao-circle" style={{color:'hsl(0,100%,60%)'}} /> */}
+                                <span>{l.store_name}</span>
+                            </header>
+                            <div styleName="body">
+                            <div styleName="img"><img src={l.img_one}/></div>
+                                <span>{l.goods_title}</span>
+                            </div>
                         </div>
-                    </div>
-                    <div>
-                        <button className="btn primary" size="small">一键重发</button>
-                    </div>
-                </li>)
+                        <div>
+                            <p>订单：<Link to="/order">{l.activity_num}</Link></p>
+                            <p>发布时间：
+                            {
+                                l.create_time && <span>{moment(l.create_time).format('YYYY-MM-DD HH:mm:ss')}</span>
+                            }
+                            </p>
+                            <p>支付时间：
+                            {
+                                l.publish_time && <span>{moment(l.publish_time).format('YYYY-MM-DD HH:mm:ss')}</span>
+                            }
+                            </p>
+                        </div>
+                        <div styleName="status">
+                            <div>活动状态：<span>{l.status}</span></div>
+                            <div>
+                                待接单(<span>{l.pending}</span>) | 
+                                进行中(<span>{l.processing}</span>) | 
+                                待发货(<span>{l.wait_sending}</span>) | 
+                                已完成(<span>{l.finished}</span>) |
+                                待评价(<span>{l.wait_comment}</span>)
+                            </div>
+                        </div>
+                        <div>
+                            <button className="btn primary" size="small">一键重发</button>
+                        </div>
+                    </li>)
+                }
+                </ul>
             }
-            </ul>
             <footer styleName="footer">
                 <Pagination defaultCurrent={1} pageSize={10} total={list.length} onChange={pageChange} />
             </footer>

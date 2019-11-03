@@ -77,7 +77,7 @@ export default [
 		key: "32",
 		title:'活动详情',
 		name: "activity",
-		path: "/activity",
+		path: "/activity/:id",
 		layout: "basic",
 		exect: true
 	},

@@ -10,8 +10,8 @@ const UploadImg = ({ img, setImg, index })=>{
         setLoading(true);
         qnUpload(e.file||e.target.files[0]).then(ret => {
             setLoading(false);
-            // setImg(ret.domain_name + ret.key);
-            setImg('http://image.futurestudio.pro/' + ret.key);
+            setImg(ret.domain_name + ret.key);
+            // setImg('http://image.futurestudio.pro/' + ret.key);
         }, err => {
             setLoading(false);
             message.error(err.message,2);
