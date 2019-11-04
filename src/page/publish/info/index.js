@@ -56,6 +56,8 @@ const Info = ({setStep})=>{
             const data = ret.data;
             if(data.error_code === 0){
                 const info = data.data;
+                info.store_id = info.store.id;
+				info.activitytype_id = info.activitytype.id; 
                 setInfo(info);
                 setGoodUrl(info.goods_url);
                 setGoodTitle(info.goods_title);
@@ -207,8 +209,8 @@ const Info = ({setStep})=>{
         }
         const param = {
             id:Number(id),
-            store_id:info.store.id,
-            activitytype_id:info.activitytype.id, 
+            store_id:info.store_id,
+            activitytype_id:info.activitytype_id, 
             goods_url:goodUrl||'',
             goods_title:goodTitle||'',
             goods_standard:goodStandard||'',

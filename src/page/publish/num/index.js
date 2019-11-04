@@ -42,6 +42,8 @@ const Num = ({ setStep }) => {
 			const data = ret.data;
 			if (data.error_code === 0) {
 				const info = data.data;
+				info.store_id = info.store.id;
+				info.activitytype_id = info.activitytype.id; 
 				setInfo(info);
 				const num = Number(info.quantity || 1);
 				setQuan([1, 3, 5, 10, 20, 100].indexOf(num) < 0 ? 0 : num);
@@ -105,8 +107,8 @@ const Num = ({ setStep }) => {
 		}
 		const param = {
 			id: Number(id),
-            store_id:info.store.id,
-            activitytype_id:info.activitytype.id, 
+            store_id:info.store_id,
+            activitytype_id:info.activitytype_id, 
 			quantity: n
 		};
 		const hide = message.loading("请求中...");

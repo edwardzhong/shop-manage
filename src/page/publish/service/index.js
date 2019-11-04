@@ -18,6 +18,8 @@ const Service = ({setStep}) =>{
     const context = getContext();
     const { dispatch } = context;
     const [info,setInfo] = useState({
+        activitytype:{ id: 0},
+        store:{ id: 0 },
         quantity:0,
         goods_title:'',
         bill:{
@@ -277,8 +279,8 @@ const Service = ({setStep}) =>{
 
         const param = {
             id: Number(id),
-            store_id:info.store.id,
-            activitytype_id:info.activitytype.id, 
+            store_id:info.store_id,
+            activitytype_id:info.activitytype_id, 
             user_choice, reputation, publish
         }
 
@@ -298,6 +300,8 @@ const Service = ({setStep}) =>{
         const data = ret.data;
         if(data.error_code === 0){
             const info = data.data;
+            info.store_id = info.store.id;
+            info.activitytype_id = info.activitytype.id; 
             setInfo(info);
             const flist = [];
             if(info.user_choice && info.user_choice.length){

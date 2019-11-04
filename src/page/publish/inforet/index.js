@@ -38,9 +38,12 @@ const InfoRet = ({ setStep }) => {
 		getActivity({ id }).then(ret => {
 			const data = ret.data;
 			if (data.error_code === 0) {
-				setInfo(data.data);
-				setReqRet((data.data.order_requirement || "").split("|"));
-				const list = (data.data.keyword_set || []).map((k, i) => {
+				const info = data.data;
+				info.store_id = info.store.id;
+				info.activitytype_id = info.activitytype.id; 
+				setInfo(info);
+				setReqRet((info.order_requirement || "").split("|"));
+				const list = (info.keyword_set || []).map((k, i) => {
 					return {
 						goodName: k.name,
 						sortName: "排序方式:" + k.sort_way,
@@ -63,8 +66,8 @@ const InfoRet = ({ setStep }) => {
 	const confirm = () => {
 		const param = {
 			id:Number(id),
-            store_id:info.store.id,
-			activitytype_id:info.activitytype.id, 
+            store_id:info.store_id,
+			activitytype_id:info.activitytype_id, 
 			order_requirement: reqRet.join("|"),
 		};
 		const hide = message.loading("请求中...");
