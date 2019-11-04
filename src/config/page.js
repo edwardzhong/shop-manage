@@ -29,15 +29,15 @@ export default [
 		key: "31",
 		title:'商品信息',
 		name: "",
-		path: "/publish/info",
+		path: "/publish/info/:id",
 		layout: "basic",
-		exect: false
+		exect: true
 	},
 	{
 		key: "31",
 		title:'商品信息确认',
 		name: "",
-		path: "/publish/inforet",
+		path: "/publish/inforet/:id",
 		layout: "basic",
 		exect: true
 	},
@@ -45,7 +45,7 @@ export default [
 		key: "31",
 		title:'活动数量',
 		name: "",
-		path: "/publish/num",
+		path: "/publish/num/:id",
 		layout: "basic",
 		exect: true
 	},
@@ -53,7 +53,7 @@ export default [
 		key: "31",
 		title:'增值服务',
 		name: "",
-		path: "/publish/ser",
+		path: "/publish/ser/:id",
 		layout: "basic",
 		exect: true
 	},
@@ -61,7 +61,7 @@ export default [
 		key: "31",
 		title:'支付活动',
 		name: "",
-		path: "/publish/pay",
+		path: "/publish/pay/:id",
 		layout: "basic",
 		exect: true
 	},

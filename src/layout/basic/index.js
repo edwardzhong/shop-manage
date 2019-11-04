@@ -60,7 +60,7 @@ const BasicLayout = ({ children }) => {
             </Menu.Item>
         </Menu>
     );
-    return useMemo(()=><Layout styleName="layout">
+    return <Layout styleName="layout">
         <Sider styleName="side" trigger={null} breakpoint="lg" collapsible collapsed={collapsed} >
             <div styleName="logo" > Manage System </div>
             <Menu styleName="menu" theme="dark" mode="inline" 
@@ -107,7 +107,7 @@ const BasicLayout = ({ children }) => {
                 商家管理后台
             </Footer> */}
         </Layout>
-    </Layout>,[ userInfo, menukey ])
+    </Layout>
 }
 
 export default BasicLayout;
