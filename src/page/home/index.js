@@ -263,6 +263,11 @@ const Home = ({ history }) => {
             const data = ret.data;
             if(data.error_code === 0){
                 message.success('取消成功',1.5);
+                const index = acts.findIndex(l=>l.id == id);
+                if(index >-1 ){
+                    acts.splice(index,1);
+                    setActs([...acts]);
+                }
             } else {
                 message.error(data.msg,2);
             }

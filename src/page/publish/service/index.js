@@ -284,7 +284,7 @@ const Service = ({setStep}) =>{
             user_choice, reputation, publish
         }
 
-        console.log(JSON.stringify(param));
+        // console.log(JSON.stringify(param));
         return updateActivitySer(dispatch,param).then(ret=>{
             if(ret.data.error_code !== 0){
                 message.error(ret.data.msg,2);
