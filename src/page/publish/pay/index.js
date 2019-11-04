@@ -57,7 +57,7 @@ const Pay=({setStep})=>{
         payActivity({
             yajin_money_num: info.bill.total_yajin_fee,
             gold_money_num: info.bill.total_service_fee + info.bill.total_add_service_fee,
-            activity_id: id
+            activity_id: Number(id),
         }).then(ret=>{
             hide();
             const data = ret.data;

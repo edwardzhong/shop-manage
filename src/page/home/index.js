@@ -49,7 +49,7 @@ const Home = ({ history }) => {
         },
         account_yajin: {
             freeze_money: 0, 
-            total_money: 0, 
+            total_money: 0.1, 
             available_money: 0
         }
     });
@@ -214,10 +214,11 @@ const Home = ({ history }) => {
         }
 
         setLoading(true);
-        getActivityList(param).then(ret=>{
+        getActivityList().then(ret=>{
             setLoading(false);
             if(ret.data.error_code === 0){
                 const alist = ret.data.data.map(l=>({
+                    id:l.id,
                     store_name:l.store.store_name,
                     img_one:l.img_one,
                     goods_title:l.goods_title,
@@ -245,7 +246,7 @@ const Home = ({ history }) => {
                 </div>
                 <div>
                     <p>ID：{ state.loginInfo.username }</p>
-                    <p>会员等级：VIP会员</p>
+                    {/* <p>会员等级：VIP会员</p> */}
                 </div>
             </div>
             <div styleName="right">
@@ -259,7 +260,7 @@ const Home = ({ history }) => {
                     </header>
                     <div styleName="body">
                         <div styleName="percent">
-                            <Progress type="circle" percent={25} width={50} />
+                            <Progress type="circle" percent={account.account_yajin.available_money/account.account_yajin.total_money} width={50} />
                         </div>
                         <div styleName="cash-num">
                             <p>可用押金：<span>{account.account_yajin.available_money}</span>元</p>
@@ -379,7 +380,7 @@ const Home = ({ history }) => {
                             </div>
                         </div>
                         <div>
-                            <p>订单：<Link to="/order">{l.activity_num}</Link></p>
+                            <p>订单：<Link to={"/activity/"+l.id }>{l.activity_num}</Link></p>
                             <p>发布时间：
                             {
                                 l.create_time && <span>{moment(l.create_time).format('YYYY-MM-DD HH:mm:ss')}</span>

@@ -62,10 +62,10 @@ const InfoRet = ({ setStep }) => {
 	};
 	const confirm = () => {
 		const param = {
-			order_requirement: reqRet.join("|"),
-			id: id,
+			id:Number(id),
             store_id:info.store.id,
-            activitytype_id:info.activitytype.id, 
+			activitytype_id:info.activitytype.id, 
+			order_requirement: reqRet.join("|"),
 		};
 		const hide = message.loading("请求中...");
 		updateActivitySer(dispatch, param).then( ret => {

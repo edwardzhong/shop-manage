@@ -182,8 +182,8 @@ const Info = ({setStep})=>{
             return;
         }
         const kws = kwList.map(k=>({
-                id: k.id,
-                activity_id:id,
+                id: Number(k.id),
+                activity_id:Number(id),
                 name: k.name,
                 price_range: k.price_range.join('|'),
                 send_address: k.send_address,
@@ -206,7 +206,7 @@ const Info = ({setStep})=>{
             return;
         }
         const param = {
-            id,
+            id:Number(id),
             store_id:info.store.id,
             activitytype_id:info.activitytype.id, 
             goods_url:goodUrl||'',

@@ -180,12 +180,12 @@ const Service = ({setStep}) =>{
         setNum(num);
     }
 
-    const intervalChange = id =>{
-        setInter(id);
+    const intervalChange = val =>{
+        setInter(val);
     }
 
-    const countChange = id =>{
-        setCount(id);
+    const countChange = val =>{
+        setCount(val);
     }
 
     const getPrice = (name, ret) => {
@@ -276,13 +276,13 @@ const Service = ({setStep}) =>{
         }
 
         const param = {
-            id:id,
+            id: Number(id),
             store_id:info.store.id,
             activitytype_id:info.activitytype.id, 
             user_choice, reputation, publish
         }
 
-        // console.log(JSON.stringify(param));
+        console.log(JSON.stringify(param));
         return updateActivitySer(dispatch,param).then(ret=>{
             if(ret.data.error_code !== 0){
                 message.error(ret.data.msg,2);

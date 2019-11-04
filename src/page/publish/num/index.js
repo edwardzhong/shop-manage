@@ -92,8 +92,8 @@ const Num = ({ setStep }) => {
 		const n = quantity === 0 ? num : quantity;
 		let kn = 0;
 		const kws = kwList.map(k => ({
-			id: k.id,
-			activity_id: id,
+			id: Number(k.id),
+			activity_id: Number(id),
 			quantity: Number(k.quantity)
 		}));
 		for (let k of kws) {
@@ -104,18 +104,17 @@ const Num = ({ setStep }) => {
 			return;
 		}
 		const param = {
-			id: id,
+			id: Number(id),
             store_id:info.store.id,
             activitytype_id:info.activitytype.id, 
 			quantity: n
 		};
 		const hide = message.loading("请求中...");
-		Promise.all([ updatekeyword({ activity_id: id, keyword_data: kws }), updateActivitySer(dispatch, param) ]).then( ret => {
+		Promise.all([ updatekeyword({ activity_id: Number(id), keyword_data: kws }), updateActivitySer(dispatch, param) ]).then( ret => {
             hide();
             const [aRet, bRet] = ret;
             const adata = aRet.data;
             const bdata = bRet.data;
-            console.log(adata, bdata);
             const msgs = [];
             if (adata.error_code === 0 && bdata.error_code === 0) {
                 history.push("/publish/ser/"+id);
