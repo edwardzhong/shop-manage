@@ -79,7 +79,6 @@ const BasicLayout = ({ children }) => {
                 </SubMenu>
                 <SubMenu key="3" title={ <span> <Icon type="carry-out" /> <span> 活动管理 </span></span> } >
                     <Menu.Item key="31">发布活动</Menu.Item>
-                    <Menu.Item key="32">活动详情</Menu.Item>
                     <Menu.Item key="33">订单详情</Menu.Item>
                 </SubMenu>
                 <SubMenu key="4" title={ <span> <Icon type="pay-circle" /> <span> 资金管理 </span></span> } >

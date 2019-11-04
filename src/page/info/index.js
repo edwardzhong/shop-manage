@@ -60,7 +60,7 @@ const Info = ({history}) => {
         <div styleName="item">
             <h3>登录密码</h3>
             <p>已设置</p>
-            <Link to="/getpass">修改</Link>
+            <Link to="/modifypass">修改</Link>
         </div>
         <div styleName="item">
             <h3>提现密码</h3>

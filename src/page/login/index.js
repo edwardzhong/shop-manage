@@ -126,7 +126,7 @@ const Login = ({ history }) => {
                         <div styleName="error">{passErr}</div>
                         <button styleName="btn-block" className="btn primary" onClick={passSubmit}> 登录 </button>
                         <div styleName="links">
-                            <Link to="/getpass">忘记密码</Link>
+                            <Link to="/findpass">忘记密码</Link>
                             <Link to="/register">商家注册</Link>
                         </div>
                         <div styleName="error"></div>

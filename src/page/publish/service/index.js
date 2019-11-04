@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import { Checkbox, Radio, Select, Divider, DatePicker, message } from 'antd'
 import { PrevBtn, NextBtn } from '../stepbtn'
-import { getActivity, updateActivitySer, getPlusService, getCities } from '../../../service'
+import { getActivity, updateActivitySer, getPlusService, getCities, waitforPayActivity } from '../../../service'
 import { getContext } from '../../../context'
 import { useHistory, useParams} from 'react-router-dom'
 import './style.scss'
@@ -377,7 +377,16 @@ const Service = ({setStep}) =>{
         submit().then(ret=>{
             hide();
             if(ret.data.error_code === 0){
-                history.push('/publish/pay/'+id);
+                waitforPayActivity({activity_id: Number(id)}).then(res=>{
+                    const data = res.data;
+                    if(data.error_code === 0){
+                        history.push('/publish/pay/'+id);
+                    } else {
+                        message.error(res.msg,2);
+                    }
+                },err=>{
+                    message.error(err.message,2);
+                });
             }
         });
     }

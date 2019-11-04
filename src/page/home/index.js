@@ -1,9 +1,9 @@
 import React,{useState,useEffect} from 'react'
 import { Link } from 'react-router-dom'
-import { Avatar, Tabs, Radio, Select, Icon, Progress, Pagination, DatePicker, Spin } from 'antd'
+import { Avatar, Tabs, Radio, Select, Icon, Progress, Pagination, DatePicker, Spin, message } from 'antd'
 import Table from '../../component/table'
 import { getContext } from '../../context'
-import { getAccount, getOrders, getActivityList, activityList, getShopType, getShopList } from '../../service'
+import { getAccount, getOrders, getActivityList, activityList, getShopType, getShopList,cancelActivity } from '../../service'
 import './style.scss'
 import locale from 'antd/es/date-picker/locale/zh_CN';
 import moment from 'moment';
@@ -25,7 +25,7 @@ const OrderTable = ({ column, data, size })=>{
     },[data.length]);
 
     const pageChange =(p, s)=>{
-        setList(pageData(p, s));
+        search(p,s);
     }
 
     return <>
@@ -40,7 +40,7 @@ const OrderTable = ({ column, data, size })=>{
 }
 
 const Home = ({ history }) => {
-    const { state, actions } = getContext();
+    const { state } = getContext();
     const [account,setAccount] = useState({
         account_gold: {
             freeze_money: 0, 
@@ -53,7 +53,7 @@ const Home = ({ history }) => {
             available_money: 0
         }
     });
-    const [list,setList] = useState([]);
+    const [total,setTotal] = useState(0);
     const [loading,setLoading] = useState(true);
     const [orders,setOrders] = useState([]);
     const [status,setStatus] = useState('');
@@ -62,9 +62,9 @@ const Home = ({ history }) => {
     const [activities,setActivities] = useState([]);
     const [acts,setActs] = useState([]);
     
-    const pageData = (data, p,s)=>{
-        return data.slice((p-1) * s, p*s);
-    }
+    // const pageData = (data, p,s)=>{
+    //     return data.slice((p-1) * s, p*s);
+    // }
     useEffect(()=> {
         getAccount().then(ret=>{
             if(ret.data.error_code === 0){
@@ -73,8 +73,9 @@ const Home = ({ history }) => {
         });
 
         getOrders().then(ret=>{
-            if(ret.data.error_code === 0){
-                setOrders(ret.data.data.map(i=>({
+            const data = ret.data;
+            if(data.error_code === 0){
+                setOrders(data.data.data.map(i=>({
                     name:i.buyuser||'',
                     keyword:i.keyword||'',
                     num:i.online_order_num||'',
@@ -100,9 +101,63 @@ const Home = ({ history }) => {
                 setActivities(data.data);
             }
         });
-        search();
+        search(1,10);
     },[]);
 
+    const search = (p,s)=>{
+        const param ={
+            page:p,
+            page_size:s
+        };
+        if(shopTypeVal){
+            param.platformtype_id = shopTypeVal;
+        }
+        if(shopVal){
+            param.store_id = shopVal;
+        }
+        if(actType){
+            param.activitytype_id = actType;
+        }
+        if(status){
+            param.status = status
+        }
+        if(sTime){
+            param.start_time = sTime.format('YYYY-MM-DD');
+        }
+        if(eTime){
+            param.end_time = eTime.format('YYYY-MM-DD');
+        }
+        if(comment){
+            param.reputation_type = comment;
+        }
+
+        setLoading(true);
+        getActivityList(param).then(ret=>{
+            setLoading(false);
+            const data = ret.data;
+            if(data.error_code === 0){
+                const list = data.data.data.map(l=>({
+                    id:l.id,
+                    store_name:l.store.store_name,
+                    img_one:l.img_one,
+                    goods_title:l.goods_title,
+                    activity_num:l.activity_num,
+                    create_time:l.create_time,
+                    publish_time:l.publish_time,
+                    pending:l.get_orders_status.pending,
+                    processing:l.get_orders_status.processing,
+                    wait_sending:l.get_orders_status.wait_sending,
+                    finished:l.get_orders_status.finished,
+                    wait_comment:l.get_orders_status.wait_comment,
+                    status: l.status,
+                    status_name: statusList.find(s => s.id === ''+l.status)? statusList.find(s => s.id === ''+l.status).name:''
+                }));
+                setTotal(data.data.count);
+                setActs(list);
+            }
+        });
+    }
+    
     const statusChange= e =>{
         setStatus(e.target ? e.target.value:e);
     };
@@ -194,50 +249,29 @@ const Home = ({ history }) => {
     }
 
     const pageChange = (p,s)=>{
-        setActs(pageData(list,p,s));
+        search(p,s);
     }
 
-    const search = ()=>{
-        const param ={
-            platformtype_id: shopTypeVal||'',
-            store_id: shopVal,
-            activitytype_id: actType,
-            status:status,
-            publish_time:[],
-            reputation_type: comment
-        };
-        if(sTime){
-            param.publish_time[0] = sTime.format('YYYY-MM-DD');
-        }
-        if(eTime){
-            param.publish_time[1] = eTime.format('YYYY-MM-DD');
-        }
+    const submit = ()=>{
+        search(1,10);
+    }
 
-        setLoading(true);
-        getActivityList().then(ret=>{
-            setLoading(false);
-            if(ret.data.error_code === 0){
-                const alist = ret.data.data.map(l=>({
-                    id:l.id,
-                    store_name:l.store.store_name,
-                    img_one:l.img_one,
-                    goods_title:l.goods_title,
-                    activity_num:l.activity_num,
-                    create_time:l.create_time,
-                    publish_time:l.publish_time,
-                    pending:l.get_orders_status.pending,
-                    processing:l.get_orders_status.processing,
-                    wait_sending:l.get_orders_status.wait_sending,
-                    finished:l.get_orders_status.finished,
-                    wait_comment:l.get_orders_status.wait_comment,
-                    status:statusList.find(s => s.id === ''+l.status)? statusList.find(s => s.id === ''+l.status).name:''
-                }));
-                setList(alist);
-                setActs(pageData(alist,1,10));
+    const cancelAct = (id) =>{
+        const hide = message.loading('发送请求中...');
+        cancelActivity({activity_id:id}).then(ret=>{
+            hide();
+            const data = ret.data;
+            if(data.error_code === 0){
+                message.success('取消成功',1.5);
+            } else {
+                message.error(data.msg,2);
             }
-        });
+        },err=>{
+            hide();
+            message.error(err.message,2);
+        })
     }
-    
+
     return <div styleName="content">
         <div styleName="user">
             <div styleName="left">
@@ -355,7 +389,7 @@ const Home = ({ history }) => {
                     />
                     <label>评价类型：</label>
                     <input className="input" styleName="search" value={ comment } onChange={commentChange} />
-                    <button className="btn primary"  onClick={search}>查询</button>
+                    <button className="btn primary"  onClick={submit}>查询</button>
                 </div>
             </div>
             <ul styleName="th">
@@ -393,7 +427,7 @@ const Home = ({ history }) => {
                             </p>
                         </div>
                         <div styleName="status">
-                            <div>活动状态：<span>{l.status}</span></div>
+                            <div>活动状态：<span>{l.status_name}</span></div>
                             <div>
                                 待接单(<span>{l.pending}</span>) | 
                                 进行中(<span>{l.processing}</span>) | 
@@ -403,14 +437,32 @@ const Home = ({ history }) => {
                             </div>
                         </div>
                         <div>
-                            <button className="btn primary" size="small">一键重发</button>
+                        {
+                            l.status == 0 && <button className="btn primary" size="small" onClick={()=>history.push('/publish/info/'+l.id)}>继续修改</button>
+                        }
+                        {
+                            l.status == 1 && <button className="btn primary" size="small" onClick={()=>history.push('/publish/pay/'+l.id)}>继续支付</button>
+                        }
+                        {
+                            l.status == 2 && <button className="btn primary" size="small" onClick={()=>cancelAct(l.id)}>取消活动</button>
+                        }
+                        {
+                            l.status == 3 && <>
+                                <button className="btn primary" size="small" onClick={()=>cancelAct(l.id)}>取消活动</button>
+                                <button className="btn primary" size="small" onClick={()=>history.push('/publish/info/'+l.id)}>继续修改</button>
+                                <button className="btn primary" size="small" onClick={()=>history.push('/publish/pay/'+l.id)}>继续支付</button>
+                            </>
+                        }
+                        {
+                            l.status == 4 && <button className="btn primary" size="small" onClick={()=>cancelAct(l.id)}>取消活动</button>   
+                        }
                         </div>
                     </li>)
                 }
                 </ul>
             }
             <footer styleName="footer">
-                <Pagination defaultCurrent={1} pageSize={10} total={list.length} onChange={pageChange} />
+                <Pagination defaultCurrent={1} pageSize={10} total={ total } onChange={pageChange} />
             </footer>
         </div>
     </div>

@@ -5,6 +5,7 @@ const login = arg => post("shopcms/login/", arg);
 const register = arg => post("shopcms/register/", arg);
 const smsCode = arg => post("tools/sms_code/", arg);
 const changePass = arg => post("shopcms/change_passwd/", arg);
+const findPass = arg => post('shopcms/find_passwd/', arg);
 const userInfo = arg => get(`shopcms/userinfo/${arg.id}/`);
 const updateUser = arg => put(`shopcms/userinfo/${arg.id}/`, arg);
 const bindShop = arg => post("shopcms/store/", arg);
@@ -27,6 +28,8 @@ const removekeyword = arg => del(`shopcms/keyword/${arg.id}/`, arg);
 const getAccount = () => get("shopcms/account/");
 const moneyOut = arg => post("shopcms/account_output_log/", arg);
 const payActivity = arg => post("shopcms/account_activity/", arg);
+const waitforPayActivity = arg =>post('shopcms/status_pending/',arg);
+const cancelActivity = arg => post('shopcms/cancel_activity/',arg);
 const coinIn = arg => post("shopcms/account_gold_input/", arg);
 const getMoneyOutRecords = arg => get("shopcms/account_tixian/", arg);
 const getAccountRecords = arg => get("shopcms/account_activity/", arg);
@@ -103,6 +106,7 @@ async function updateActivitySer(dispatch, payload) {
 export {
 	smsCode,
 	changePass,
+	findPass,
 	getShopList,
 	bindShop,
 	getActivity,
@@ -125,6 +129,8 @@ export {
 	getShopType,
 	getQiniuToken,
 	getOrders,
+	cancelActivity,
+	waitforPayActivity,
 	
 	loginSer,
 	registerSer,

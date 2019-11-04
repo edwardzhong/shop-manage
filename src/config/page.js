@@ -74,7 +74,7 @@ export default [
 		exect: true
 	},
 	{
-		key: "32",
+		key: "0",
 		title:'活动详情',
 		name: "activity",
 		path: "/activity/:id",
@@ -156,8 +156,16 @@ export default [
 	{
 		key: "0",
 		title: "找回登录密码",
-		name: "getpass",
-		path: "/getpass",
+		name: "findpass",
+		path: "/findpass",
+		layout: "user",
+		exect: true
+	},
+	{
+		key: "0",
+		title: "修改登录密码",
+		name: "modifypass",
+		path: "/modifypass",
 		layout: "user",
 		exect: true
 	},
