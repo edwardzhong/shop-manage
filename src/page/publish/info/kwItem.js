@@ -60,6 +60,7 @@ const KwItem = ({index,info,sorts,dis,cities,removekw,updatekw})=> {
         </header>
         <div styleName="search-item">
             <Radio.Group onChange={sortChange} value={sortVal}>
+            <Radio value="">不选择</Radio>
             {
                 sorts.map((s,i)=><Radio key={i} value={s.id}>{s.name}</Radio>)
             }
@@ -83,6 +84,7 @@ const KwItem = ({index,info,sorts,dis,cities,removekw,updatekw})=> {
         </header>
         <div styleName="search-item">
         <Radio.Group onChange={shopTypeChange} value={shopType}>
+            <Radio value="">不选择</Radio>
             <Radio value='旗舰店'>旗舰店</Radio>
             <Radio value='专卖店'>专卖店</Radio>
             <Radio value='专营店'>专营店</Radio>
@@ -91,7 +93,7 @@ const KwItem = ({index,info,sorts,dis,cities,removekw,updatekw})=> {
         <h4>发货地</h4>
         <div styleName="search-item">
             <Select value={address} onChange={addChange} style={{width:'100px'}}>
-                <Option value='不选择'>不选择</Option>
+                <Option value="">不选择</Option>
                 {
                     cities.map((c,i)=><Option key={i} value={c.id}>{c.name}</Option>)
                 }

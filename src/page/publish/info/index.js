@@ -38,14 +38,15 @@ const Info = ({setStep})=>{
 
     const kw = {
         name: "",
-        price_range: '10|100',
-        send_address: '不选择',
-        brand: "",
-        sort_way: '综合',
-        service: '包邮',
-        store_classify: '旗舰店',
-        extra_info: "",
-    }
+        price_range: '|',
+        send_address: '',
+        brand: '',
+        sort_way: '',
+        service: '',
+        store_classify: '',
+        extra_info: ''
+    };
+
     useEffect(()=>{
         if(!id){
             history.push('/publish/init');
@@ -185,19 +186,39 @@ const Info = ({setStep})=>{
             message.error('商品件数不能为空',1.5);
             return;
         }
-        const kws = kwList.map(k=>({
+        const kws = kwList.map(k=>{
+            const obj = {
                 id: Number(k.id),
                 activity_id:Number(id),
                 name: k.name,
-                price_range: k.price_range.join('|'),
-                send_address: k.send_address,
-                brand: k.brand,
-                sort_way: k.sort_way,
-                service: k.service.join('|'),
-                store_classify: k.store_classify,
-                extra_info: k.extra_info,
+            };
+            let price_range = k.price_range.join('|');
+            let service = k.service.join('|');
+            if(price_range){
+                obj.price_range = price_range;
             }
-        ));
+            if(k.send_address){
+                obj.send_address = k.send_address;
+            }
+            if(k.brand){
+                obj.brand = k.brand;
+            }
+            if(k.sort_way){
+                obj.sort_way = k.sort_way;
+            }
+            if(service) {
+                obj.service = service;
+            }
+            if(k.store_classify){
+                obj.store_classify = k.store_classify;
+            }
+            if(k.extra_info){
+                obj.extra_info = k.extra_info;
+            }
+            
+            return obj;
+        });
+
         let nameValid = true;
         for(let k of kws){
             if(!k.name){
