@@ -86,9 +86,9 @@ const Activity=({history,match})=>{
 
 
     const data = [
-        { key: '1', name: 'aaa', terminal: 'app', word: '书包男', num:'232324343454532', status:2, express:'顺丰', amount:75 },
-        { key: '2', name: 'bbb', terminal: 'app', word: '背包男', num:'232324343454532', status:2, express:'顺丰', amount:75 },
-        { key: '3', name: 'ccc', terminal: 'app', word: '书包男', num:'232324343454532', status:2, express:'顺丰', amount:75 },
+        // { key: '1', name: 'aaa', terminal: 'app', word: '书包男', num:'232324343454532', status:2, express:'顺丰', amount:75 },
+        // { key: '2', name: 'bbb', terminal: 'app', word: '背包男', num:'232324343454532', status:2, express:'顺丰', amount:75 },
+        // { key: '3', name: 'ccc', terminal: 'app', word: '书包男', num:'232324343454532', status:2, express:'顺丰', amount:75 },
     ];
     const col = [
         { title: '买号', data: 'name', },
