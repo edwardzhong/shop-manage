@@ -4,13 +4,14 @@ import Table from '../../component/table'
 import { randomCode,timeStr } from '../../common/util'
 import useForm  from '../../common/useForm';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
-import { getShopList, bindShop as bindRequset} from '../../service'
+import { getShopList, getShopType ,bindShop as bindRequset} from '../../service'
 import './style.scss'
 import goodPic from '../../../public/bindgood.png';
 const { Step } = Steps;
 
 const BindShop = () => {
-    const [storeType, setStoreType] = useState('1');
+    const [ typeList, setTypeList ] = useState([]);
+    const [storeType, setStoreType] = useState(1);
     const [list , setList] = useState([]);
     const [ formState, { text }] = useForm({code:randomCode(6).join('')});
     const values = formState.values;
@@ -20,6 +21,12 @@ const BindShop = () => {
         '2':'审核中',
     };
     useEffect(()=>{
+        getShopType().then(ret=>{
+            const data = ret.data;
+            if(data.error_code === 0){
+                setTypeList(data.data);
+            }
+        })
         getShopList().then(ret=>{
             const data = ret.data;
             if(data.error_code === 0){
@@ -103,8 +110,9 @@ const BindShop = () => {
             <div styleName="form-item">
                 <label styleName="label">店铺类型：</label>
                 <Radio.Group value={storeType} onChange={shopTypeChange}>
-                    <Radio value="1">淘宝</Radio>
-                    <Radio value="2">天猫</Radio>
+                {
+                    typeList.map((t,i)=><Radio value={t.id}>{t.name}</Radio>)
+                }
                 </Radio.Group>
             </div>
             <div styleName="form-item">

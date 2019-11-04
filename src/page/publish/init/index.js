@@ -1,9 +1,9 @@
 import React,{useState,useEffect} from 'react'
 import {Tabs, Radio, message} from 'antd'
 import { NextBtn } from '../stepbtn'
-import {useHistory} from 'react-router-dom'
-import {getContext} from '../../../context'
-import {getShopList,activityList,createActivitySer} from '../../../service'
+import { useHistory } from 'react-router-dom'
+import { getContext } from '../../../context'
+import { getShopType, getShopList, activityList, createActivitySer } from '../../../service'
 import './style.scss'
 
 const Init = ({setStep})=>{
@@ -15,9 +15,16 @@ const Init = ({setStep})=>{
     const[actType,setActType] = useState(0);
     const [actList,setActList] = useState([]);
     const [shList,setShList] = useState([]);
+    const [typeList,setTypeList] = useState([]);
     const history = useHistory();
     useEffect(()=>{
         setStep(0);
+        getShopType().then(ret=>{
+            const data = ret.data;
+            if(data.error_code === 0){
+                setTypeList(data.data);
+            } 
+        });
         getShopList().then(ret=>{
             const data = ret.data;
             if(data.error_code === 0){
@@ -46,7 +53,7 @@ const Init = ({setStep})=>{
     }
     const submit =()=>{
         // history.push('/publish/info/60')
-        const store_id = pf == '1'?tShop:mShop;
+        const store_id = pf == '1'? tShop :mShop;
         if(!store_id){
             message.error('请选择店铺',1.5);
             return;
@@ -71,18 +78,27 @@ const Init = ({setStep})=>{
     }
     return <>
         <h3>选择店铺</h3>
-        <Tabs defaultActiveKey="1" onChange={changePlatform}>
+        <Tabs activeKey={pf} onChange={changePlatform}>
+            {/* {
+                typeList.map((t,i)=><Tabs.TabPane tab={t.name} key={i}>
+                    <Radio.Group onChange={changeTshop} value={tShop}>
+                    {
+                        shList.filter(s=>s.platformtype.id == t.id).map((s,j)=>(<Radio key={j} value={s.id}>{s.store_name}</Radio>))
+                    }
+                    </Radio.Group>
+                </Tabs.TabPane>)
+            } */}
             <Tabs.TabPane tab="淘宝" key="1">
                 <Radio.Group onChange={changeTshop} value={tShop}>
                     {
-                        shList.filter(s=>s.platformtype.id == 2).map((s,i)=>(<Radio key={i} value={s.id}>{s.store_name}</Radio>))
+                        shList.filter(s=>s.platformtype.id == 1).map((s,i)=>(<Radio key={i} value={s.id}>{s.store_name}</Radio>))
                     }
                 </Radio.Group>
             </Tabs.TabPane>
             <Tabs.TabPane tab="天猫" key="2">
                 <Radio.Group onChange={changeMshop} value={mShop}>
                     {
-                        shList.filter(s=>s.platformtype.id == 1).map((s,i)=>(<Radio key={i} value={s.id}>{s.store_name}</Radio>))
+                        shList.filter(s=>s.platformtype.id == 2).map((s,i)=>(<Radio key={i} value={s.id}>{s.store_name}</Radio>))
                     }
                 </Radio.Group>
             </Tabs.TabPane>
