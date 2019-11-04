@@ -86,9 +86,6 @@ const ModifyPass =({history})=>{
             </div>
             <div styleName="error">{pass2Err}</div>
             <button className="btn primary" styleName="btn-block" onClick={submit}> 确认 </button>
-            <div styleName="links center">
-                <Link to="/login">登录</Link>
-            </div>
             <div styleName="error"></div>
         </div>
     </div>

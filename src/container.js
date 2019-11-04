@@ -28,7 +28,7 @@ const Layout = ({ children }) => {
 		return <BasicLayout> {children} </BasicLayout>;
 	}
 	if (page.layout == "user") {
-		return <UserLayout> {children} </UserLayout>;
+		return <UserLayout isLink = {page.isLink}> {children} </UserLayout>;
 	}
 	return <> {children} </>;
 };

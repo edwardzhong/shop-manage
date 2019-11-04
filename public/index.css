@@ -157,3 +157,7 @@ img,a{
   background-color: #40a9ff;
   border-color: #40a9ff;
 }
+
+.ant-popover-placement-top, .ant-popover-placement-topLeft, .ant-popover-placement-topRight{
+  top: 150px !important;
+}

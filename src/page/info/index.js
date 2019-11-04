@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { getContext } from '../../context'
 import { userUpdateSer } from '../../service'
-import { Modal, message } from 'antd'
+import { Modal, message,Popconfirm } from 'antd'
 import './style.scss'
 message.config({
     top: 30,
@@ -11,6 +11,7 @@ message.config({
 
 const Info = ({history}) => {
     const { state, dispatch } = getContext();
+    const [cvisible, setCVisible ] = useState(false);
     const [visible, setVisible ] = useState(false);
     const [qvisible, setQVisible ] = useState(false);
     const pass = useRef(null)
@@ -43,14 +44,22 @@ const Info = ({history}) => {
             message.error(err.message);
         });
     }
-    const handleOk =()=>{
+    const confirm = ()=>{
+        setCVisible(false);
         sendRequest({tixian_password:pass.current.value});
+    }
+    const cancel = ()=>{
+        setCVisible(false);
+    }
+    const handleOk =()=>{
+        setCVisible(true);
     };
     const handleQOk =()=>{
         sendRequest({qq:qq.current.value});
     }
     const handleCancel =()=>{
         setVisible(false);
+        setCVisible(false);
     }
     const handleQCancel =()=>{
         setQVisible(false);
@@ -82,12 +91,22 @@ const Info = ({history}) => {
                 </li>
             </ul>
         </div>
+        <Popconfirm style={{top:'0'}} placement="top"
+                visible={cvisible}
+                title="确定修改吗？"
+                onConfirm={confirm}
+                onCancel={cancel}
+                okText="确定"
+                cancelText="取消"
+            >
+
         <Modal title="修改信息" visible={visible} okText="确定" cancelText="取消" onOk={handleOk} onCancel={handleCancel}>
             <div styleName="form-item">
                 <label>提现密码：</label>
-                <input className="input" ref={pass} />
+                <input className="input" type="password" ref={pass} />
             </div>
         </Modal>
+        </Popconfirm>
         <Modal title="修改信息" visible={qvisible} okText="确定" cancelText="取消" onOk={handleQOk} onCancel={handleQCancel}>
             <div styleName="form-item">
                 <label>QQ：</label>
@@ -98,3 +117,4 @@ const Info = ({history}) => {
 }
 
 export default Info
+

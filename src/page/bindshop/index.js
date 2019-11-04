@@ -1,5 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react'
-import { getContext } from '../../context'
+import React, { useState, useEffect } from 'react'
 import { Radio, Steps, message } from 'antd'
 import Table from '../../component/table'
 import { randomCode,timeStr } from '../../common/util'
@@ -11,7 +10,6 @@ import goodPic from '../../../public/bindgood.png';
 const { Step } = Steps;
 
 const BindShop = () => {
-    const { state, actions } = getContext();
     const [storeType, setStoreType] = useState('1');
     const [list , setList] = useState([]);
     const [ formState, { text }] = useForm({code:randomCode(6).join('')});
@@ -84,6 +82,11 @@ const BindShop = () => {
             message.error(err.message, 2);
         });
     }
+
+    const shopTypeChange = ({target})=>{
+        setStoreType(target.value);
+    }
+
     return <div styleName="content">
         <header styleName="header">
             <div>
@@ -99,7 +102,7 @@ const BindShop = () => {
         <div styleName="form">
             <div styleName="form-item">
                 <label styleName="label">店铺类型：</label>
-                <Radio.Group defaultValue={storeType}>
+                <Radio.Group value={storeType} onChange={shopTypeChange}>
                     <Radio value="1">淘宝</Radio>
                     <Radio value="2">天猫</Radio>
                 </Radio.Group>

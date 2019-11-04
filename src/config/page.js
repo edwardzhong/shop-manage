@@ -127,6 +127,7 @@ export default [
 		name: "login",
 		path: "/login",
 		layout: "user",
+		isLink: true,
 		exect: false
 	},
 	{
@@ -135,6 +136,7 @@ export default [
 		name: "",
 		path: "/login/pass",
 		layout: "user",
+		isLink: true,
 		exect: true
 	},
 	{
@@ -143,6 +145,7 @@ export default [
 		name: "",
 		path: "/login/code",
 		layout: "user",
+		isLink: true,
 		exect: true
 	},
 	{
@@ -151,6 +154,7 @@ export default [
 		name: "register",
 		path: "/register",
 		layout: "user",
+		isLink: true,
 		exect: true
 	},
 	{
@@ -159,6 +163,7 @@ export default [
 		name: "findpass",
 		path: "/findpass",
 		layout: "user",
+		isLink: false,
 		exect: true
 	},
 	{
@@ -167,6 +172,7 @@ export default [
 		name: "modifypass",
 		path: "/modifypass",
 		layout: "user",
+		isLink: false,
 		exect: true
 	},
 	{
