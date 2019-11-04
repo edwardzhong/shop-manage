@@ -83,6 +83,9 @@ const Service = ({setStep}) =>{
         }
         setStep(3);
         getActivity({id}).then(ret=>{
+            if(ret.data.error_code!==0){
+                message.error(ret.data.msg,2);
+            }
             setPageStatus(ret);
             setTimeout(()=>{
                 setFirst(false);

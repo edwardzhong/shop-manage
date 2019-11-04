@@ -85,6 +85,8 @@ const Info = ({setStep})=>{
                     ));
                     setkwList(list);
                 }
+            } else {
+                message.error(data.msg,2);
             }
         });
         getKwSortway().then(ret=>{
@@ -204,7 +206,7 @@ const Info = ({setStep})=>{
             }
         }
         if(!nameValid){
-            message.error('关键字来源不能为空',1.5);
+            message.error('关键字来源不能为空',2);
             return;
         }
         const param = {

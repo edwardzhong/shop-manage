@@ -157,7 +157,7 @@
 
 .data-empty{
     text-align: center;
-    padding: 10px;
+    padding: 20px;
     color: #999;
 }
 .pages{
@@ -169,8 +169,14 @@
     margin: 10px 0;
     border-bottom: 1px solid $border-color;
 }
+.list-wrap{
+    position: relative;
+}
 .loading{
-    padding: 30px;
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    margin-left: -15px;
     color: $blue;
     text-align: center;
     z-index: 99;

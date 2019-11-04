@@ -55,7 +55,9 @@ const Num = ({ setStep }) => {
 					}));
 					setkwList(list);
 				}
-			}
+			} else {
+                message.error(data.msg,2);
+            }
 		});
 	}, []);
 

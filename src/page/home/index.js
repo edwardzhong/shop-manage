@@ -402,6 +402,7 @@ const Home = ({ history }) => {
                 <li>活动编号</li>
                 <li>状态分布</li>
             </ul>
+            <div styleName="list-wrap">
             {
                 loading && <div styleName="loading"> <Icon type="loading" style={{ fontSize: 30 }} spin /> </div> 
             }
@@ -468,6 +469,7 @@ const Home = ({ history }) => {
                 }
                 </ul>
             }
+            </div>
             <footer styleName="footer">
                 <Pagination defaultCurrent={1} pageSize={10} total={ total } onChange={pageChange} />
             </footer>

@@ -33,6 +33,8 @@ const Pay=({setStep})=>{
             if(data.error_code === 0){
                 const info = data.data;
                 setInfo(info);
+            } else {
+                message.error(data.msg,2);
             }
         });
         getAccount().then(ret=>{
