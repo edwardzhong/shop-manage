@@ -300,8 +300,12 @@ const Service = ({setStep}) =>{
         const data = ret.data;
         if(data.error_code === 0){
             const info = data.data;
-            info.store_id = info.store.id;
-            info.activitytype_id = info.activitytype.id; 
+            if(info.store){
+                info.store_id = info.store.id;
+            }
+            if(info.activitytype){
+                info.activitytype_id = info.activitytype.id; 
+            }
             setInfo(info);
             const flist = [];
             if(info.user_choice && info.user_choice.length){
