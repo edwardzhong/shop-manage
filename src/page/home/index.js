@@ -403,8 +403,10 @@ const Home = ({ history }) => {
                 <li>状态分布</li>
             </ul>
             {
-                loading ? <div styleName="loading"> <Icon type="loading" style={{ fontSize: 30 }} spin /> </div> 
-                : acts.length <= 0 ? <div styleName="data-empty">没有数据</div> 
+                loading && <div styleName="loading"> <Icon type="loading" style={{ fontSize: 30 }} spin /> </div> 
+            }
+            {
+                acts.length <= 0 ? <div styleName="data-empty">没有数据</div> 
                 : <ul styleName="list">
                 {
                     acts.map((l,i)=><li key={i}>

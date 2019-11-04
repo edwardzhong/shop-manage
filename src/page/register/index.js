@@ -11,7 +11,7 @@ message.config({
     duration: 1.5,
 });
 
-const Register =({hsitory})=>{
+const Register =({history})=>{
     const [ formState, { text, password }] = useForm();
     const [phoneErr,setPhoneErr] = useState('');
     const [imgErr,setImgErr] = useState('');
