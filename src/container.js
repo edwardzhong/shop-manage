@@ -5,13 +5,10 @@ import UserLayout from "./layout/user";
 import pages from "./config/page";
 import NotExist from './page/notexist'
 import PageLoading from "./component/pageloading";
-import {getContext} from './context';
 
 const lazyComponent = name => lazy(() => import(`./page/${name}`));
 const Layout = ({ children }) => {
     const { pathname } = useLocation();
-    const { state } = getContext();
-    const history = useHistory();
 
 	const page = pages.filter(p => {
         let path = p.path.replace(/:\w+$/,'\\d+');
@@ -21,14 +18,10 @@ const Layout = ({ children }) => {
 		return <NotExist/>;
 	}
 	if (page.layout == "basic") {
-        if(!state.loginInfo.token) {
-            history.push('/login');
-            return <></>;
-        }
 		return <BasicLayout> {children} </BasicLayout>;
 	}
 	if (page.layout == "user") {
-		return <UserLayout isLink = {page.isLink}> {children} </UserLayout>;
+		return <UserLayout isLink = { page.isLink }> {children} </UserLayout>;
 	}
 	return <> {children} </>;
 };
@@ -37,7 +30,8 @@ const Container = () => {
 	return <Layout>
         <Suspense fallback={<PageLoading />}>
             <Switch>
-                {pages.map((p, i) => p.name ? <Route
+                {
+                    pages.map((p, i) => p.name ? <Route
                             key={i}
                             exact={p.exect}
                             path={p.path}

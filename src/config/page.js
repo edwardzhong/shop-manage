@@ -18,7 +18,7 @@ export default [
 		exect: false
 	},
 	{
-		key: "31",
+		key: "0",
 		title:'活动类型',
 		name: "",
 		path: "/publish/init",
@@ -26,7 +26,7 @@ export default [
 		exect: true
 	},
 	{
-		key: "31",
+		key: "0",
 		title:'商品信息',
 		name: "",
 		path: "/publish/info/:id",
@@ -34,7 +34,7 @@ export default [
 		exect: true
 	},
 	{
-		key: "31",
+		key: "0",
 		title:'商品信息确认',
 		name: "",
 		path: "/publish/inforet/:id",
@@ -42,7 +42,7 @@ export default [
 		exect: true
 	},
 	{
-		key: "31",
+		key: "0",
 		title:'活动数量',
 		name: "",
 		path: "/publish/num/:id",
@@ -50,7 +50,7 @@ export default [
 		exect: true
 	},
 	{
-		key: "31",
+		key: "0",
 		title:'增值服务',
 		name: "",
 		path: "/publish/ser/:id",
@@ -58,7 +58,7 @@ export default [
 		exect: true
 	},
 	{
-		key: "31",
+		key: "0",
 		title:'支付活动',
 		name: "",
 		path: "/publish/pay/:id",
@@ -66,7 +66,7 @@ export default [
 		exect: true
 	},
 	{
-		key: "31",
+		key: "0",
 		title:'活动支付成功',
 		name: "",
 		path: "/publish/ret",

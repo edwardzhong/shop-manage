@@ -111,7 +111,7 @@ const BindShop = () => {
                 <label styleName="label">店铺类型：</label>
                 <Radio.Group value={storeType} onChange={shopTypeChange}>
                 {
-                    typeList.map((t,i)=><Radio value={t.id}>{t.name}</Radio>)
+                    typeList.map((t,i)=><Radio key={i} value={t.id}>{t.name}</Radio>)
                 }
                 </Radio.Group>
             </div>
