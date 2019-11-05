@@ -22,6 +22,7 @@ const info = localStorage.getItem('loginInfo');
 if(info){
     Object.assign(loginInfo,JSON.parse(info));
 }
+
 const Context = createContext(null);
 const initState = Object.assign(rootReducer({}, {}), { 
     menukey,
@@ -31,7 +32,7 @@ const initState = Object.assign(rootReducer({}, {}), {
 export const getContext = () => useContext(Context);
 export const Provider = props => {
     const [state, dispatch] = useReducer(rootReducer, initState);
-    console.log(state);
+    // console.log(state);// develop log
     return <Context.Provider {...props} value={{ state, dispatch, actions: { ...bindActions(actions, dispatch) } }} />
 };
 

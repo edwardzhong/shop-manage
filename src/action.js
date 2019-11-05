@@ -8,4 +8,3 @@ export const selfAdd = createAction('SELFADD', 'info');
 export const selfClear = createAction('SELFCLEAR');
 export const setActivity = createAction('SETACTIVITY','info');
 export const clearActivity = createAction('CLEARACTIVITY');
-export const addCities = createAction('ADDCITIES','info');

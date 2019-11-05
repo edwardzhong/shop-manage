@@ -7,7 +7,7 @@ const userInfo = (state = {}, payload) => produce(state, draft => {
             Object.assign(draft, payload.info);
             break;
         case selfClear.type:
-            Object.assign(draft, null);
+            draft.id = '';
             break;
     }
 });

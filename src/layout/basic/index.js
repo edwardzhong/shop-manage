@@ -16,19 +16,19 @@ const BasicLayout = ({ children }) => {
     const [ collapsed, setCollapse ] = useState(false);
     const history = useHistory();
 
-    useEffect(() => {
+    useEffect(()=>{
+        if(!loginInfo.token){
+            history.push('/login');
+            return;
+        }
         userInfoSer(dispatch,{id:loginInfo.user_id}).then(ret=>{
             const data = ret.data;
             if(data.error_code !== 0){
                 console.log(data);
             } 
-        })
-    },[]); 
-    useEffect(()=>{
-        if(!loginInfo.token){
-            history.push('/login');
-        }
+        });
     },[loginInfo.token]);
+    
     const toggle =()=> {
         setCollapse(!collapsed);
     };

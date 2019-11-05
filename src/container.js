@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from "react";
-import { Route, Redirect, Switch, useHistory, useLocation } from "react-router-dom";
+import { Route, Redirect, Switch, useLocation } from "react-router-dom";
 import BasicLayout from "./layout/basic";
 import UserLayout from "./layout/user";
 import pages from "./config/page";
@@ -14,6 +14,7 @@ const Layout = ({ children }) => {
         let path = p.path.replace(/:\w+$/,'\\d+');
         return RegExp('^'+path+'$').test(pathname)
     })[0];
+    
 	if (!page) {
 		return <NotExist/>;
 	}
