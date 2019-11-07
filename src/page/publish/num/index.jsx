@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { getActivity, updatekeyword, updateActivitySer } from "../../../service";
-import { getContext } from "../../../context";
+import { getActivity, updatekeyword, updateActivitySer } from "@/service";
+import { getContext } from "@/context";
 import { Input, Radio, Divider, message } from "antd";
-import Table from "../../../component/table";
+import Table from "@/component/table";
 import { PrevBtn, NextBtn } from "../stepbtn";
 import "./style.scss";
 

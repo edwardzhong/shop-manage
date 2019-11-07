@@ -1,6 +1,6 @@
 
 import React,{useState} from 'react'
-import qnUpload from '../../../common/upload'
+import qnUpload from '@/common/upload'
 import { Icon, message } from 'antd'
 import './uploadimg.scss'
 

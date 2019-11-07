@@ -1,8 +1,8 @@
 import React,{useState,useEffect} from 'react'
 import { Checkbox, Radio, Select, Divider, DatePicker, message } from 'antd'
 import { PrevBtn, NextBtn } from '../stepbtn'
-import { getActivity, updateActivitySer, getPlusService, getCities, waitforPayActivity } from '../../../service'
-import { getContext } from '../../../context'
+import { getActivity, updateActivitySer, getPlusService, getCities, waitforPayActivity } from '@/service'
+import { getContext } from '@/context'
 import { useHistory, useParams} from 'react-router-dom'
 import './style.scss'
 import locale from 'antd/es/date-picker/locale/zh_CN';

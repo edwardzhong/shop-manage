@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react'
-import { moneyOut, getAccount } from '../../service'
+import { moneyOut, getAccount } from '@/service'
 import {Link} from 'react-router-dom'
 import {message} from 'antd'
 import './style.scss'

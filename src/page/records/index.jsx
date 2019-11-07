@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
-import { getMoneyOutRecords, getShopType, getShopList } from '../../service';
+import { getMoneyOutRecords, getShopType, getShopList } from '@/service';
 import { Tabs, Select, DatePicker } from 'antd'
-import Table from '../../component/table'
+import Table from '@/component/table'
 import List from './list'
 import './style.scss'
 import locale from 'antd/es/date-picker/locale/zh_CN';

@@ -1,8 +1,8 @@
 import React,{useState,useEffect} from 'react'
 import { Link } from 'react-router-dom'
-import useForm  from '../../common/useForm';
-import { changePass } from '../../service'
-import { getContext } from '../../context'
+import useForm  from '@/common/useForm';
+import { changePass } from '@/service'
+import { getContext } from '@/context'
 import '../sign.scss'
 import { Icon, Input, message } from 'antd';
 message.config({

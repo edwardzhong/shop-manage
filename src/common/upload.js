@@ -1,5 +1,5 @@
 import * as qiniu from "qiniu-js";
-import { getQiniuToken } from "../service";
+import { getQiniuToken } from "@/service";
 import { compressPicture, dataURLtoBlob } from './util'
 
 const config = {

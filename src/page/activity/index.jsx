@@ -1,11 +1,10 @@
 import React,{useEffect,useState} from 'react'
 import { Link } from 'react-router-dom'
-import { Icon, Divider} from 'antd'
-import Table from '../../component/table'
-import {getActivity} from '../../service'
-import { getContext } from '../../context'
+import { Divider } from 'antd'
+import Table from '@/component/table'
+import {getActivity} from '@/service'
 import './style.scss'
-import { timeStr } from '../../common/util'
+import { timeStr } from '@/common/util'
 
 const Activity=({history,match})=>{
     const id = match.params.id;

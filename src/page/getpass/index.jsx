@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
-import useForm  from '../../common/useForm';
-import { smsCode, changePass} from '../../service'
-import { getContext } from '../../context'
+import useForm  from '@/common/useForm';
+import { smsCode, changePass} from '@/service'
+import { getContext } from '@/context'
 import '../sign.scss'
 import { Tabs, Icon, Input, Steps, message } from 'antd';
 const { TabPane } = Tabs;

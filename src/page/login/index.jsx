@@ -1,8 +1,8 @@
 import React,{useState} from 'react'
 import { Route, Redirect, Switch, Link } from 'react-router-dom'
-import { getContext } from '../../context'
-import {loginSer,smsCode} from '../../service'
-import useForm  from '../../common/useForm';
+import { getContext } from '@/context'
+import {loginSer,smsCode} from '@/service'
+import useForm  from '@/common/useForm';
 import { Tabs, Icon, Input, message } from 'antd';
 import '../sign.scss'
 message.config({

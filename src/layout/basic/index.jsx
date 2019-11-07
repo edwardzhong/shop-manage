@@ -1,8 +1,8 @@
 import React,{ useState, useEffect, useMemo } from 'react'
 import { useHistory, Link } from 'react-router-dom'
-import { getContext } from '../../context'
-import { logoutSer, userInfoSer } from '../../service'
-import menus from '../../config/page'
+import { getContext } from '@/context'
+import { logoutSer, userInfoSer } from '@/service'
+import menus from '@/config/page'
 import { Layout, Menu, Icon, Avatar, Dropdown } from 'antd'
 import './style.scss'
 

@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Input, Checkbox, message } from "antd";
 import { PrevBtn, NextBtn } from "../stepbtn";
 import { useHistory, useParams } from "react-router-dom";
-import { getActivity, getOrderRequire, updateActivitySer } from "../../../service";
-import { getContext } from "../../../context";
+import { getActivity, getOrderRequire, updateActivitySer } from "@/service";
+import { getContext } from "@/context";
 import "./style.scss";
 
 const InfoRet = ({ setStep }) => {

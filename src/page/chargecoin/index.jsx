@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import { Checkbox, Radio, message } from 'antd'
-import { getAccount, coinIn } from '../../service'
+import { getAccount, coinIn } from '@/service'
 import { Link } from 'react-router-dom'
 import './style.scss'
 

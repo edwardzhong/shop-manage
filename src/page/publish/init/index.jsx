@@ -2,8 +2,8 @@ import React,{useState,useEffect} from 'react'
 import {Tabs, Radio, message} from 'antd'
 import { NextBtn } from '../stepbtn'
 import { useHistory } from 'react-router-dom'
-import { getContext } from '../../../context'
-import { getShopType, getShopList, activityList, createActivitySer } from '../../../service'
+import { getContext } from '@/context'
+import { getShopType, getShopList, activityList, createActivitySer } from '@/service'
 import './style.scss'
 
 const Init = ({setStep})=>{

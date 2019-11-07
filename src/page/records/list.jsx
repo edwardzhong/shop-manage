@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { getAccountRecords } from "../../service";
+import { getAccountRecords } from "@/service";
 import { Select, DatePicker, Icon, Spin } from "antd";
-import Table from "../../component/table";
+import Table from "@/component/table";
 import "./style.scss";
 import locale from "antd/es/date-picker/locale/zh_CN";
 import moment from "moment";

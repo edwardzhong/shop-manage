@@ -1,8 +1,8 @@
 import React,{useState} from 'react'
 import { Link } from 'react-router-dom'
 import { Icon, Divider} from 'antd'
-import Table from '../../component/table'
-import { getContext } from '../../context'
+import Table from '@/component/table'
+import { getContext } from '@/context'
 import '../activity/style.scss'
 
 const Order=({history})=>{

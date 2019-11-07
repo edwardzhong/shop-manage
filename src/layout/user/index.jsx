@@ -1,6 +1,6 @@
 import React from 'react'
 import { useLocation, Link } from 'react-router-dom'
-import pages from '../../config/page'
+import pages from '@/config/page'
 import './style.scss'
 
 const UserLayout = ({children, isLink}) =>{

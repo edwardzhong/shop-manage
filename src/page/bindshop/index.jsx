@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { Radio, Steps, message } from 'antd'
-import Table from '../../component/table'
-import { randomCode,timeStr } from '../../common/util'
-import useForm  from '../../common/useForm';
+import Table from '@/component/table'
+import { randomCode,timeStr } from '@/common/util'
+import useForm  from '@/common/useForm';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
-import { getShopList, getShopType ,bindShop as bindRequset} from '../../service'
+import { getShopList, getShopType ,bindShop as bindRequset} from '@/service'
 import './style.scss'
-import goodPic from '../../../public/bindgood.png';
+import goodPic from '@/../public/bindgood.png';
 const { Step } = Steps;
 
 const BindShop = () => {

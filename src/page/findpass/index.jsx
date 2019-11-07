@@ -1,7 +1,7 @@
 import React,{ useState } from 'react'
 import { Link } from 'react-router-dom'
-import useForm  from '../../common/useForm';
-import { findPass,smsCode } from '../../service'
+import useForm  from '@/common/useForm';
+import { findPass,smsCode } from '@/service'
 import '../sign.scss'
 import { Icon, Input, message } from 'antd';
 message.config({

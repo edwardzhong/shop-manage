@@ -1,9 +1,9 @@
 import React,{useState,useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import { Avatar, Tabs, Radio, Select, Icon, Progress, Pagination, DatePicker, Spin, message } from 'antd'
-import Table from '../../component/table'
-import { getContext } from '../../context'
-import { getAccount, getOrders, getActivityList, activityList, getShopType, getShopList,cancelActivity } from '../../service'
+import Table from '@/component/table'
+import { getContext } from '@/context'
+import { getAccount, getOrders, getActivityList, activityList, getShopType, getShopList,cancelActivity } from '@/service'
 import './style.scss'
 import locale from 'antd/es/date-picker/locale/zh_CN';
 import moment from 'moment';

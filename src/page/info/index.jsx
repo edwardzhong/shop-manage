@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { getContext } from '../../context'
-import { userUpdateSer } from '../../service'
+import { getContext } from '@/context'
+import { userUpdateSer } from '@/service'
 import { Modal, message,Popconfirm } from 'antd'
 import './style.scss'
 message.config({
