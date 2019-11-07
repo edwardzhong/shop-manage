@@ -9,7 +9,7 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const devMode = process.env.NODE_ENV !== 'production';
 
 module.exports = {
-    entry: './src/index.js',
+    entry: './src/index.jsx',
     output: {
         path: resolve(__dirname, 'dist'),
         publicPath: '/',
@@ -17,8 +17,10 @@ module.exports = {
     },
     resolve: {
         alias: {
+            '@': resolve(__dirname, 'src'),
             '@ant-design/icons/lib/dist$': resolve(__dirname, './src/icons.js'),//按需加载 antd icon
-        }
+        },
+        extensions: [".js", ".jsx"]
     },    
     optimization: { 
         minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})],
