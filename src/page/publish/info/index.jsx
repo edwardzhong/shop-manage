@@ -8,11 +8,6 @@ import KwItem from './kwItem'
 import UploadImg from './uploadimg'
 import './style.scss'
 
-const UploadButton = ({ loading }) =>(
-    <div>
-      <Icon type={ loading ? 'loading' : 'plus'} />
-    </div>
-);
 const Info = ({setStep})=>{
     const history = useHistory();
     const params = useParams();
