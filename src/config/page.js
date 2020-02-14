@@ -1,13 +1,13 @@
 export default [
-	{ key: "1", title:'首页', name: "home", path: "/", layout: "basic", exect: true },
-	{ key: "21", title:'基本信息', name: "info", path: "/info", layout: "basic", exect: true },
+	{ key: "1", title:'首页', name: "home", path: "/", layout: "basic", exact: true },
+	{ key: "21", title:'基本信息', name: "info", path: "/info", layout: "basic", exact: true },
 	{
 		key: "22",
 		title:'绑定店铺',
 		name: "bindshop",
 		path: "/bindshop",
 		layout: "basic",
-		exect: true
+		exact: true
 	},
 	{
 		key: "31",
@@ -15,7 +15,7 @@ export default [
 		name: "publish",
 		path: "/publish",
 		layout: "basic",
-		exect: false
+		exact: false
 	},
 	{
 		key: "0",
@@ -23,7 +23,7 @@ export default [
 		name: "",
 		path: "/publish/init",
 		layout: "basic",
-		exect: true
+		exact: true
 	},
 	{
 		key: "0",
@@ -31,7 +31,7 @@ export default [
 		name: "",
 		path: "/publish/info/:id",
 		layout: "basic",
-		exect: true
+		exact: true
 	},
 	{
 		key: "0",
@@ -39,7 +39,7 @@ export default [
 		name: "",
 		path: "/publish/inforet/:id",
 		layout: "basic",
-		exect: true
+		exact: true
 	},
 	{
 		key: "0",
@@ -47,7 +47,7 @@ export default [
 		name: "",
 		path: "/publish/num/:id",
 		layout: "basic",
-		exect: true
+		exact: true
 	},
 	{
 		key: "0",
@@ -55,7 +55,7 @@ export default [
 		name: "",
 		path: "/publish/ser/:id",
 		layout: "basic",
-		exect: true
+		exact: true
 	},
 	{
 		key: "0",
@@ -63,7 +63,7 @@ export default [
 		name: "",
 		path: "/publish/pay/:id",
 		layout: "basic",
-		exect: true
+		exact: true
 	},
 	{
 		key: "0",
@@ -71,7 +71,7 @@ export default [
 		name: "",
 		path: "/publish/ret",
 		layout: "basic",
-		exect: true
+		exact: true
 	},
 	{
 		key: "0",
@@ -79,7 +79,7 @@ export default [
 		name: "activity",
 		path: "/activity/:id",
 		layout: "basic",
-		exect: true
+		exact: true
 	},
 	{
 		key: "33",
@@ -87,7 +87,7 @@ export default [
 		name: "order",
 		path: "/order",
 		layout: "basic",
-		exect: true
+		exact: true
 	},
 	{
 		key: "41",
@@ -95,7 +95,7 @@ export default [
 		name: "chargecoin",
 		path: "/chargecoin",
 		layout: "basic",
-		exect: true
+		exact: true
 	},
 	{
 		key: "42",
@@ -103,7 +103,7 @@ export default [
 		name: "chargecash",
 		path: "/chargecash",
 		layout: "basic",
-		exect: true
+		exact: true
 	},
 	{
 		key: "43",
@@ -111,7 +111,7 @@ export default [
 		name: "cashout",
 		path: "/cashout",
 		layout: "basic",
-		exect: true
+		exact: true
 	},
 	{
 		key: "44",
@@ -119,7 +119,7 @@ export default [
 		name: "records",
 		path: "/records",
 		layout: "basic",
-		exect: true
+		exact: true
 	},
 	{
 		key: "0",
@@ -128,7 +128,7 @@ export default [
 		path: "/login",
 		layout: "user",
 		isLink: true,
-		exect: false
+		exact: false
 	},
 	{
 		key: "0",
@@ -137,7 +137,7 @@ export default [
 		path: "/login/pass",
 		layout: "user",
 		isLink: true,
-		exect: true
+		exact: true
 	},
 	{
 		key: "0",
@@ -146,7 +146,7 @@ export default [
 		path: "/login/code",
 		layout: "user",
 		isLink: true,
-		exect: true
+		exact: true
 	},
 	{
 		key: "0",
@@ -155,7 +155,7 @@ export default [
 		path: "/register",
 		layout: "user",
 		isLink: true,
-		exect: true
+		exact: true
 	},
 	{
 		key: "0",
@@ -164,7 +164,7 @@ export default [
 		path: "/findpass",
 		layout: "user",
 		isLink: false,
-		exect: true
+		exact: true
 	},
 	{
 		key: "0",
@@ -173,7 +173,7 @@ export default [
 		path: "/modifypass",
 		layout: "user",
 		isLink: false,
-		exect: true
+		exact: true
 	},
 	{
 		key: "0",
@@ -181,7 +181,7 @@ export default [
 		name: "protocal",
 		path: "/protocal",
 		layout: "user",
-		exect: true
+		exact: true
 	},
 	{
 		key: "0",
@@ -189,6 +189,6 @@ export default [
 		name: "help",
 		path: "/help",
 		layout: "user",
-		exect: true
+		exact: true
 	}
 ];

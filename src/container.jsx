@@ -34,7 +34,7 @@ const Container = () => {
                 {
                     pages.map((p, i) => p.name ? <Route
                             key={i}
-                            exact={p.exect}
+                            exact={p.exact}
                             path={p.path}
                             component={lazyComponent(p.name)}
                         />
