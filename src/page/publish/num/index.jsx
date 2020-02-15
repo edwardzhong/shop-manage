@@ -69,7 +69,7 @@ const Num = ({ setStep }) => {
 	];
 	const data = [
 		{ 
-            cate: "服务费",
+      cate: "服务费",
 			price: info.bill.single_service_fee,
 			num: quantity === 0 ? num : quantity,
 			total: (quantity === 0 ? num : quantity) * info.bill.single_service_fee
